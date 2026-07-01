@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clínica Innovae — Medicina Estética en Úbeda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8D48B;
+      --gold-dark: #A67C32;
+      --white: #FFFFFF;
+      --cream: #FAFAF7;
+      --cream-2: #F0EBE0;
+      --text-dark: #1C1C1C;
+      --text-mid: #4A4A4A;
+      --text-light: #8A8A8A;
+      --border-gold: rgba(201,168,76,0.25);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 22px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 14px 48px;
+      box-shadow: 0 1px 24px rgba(0,0,0,0.06);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--text-dark);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      display: inline-block;
+      padding: 10px 24px;
+      background: var(--gold);
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid var(--gold);
+      transition: all 0.3s;
+    }
+    .nav-cta:hover { background: var(--gold-dark); border-color: var(--gold-dark); }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px; height: 1.5px;
+      background: var(--text-dark);
+      transition: all 0.3s;
+    }
+
+    /* ── MOBILE NAV ── */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,0.97);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--text-dark);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .mobile-nav a:hover { color: var(--gold); }
+    .mobile-nav-close {
+      position: absolute;
+      top: 24px; right: 32px;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      color: var(--text-dark);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(145deg, #FAFAF7 0%, #F0EBE0 60%, #E8E0D0 100%);
+    }
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .hero-orb-1 {
+      width: 700px; height: 700px;
+      top: -200px; right: -200px;
+      background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
+    }
+    .hero-orb-2 {
+      width: 500px; height: 500px;
+      bottom: -150px; left: -100px;
+      background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
+    }
+    .hero-ring {
+      position: absolute;
+      border: 1px solid rgba(201,168,76,0.12);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-ring-1 { width: 600px; height: 600px; top: -120px; right: -120px; }
+    .hero-ring-2 { width: 380px; height: 380px; bottom: -80px; left: -80px; }
+    .hero-ring-3 { width: 180px; height: 180px; top: 25%; left: 8%; border-color: rgba(201,168,76,0.08); }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 840px;
+      padding: 130px 40px 90px;
+    }
+    .hero-eyebrow {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 28px;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.8rem, 8vw, 6.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-rule {
+      width: 56px; height: 1px;
+      background: var(--gold);
+      margin: 28px auto;
+    }
+    .hero-slogan {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.15rem, 2.8vw, 1.6rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-mid);
+      margin-bottom: 14px;
+      letter-spacing: 0.02em;
+    }
+    .hero-sub {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      letter-spacing: 0.1em;
+      margin-bottom: 50px;
+      font-weight: 400;
+    }
+    .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-block;
+      padding: 15px 38px;
+      background: var(--gold);
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid var(--gold);
+      transition: all 0.3s;
+    }
+    .btn-primary:hover {
+      background: var(--gold-dark);
+      border-color: var(--gold-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(201,168,76,0.28);
+    }
+    .btn-outline {
+      display: inline-block;
+      padding: 15px 38px;
+      background: transparent;
+      color: var(--text-dark);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid rgba(201,168,76,0.4);
+      transition: all 0.3s;
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 36px; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-light);
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px; height: 44px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: lineAnim 2s ease-in-out infinite;
+    }
+    @keyframes lineAnim {
+      0%   { transform: scaleY(0); transform-origin: top; opacity: 1; }
+      50%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+      51%  { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+      100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+    }
+
+    /* ── COMMON ── */
+    section { padding: 110px 48px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .label {
+      display: block;
+      font-size: 0.62rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+    .title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-weight: 300;
+      line-height: 1.18;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+    }
+    .title em { font-style: italic; color: var(--gold); }
+    .rule {
+      width: 48px; height: 1px;
+      background: var(--gold);
+      margin-bottom: 28px;
+    }
+    .body-text {
+      font-size: 0.88rem;
+      color: var(--text-mid);
+      line-height: 1.95;
+    }
+
+    /* ── ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.85s ease, transform 0.85s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-l {
+      opacity: 0;
+      transform: translateX(-42px);
+      transition: opacity 0.85s ease, transform 0.85s ease;
+    }
+    .reveal-l.visible { opacity: 1; transform: translateX(0); }
+    .reveal-r {
+      opacity: 0;
+      transform: translateX(42px);
+      transition: opacity 0.85s ease, transform 0.85s ease;
+    }
+    .reveal-r.visible { opacity: 1; transform: translateX(0); }
+
+    /* ── ABOUT ── */
+    #sobre { background: var(--white); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 88px;
+      align-items: center;
+    }
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 52px;
+    }
+    .stat {
+      text-align: center;
+      padding: 28px 12px;
+      border: 1px solid var(--border-gold);
+      background: var(--cream);
+      transition: border-color 0.3s;
+    }
+    .stat:hover { border-color: var(--gold); }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.9rem;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+    }
+    .stat-lbl {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-top: 6px;
+      display: block;
+    }
+
+    /* ── PARALLAX QUOTE ── */
+    .parallax-wrap {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #F0EBE0 0%, #E8E0D0 100%);
+      padding: 110px 48px;
+    }
+    .parallax-bg-orb {
+      position: absolute;
+      inset: -80px;
+      background:
+        radial-gradient(circle at 25% 50%, rgba(201,168,76,0.14) 0%, transparent 55%),
+        radial-gradient(circle at 75% 30%, rgba(201,168,76,0.09) 0%, transparent 50%);
+      will-change: transform;
+    }
+    .parallax-inner {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .parallax-inner blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.9rem, 3.8vw, 3rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-dark);
+      line-height: 1.4;
+      margin-bottom: 28px;
+    }
+    .parallax-inner cite {
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    /* ── SERVICES ── */
+    #servicios { background: var(--cream); }
+    .services-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 64px;
+    }
+    .services-header .rule { margin: 0 auto 28px; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 2px;
+      background: var(--border-gold);
+    }
+    .svc-card {
+      background: var(--white);
+      padding: 42px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .svc-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--gold);
+      transition: width 0.5s ease;
+    }
+    .svc-card:hover::after { width: 100%; }
+    .svc-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+      z-index: 1;
+    }
+    .svc-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: rgba(201,168,76,0.12);
+      position: absolute;
+      top: 12px; right: 20px;
+      line-height: 1;
+    }
+    .svc-icon {
+      width: 38px; height: 38px;
+      color: var(--gold);
+      margin-bottom: 22px;
+    }
+    .svc-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+    }
+    .svc-desc {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      line-height: 1.75;
+      margin-bottom: 22px;
+    }
+    .svc-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+    .svc-price small {
+      font-size: 0.72rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+      color: var(--text-light);
+      margin-left: 4px;
+    }
+
+    /* ── SCHEDULE ── */
+    #horario { background: #141414; color: var(--white); }
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 88px;
+      align-items: start;
+    }
+    .schedule-grid .label { color: var(--gold-light); }
+    .schedule-grid .title { color: var(--white); }
+    .schedule-grid .rule { }
+    .schedule-contact {
+      margin-top: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .sch-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255,255,255,0.65);
+      font-size: 0.82rem;
+    }
+    .sch-contact-item svg {
+      width: 16px; height: 16px;
+      stroke: var(--gold);
+      fill: none;
+      flex-shrink: 0;
+    }
+    .sch-contact-item a { color: inherit; text-decoration: none; transition: color 0.3s; }
+    .sch-contact-item a:hover { color: var(--gold); }
+    .schedule-table {
+      border: 1px solid rgba(201,168,76,0.18);
+    }
+    .sch-row {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      padding: 15px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      align-items: center;
+      transition: background 0.3s;
+    }
+    .sch-row:last-child { border-bottom: none; }
+    .sch-row:hover { background: rgba(201,168,76,0.06); }
+    .sch-day {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      font-weight: 500;
+    }
+    .sch-hours {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--white);
+    }
+    .sch-hours.closed { color: rgba(255,255,255,0.28); font-style: italic; }
+    .sch-note {
+      margin-top: 14px;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.28);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── CONTACT ── */
+    #contacto { background: var(--white); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 88px;
+      align-items: start;
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 20px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 7px; }
+    .form-group label {
+      font-size: 0.64rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 14px 16px;
+      border: 1px solid rgba(0,0,0,0.1);
+      background: var(--cream);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.84rem;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.3s;
+      resize: none;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--gold); }
+    .form-submit {
+      padding: 16px 42px;
+      background: var(--gold);
+      color: var(--white);
+      border: 2px solid var(--gold);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+      align-self: flex-start;
+    }
+    .form-submit:hover { background: transparent; color: var(--gold); }
+    .contact-info { padding-top: 10px; }
+    .info-item {
+      display: flex;
+      gap: 18px;
+      margin-bottom: 30px;
+      align-items: flex-start;
+    }
+    .info-icon {
+      width: 44px; height: 44px;
+      background: var(--cream);
+      border: 1px solid var(--border-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .info-icon svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; }
+    .info-lbl {
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 4px;
+    }
+    .info-val {
+      font-size: 0.87rem;
+      color: var(--text-dark);
+      line-height: 1.55;
+    }
+    .info-val a { color: inherit; text-decoration: none; transition: color 0.3s; }
+    .info-val a:hover { color: var(--gold); }
+    .social-row { display: flex; gap: 10px; margin-top: 8px; }
+    .soc-btn {
+      width: 44px; height: 44px;
+      border: 1px solid var(--border-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--text-mid);
+      transition: all 0.3s;
+    }
+    .soc-btn:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--white);
+    }
+    .soc-btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0E0E0E;
+      padding: 52px 48px 40px;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-tagline {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.28);
+      margin-bottom: 28px;
+      font-style: italic;
+    }
+    .footer-rule {
+      width: 36px; height: 1px;
+      background: var(--gold);
+      opacity: 0.4;
+      margin: 0 auto 28px;
+    }
+    .footer-nav {
+      display: flex;
+      gap: 36px;
+      justify-content: center;
+      flex-wrap: wrap;
+      list-style: none;
+      margin-bottom: 32px;
+    }
+    .footer-nav a {
+      font-size: 0.63rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-nav a:hover { color: var(--gold); }
+    .footer-copy {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.18);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      section { padding: 80px 28px; }
+      nav { padding: 16px 28px; }
+      nav.scrolled { padding: 12px 28px; }
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .about-grid,
+      .schedule-grid,
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .stats-row { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-content { padding: 110px 24px 70px; }
+      footer { padding: 48px 24px 36px; }
+      .parallax-wrap { padding: 80px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobileNav">
+    <button class="mobile-nav-close" id="closeNav">&#x2715;</button>
+    <a href="#sobre"    onclick="closeMob()">Sobre Nosotros</a>
+    <a href="#servicios" onclick="closeMob()">Servicios</a>
+    <a href="#horario"  onclick="closeMob()">Horario</a>
+    <a href="#contacto" onclick="closeMob()">Contacto</a>
+  </div>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#inicio" class="nav-logo">Innovae<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre Nosotros</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#horario">Horario</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="#contacto" class="nav-cta">Pide Cita</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-ring hero-ring-1"></div>
+    <div class="hero-ring hero-ring-2"></div>
+    <div class="hero-ring hero-ring-3"></div>
+    <div class="hero-content">
+      <span class="hero-eyebrow reveal">Medicina Estética &middot; Úbeda, Jaén</span>
+      <h1 class="hero-title reveal" style="transition-delay:.1s">
+        Clínica<br><em>Innovae</em>
+      </h1>
+      <div class="hero-rule reveal" style="transition-delay:.2s"></div>
+      <p class="hero-slogan reveal" style="transition-delay:.3s">"De tu piel nos encargamos nosotros"</p>
+      <p class="hero-sub reveal" style="transition-delay:.4s">
+        Tratamientos de vanguardia &nbsp;·&nbsp; Resultados naturales &nbsp;·&nbsp; Atención personalizada
+      </p>
+      <div class="hero-buttons reveal" style="transition-delay:.5s">
+        <a href="#contacto" class="btn-primary">Pedir Cita</a>
+        <a href="#servicios" class="btn-outline">Ver Tratamientos</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Descubrir</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- SOBRE NOSOTROS -->
+  <section id="sobre">
+    <div class="container">
+      <div class="about-grid">
+        <div class="reveal-l" style="position:relative;overflow:hidden;border:1px solid var(--border-gold);">
+          <img src="assets/equipo.jpg" alt="Equipo Clínica Innovae" style="width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/5;">
+        </div>
+        <div class="reveal-r">
+          <span class="label">Sobre Nosotros</span>
+          <h2 class="title">Tu bienestar,<br>nuestra <em>pasión</em></h2>
+          <div class="rule"></div>
+          <p class="body-text">
+            En Clínica Innovae combinamos los últimos avances en medicina estética con una atención personalizada y cercana.
+            Nuestro equipo de profesionales te guía en cada paso del proceso para que consigas los mejores resultados,
+            siempre con total seguridad y naturalidad.
+          </p>
+          <p class="body-text" style="margin-top:16px">
+            Ubicados en el corazón de Úbeda, ofrecemos una amplia gama de tratamientos para el cuidado de tu piel:
+            desde medicina estética facial hasta masajes terapéuticos y tratamientos corporales de última generación.
+          </p>
+          <div class="stats-row">
+            <div class="stat reveal" style="transition-delay:.1s">
+              <span class="stat-num" data-target="500" data-suffix="+">0</span>
+              <span class="stat-lbl">Clientes satisfechos</span>
+            </div>
+            <div class="stat reveal" style="transition-delay:.2s">
+              <span class="stat-num" data-target="15" data-suffix="+">0</span>
+              <span class="stat-lbl">Tratamientos</span>
+            </div>
+            <div class="stat reveal" style="transition-delay:.3s">
+              <span class="stat-num" data-target="100" data-suffix="%">0</span>
+              <span class="stat-lbl">Satisfacción</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARALLAX QUOTE -->
+  <div class="parallax-wrap" id="parallaxWrap">
+    <div class="parallax-bg-orb" id="parallaxOrb"></div>
+    <div class="parallax-inner">
+      <blockquote class="reveal">"La medicina estética no es solo belleza,<br>es confianza en tu propia piel."</blockquote>
+      <cite class="reveal" style="transition-delay:.2s">— Clínica Innovae &nbsp;&middot;&nbsp; Úbeda</cite>
+    </div>
+  </div>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="container">
+      <div class="services-header">
+        <span class="label reveal">Nuestros Tratamientos</span>
+        <h2 class="title reveal" style="transition-delay:.1s">Medicina estética<br><em>de vanguardia</em></h2>
+        <div class="rule reveal" style="transition-delay:.2s; margin:0 auto 28px;"></div>
+        <p class="body-text reveal" style="transition-delay:.3s;text-align:center;max-width:100%">
+          Cada tratamiento es único, como tú. Adaptamos cada sesión a las necesidades específicas de tu piel.
+        </p>
+      </div>
+      <div class="services-grid">
+
+        <div class="svc-card reveal" style="transition-delay:.05s">
+          <span class="svc-num">01</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+            <path d="M12 8v4l3 3"/>
+          </svg>
+          <h3 class="svc-name">Toxina Botulínica</h3>
+          <p class="svc-desc">Suaviza líneas de expresión y arrugas faciales con resultados naturales y duraderos. Tratamiento rápido, sin recuperación.</p>
+          <div class="svc-price">200€ <small>desde</small></div>
+        </div>
+
+        <div class="svc-card reveal" style="transition-delay:.1s">
+          <span class="svc-num">02</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+          </svg>
+          <h3 class="svc-name">Ácido Hialurónico</h3>
+          <p class="svc-desc">Hidratación profunda y relleno facial para recuperar volumen y luminosidad. Resultados inmediatos y de aspecto natural.</p>
+          <div class="svc-price">250€ <small>desde</small></div>
+        </div>
+
+        <div class="svc-card reveal" style="transition-delay:.15s">
+          <span class="svc-num">03</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+          <h3 class="svc-name">Mesoterapia Facial</h3>
+          <p class="svc-desc">Cóctel de vitaminas y principios activos que revitalizan la piel desde el interior con un efecto rejuvenecedor visible.</p>
+          <div class="svc-price">120€ <small>desde</small></div>
+        </div>
+
+        <div class="svc-card reveal" style="transition-delay:.2s">
+          <span class="svc-num">04</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <h3 class="svc-name">Peeling Químico</h3>
+          <p class="svc-desc">Renovación celular profunda para una piel más luminosa, uniforme y libre de imperfecciones. Varios grados de profundidad.</p>
+          <div class="svc-price">90€ <small>desde</small></div>
+        </div>
+
+        <div class="svc-card reveal" style="transition-delay:.25s">
+          <span class="svc-num">05</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M18 8h1a4 4 0 010 8h-1"/>
+            <path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/>
+            <line x1="6" y1="1" x2="6" y2="4"/>
+            <line x1="10" y1="1" x2="10" y2="4"/>
+            <line x1="14" y1="1" x2="14" y2="4"/>
+          </svg>
+          <h3 class="svc-name">Masaje Relajante</h3>
+          <p class="svc-desc">Libera tensiones y activa la circulación. Ideal para recuperar el equilibrio entre cuerpo y mente tras la rutina diaria.</p>
+          <div class="svc-price">60€ <small>sesión</small></div>
+        </div>
+
+        <div class="svc-card reveal" style="transition-delay:.3s">
+          <span class="svc-num">06</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+          <h3 class="svc-name">Masaje Descontracturante</h3>
+          <p class="svc-desc">Técnica específica para aliviar contracturas musculares profundas y eliminar puntos de tensión acumulada.</p>
+          <div class="svc-price">70€ <small>sesión</small></div>
+        </div>
+
+        <div class="svc-card reveal" style="transition-delay:.35s">
+          <span class="svc-num">07</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <h3 class="svc-name">Radiofrecuencia Facial</h3>
+          <p class="svc-desc">Estimula colágeno y elastina para tensar y rejuvenecer la piel sin cirugía. Resultados progresivos y duraderos.</p>
+          <div class="svc-price">150€ <small>desde</small></div>
+        </div>
+
+        <div class="svc-card reveal" style="transition-delay:.4s">
+          <span class="svc-num">08</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M14.5 4h-5L7 7H4a2 2 0 00-2 2v9a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2h-3l-2.5-3z"/>
+            <circle cx="12" cy="13" r="3"/>
+          </svg>
+          <h3 class="svc-name">Limpieza Facial Profunda</h3>
+          <p class="svc-desc">Eliminación de impurezas y exceso de sebo con técnica profesional. Base perfecta para cualquier tratamiento estético.</p>
+          <div class="svc-price">65€ <small>sesión</small></div>
+        </div>
+
+      </div>
+      <p style="text-align:center;margin-top:28px;font-size:.72rem;color:var(--text-light);letter-spacing:.05em">
+        * Los precios indicados son orientativos. Consulta disponibilidad y precios exactos.
+      </p>
+    </div>
+  </section>
+
+  <!-- HORARIO -->
+  <section id="horario">
+    <div class="container">
+      <div class="schedule-grid">
+        <div class="reveal-l">
+          <span class="label">Horario de Atención</span>
+          <h2 class="title">Cuándo<br><em>encontrarnos</em></h2>
+          <div class="rule"></div>
+          <p class="body-text" style="color:rgba(255,255,255,.55);max-width:420px">
+            Estamos en Úbeda, Jaén. Puedes visitarnos en horario de mañana y tarde, o llamarnos para concertar tu cita.
+          </p>
+          <div class="schedule-contact">
+            <div class="sch-contact-item">
+              <svg viewBox="0 0 24 24" stroke-width="1.5">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+              </svg>
+              <a href="tel:+34661734870">661 73 48 70</a>
+            </div>
+            <div class="sch-contact-item">
+              <svg viewBox="0 0 24 24" stroke-width="1.5">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              <a href="mailto:vicentenavasmoya@gmail.com">vicentenavasmoya@gmail.com</a>
+            </div>
+            <div class="sch-contact-item">
+              <svg viewBox="0 0 24 24" stroke-width="1.5">
+                <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span>Av. Ramón y Cajal, 10 &nbsp;·&nbsp; 23400 Úbeda, Jaén</span>
+            </div>
+          </div>
+        </div>
+        <div class="reveal-r">
+          <div class="schedule-table">
+            <div class="sch-row">
+              <span class="sch-day">Lunes</span>
+              <span class="sch-hours">10:00–13:30 &nbsp;·&nbsp; 16:30–20:30</span>
+            </div>
+            <div class="sch-row">
+              <span class="sch-day">Martes</span>
+              <span class="sch-hours">10:00–13:30 &nbsp;·&nbsp; 16:30–20:30</span>
+            </div>
+            <div class="sch-row">
+              <span class="sch-day">Miércoles</span>
+              <span class="sch-hours">10:00–13:30 &nbsp;·&nbsp; 16:30–20:30</span>
+            </div>
+            <div class="sch-row">
+              <span class="sch-day">Jueves</span>
+              <span class="sch-hours">10:00–13:30 &nbsp;·&nbsp; 16:30–20:30</span>
+            </div>
+            <div class="sch-row">
+              <span class="sch-day">Viernes</span>
+              <span class="sch-hours">10:00–13:30 &nbsp;·&nbsp; 16:30–20:30</span>
+            </div>
+            <div class="sch-row">
+              <span class="sch-day">Sábado</span>
+              <span class="sch-hours">10:30–13:00</span>
+            </div>
+            <div class="sch-row">
+              <span class="sch-day">Domingo</span>
+              <span class="sch-hours closed">Cerrado</span>
+            </div>
+          </div>
+          <p class="sch-note">* El horario del 1 de mayo (festivo) podría cambiar. Consúltanos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="reveal-l">
+          <span class="label">Contacto</span>
+          <h2 class="title">Pide tu cita<br><em>hoy mismo</em></h2>
+          <div class="rule"></div>
+          <p class="body-text" style="margin-bottom:40px">
+            Cuéntanos qué tratamiento te interesa y nos ponemos en contacto contigo para encontrar el mejor momento.
+          </p>
+          <form class="contact-form" onsubmit="return false">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" placeholder="Tu nombre">
+              </div>
+              <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <input type="tel" id="telefono" placeholder="Tu teléfono">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="tu@email.com">
+            </div>
+            <div class="form-group">
+              <label for="tratamiento">Tratamiento de interés</label>
+              <select id="tratamiento">
+                <option value="" disabled selected>Selecciona un tratamiento</option>
+                <option>Toxina Botulínica</option>
+                <option>Ácido Hialurónico</option>
+                <option>Mesoterapia Facial</option>
+                <option>Peeling Químico</option>
+                <option>Masaje Relajante</option>
+                <option>Masaje Descontracturante</option>
+                <option>Radiofrecuencia Facial</option>
+                <option>Limpieza Facial Profunda</option>
+                <option>Otro / Consulta general</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="mensaje">Mensaje (opcional)</label>
+              <textarea id="mensaje" rows="4" placeholder="Cuéntanos más sobre lo que buscas..."></textarea>
+            </div>
+            <button class="form-submit" type="submit">Solicitar Cita</button>
+          </form>
+        </div>
+        <div class="contact-info reveal-r">
+          <div class="info-item">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" stroke-width="1.5">
+                <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div>
+              <p class="info-lbl">Dirección</p>
+              <p class="info-val">Av. Ramón y Cajal, 10<br>23400 Úbeda, Jaén</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" stroke-width="1.5">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="info-lbl">Teléfono</p>
+              <p class="info-val"><a href="tel:+34661734870">661 73 48 70</a></p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" stroke-width="1.5">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div>
+              <p class="info-lbl">Email</p>
+              <p class="info-val"><a href="mailto:vicentenavasmoya@gmail.com">vicentenavasmoya@gmail.com</a></p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" stroke-width="1.5">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </div>
+            <div>
+              <p class="info-lbl">Horario</p>
+              <p class="info-val">
+                Lun–Vie: 10:00–13:30 / 16:30–20:30<br>
+                Sáb: 10:30–13:00 &nbsp;·&nbsp; Dom: Cerrado
+              </p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" stroke-width="1.5">
+                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="info-lbl">Síguenos</p>
+              <div class="social-row">
+                <a href="https://www.instagram.com/clinicainnovae/" target="_blank" rel="noopener" class="soc-btn" aria-label="Instagram">
+                  <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </a>
+                <a href="https://www.facebook.com/clinicainnovae/?locale=es_ES" target="_blank" rel="noopener" class="soc-btn" aria-label="Facebook">
+                  <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Innovae<span>.</span></div>
+    <p class="footer-tagline">"De tu piel nos encargamos nosotros"</p>
+    <div class="footer-rule"></div>
+    <ul class="footer-nav">
+      <li><a href="#sobre">Sobre Nosotros</a></li>
+      <li><a href="#servicios">Tratamientos</a></li>
+      <li><a href="#horario">Horario</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <p class="footer-copy">&copy; 2026 Clínica Innovae Medicina Estética &nbsp;&middot;&nbsp; Av. Ramón y Cajal, 10 &nbsp;&middot;&nbsp; Úbeda, Jaén</p>
+  </footer>
+
+  <script>
+    // Nav scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    // Hamburger
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('mobileNav').classList.add('open');
+    });
+    document.getElementById('closeNav').addEventListener('click', closeMob);
+    function closeMob() { document.getElementById('mobileNav').classList.remove('open'); }
+
+    // Intersection Observer — reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => io.observe(el));
+
+    // Counter animation
+    function animCounter(el) {
+      const target = +el.dataset.target;
+      const suffix = el.dataset.suffix || '';
+      const dur = 1800;
+      const t0 = performance.now();
+      (function tick(now) {
+        const p = Math.min((now - t0) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.floor(eased * target) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      })(t0);
+    }
+    const cio = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { animCounter(e.target); cio.unobserve(e.target); } });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.stat-num[data-target]').forEach(el => cio.observe(el));
+
+    // Parallax
+    const pOrb = document.getElementById('parallaxOrb');
+    const pWrap = document.getElementById('parallaxWrap');
+    if (pOrb && pWrap && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let tick = false;
+      window.addEventListener('scroll', () => {
+        if (!tick) {
+          requestAnimationFrame(() => {
+            const rect = pWrap.getBoundingClientRect();
+            const offset = (rect.top + rect.height / 2 - window.innerHeight / 2) * 0.14;
+            pOrb.style.transform = `translateY(${offset}px)`;
+            tick = false;
+          });
+          tick = true;
+        }
+      }, { passive: true });
+    }
+
+    // Hero auto-reveal on load
+    setTimeout(() => {
+      document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('visible'));
+    }, 120);
+  </script>
+</body>
+</html>
