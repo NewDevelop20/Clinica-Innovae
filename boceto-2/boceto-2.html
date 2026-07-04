@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clínica Innovae · Medicina Estética en Úbeda</title>
+<meta name="description" content="Clínica Innovae — Medicina estética en Úbeda, Jaén. Tratamientos faciales y corporales personalizados. Pide tu cita.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBF9F4;
+    --sand:#EFE7D6;
+    --sage:#4F6F5C;
+    --sage-deep:#324A3C;
+    --sage-pale:#DCE6DE;
+    --ink:#23302A;
+    --text:#5B6660;
+    --white:#FFFFFF;
+    --sidebar-w:96px;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Manrope', sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    font-weight:400;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.wordmark{ font-family:'Fraunces', serif; color:var(--ink); font-weight:500; }
+  a{ text-decoration:none; color:inherit; }
+  ul{ list-style:none; }
+  img{ max-width:100%; display:block; }
+  ::selection{ background:var(--sage-pale); color:var(--ink); }
+  ::-webkit-scrollbar{ width:9px; }
+  ::-webkit-scrollbar-track{ background:var(--sand); }
+  ::-webkit-scrollbar-thumb{ background:var(--sage); border-radius:10px; }
+
+  .shell{ margin-left:var(--sidebar-w); }
+  .container{ max-width:1180px; margin:0 auto; padding:0 48px; }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:15px 34px; border-radius:100px;
+    font-size:0.92rem; font-weight:600; letter-spacing:0.01em;
+    transition:transform .4s cubic-bezier(.22,.9,.32,1), box-shadow .4s ease, background .4s ease, color .4s ease;
+    cursor:pointer; border:1.5px solid transparent;
+  }
+  .btn-solid{ background:var(--sage); color:var(--white); }
+  .btn-solid:hover{ background:var(--sage-deep); transform:translateY(-3px); box-shadow:0 16px 32px rgba(50,74,60,0.3); }
+  .btn-line{ border-color:var(--ink); color:var(--ink); }
+  .btn-line:hover{ background:var(--ink); color:var(--white); transform:translateY(-3px); }
+
+  /* ---------- SIDEBAR ---------- */
+  .sidebar{
+    position:fixed; top:0; left:0; height:100vh; width:var(--sidebar-w);
+    background:var(--ink); z-index:200;
+    display:flex; flex-direction:column; align-items:center; justify-content:space-between;
+    padding:36px 0;
+  }
+  .sidebar .wordmark{
+    color:var(--sand);
+    writing-mode:vertical-rl;
+    transform:rotate(180deg);
+    font-size:1.15rem;
+    letter-spacing:0.15em;
+  }
+  .side-dots{ display:flex; flex-direction:column; gap:26px; align-items:center; }
+  .side-dots a{
+    position:relative; width:9px; height:9px; border-radius:50%;
+    background:rgba(255,255,255,0.28); transition:background .3s ease, transform .3s ease;
+  }
+  .side-dots a.active, .side-dots a:hover{ background:var(--sand); transform:scale(1.3); }
+  .side-dots a .tip{
+    position:absolute; left:22px; top:50%; transform:translateY(-50%);
+    font-size:0.72rem; letter-spacing:0.05em; color:var(--sand);
+    white-space:nowrap; opacity:0; pointer-events:none; transition:opacity .3s ease;
+    font-family:'Manrope',sans-serif; text-transform:uppercase;
+  }
+  .side-dots a:hover .tip{ opacity:1; }
+  .side-call{
+    width:44px; height:44px; border-radius:50%;
+    border:1px solid rgba(255,255,255,0.3);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--sand); font-size:1.1rem;
+    transition:background .3s ease, transform .3s ease;
+  }
+  .side-call:hover{ background:var(--sage); transform:scale(1.08); }
+
+  .mobile-bar{ display:none; }
+
+  /* ---------- REVEAL ---------- */
+  .reveal{ opacity:0; transform:translateY(38px); transition:opacity .9s cubic-bezier(.16,.8,.24,1), transform .9s cubic-bezier(.16,.8,.24,1); }
+  .reveal.in-view{ opacity:1; transform:translateY(0); }
+  .stagger > *{ transition-delay:calc(var(--i,0) * .1s); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh; display:flex; align-items:center; position:relative; padding:60px 0;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:40px; align-items:center; position:relative;
+  }
+  .hero-index{
+    position:absolute; top:-40px; left:-10px;
+    font-size:11rem; font-family:'Fraunces',serif; color:var(--sage-pale);
+    z-index:0; line-height:1; user-select:none;
+  }
+  .hero-copy{ position:relative; z-index:1; }
+  .hero-eyebrow{ display:block; font-size:0.82rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--sage); font-weight:700; margin-bottom:22px; }
+  .hero h1{ font-size:clamp(2.6rem,5.2vw,4.2rem); line-height:1.06; margin-bottom:28px; }
+  .hero h1 i{ color:var(--sage); font-style:italic; }
+  .hero p{ font-size:1.1rem; max-width:440px; margin-bottom:38px; }
+  .hero-actions{ display:flex; gap:18px; flex-wrap:wrap; }
+
+  .hero-visual{
+    position:relative; aspect-ratio:3/4;
+    background:linear-gradient(155deg, rgba(220,230,222,0.5), rgba(50,74,60,0.35)), url('assets/Recepci%C3%B3n.jpg') center/cover no-repeat;
+    border-radius:63% 37% 54% 46% / 51% 46% 54% 49%;
+    animation:morph 12s ease-in-out infinite;
+    box-shadow:0 30px 60px rgba(50,74,60,0.25);
+  }
+  @keyframes morph{
+    0%,100%{ border-radius:63% 37% 54% 46% / 51% 46% 54% 49%; }
+    50%{ border-radius:42% 58% 38% 62% / 60% 42% 58% 40%; }
+  }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{ padding:150px 0; position:relative; }
+  .tag{ display:block; font-size:0.82rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--sage); font-weight:700; margin-bottom:18px; }
+  .heading{ font-size:clamp(2.1rem,3.6vw,3rem); margin-bottom:20px; }
+
+  /* ---------- ABOUT ---------- */
+  .about{ background:var(--sand); }
+  .about-grid{ display:grid; grid-template-columns:0.55fr 1fr; gap:70px; }
+  .about-visual-wrap{ position:relative; }
+  .about-num{ position:absolute; top:-34px; left:-8px; z-index:0; font-family:'Fraunces',serif; font-size:8rem; color:rgba(50,74,60,0.16); line-height:0.8; }
+  .about-photo{
+    position:relative; z-index:1; aspect-ratio:4/5; border-radius:16px; overflow:hidden;
+    margin:60px 0 0 44px; box-shadow:0 24px 50px rgba(43,51,44,0.14);
+  }
+  .about-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .about-body p{ font-size:1.06rem; margin-bottom:20px; max-width:560px; }
+  .about-points{ display:flex; gap:0; flex-wrap:wrap; margin-top:36px; border-top:1px solid rgba(50,74,60,0.18); }
+  .about-point{ width:33.33%; padding:26px 24px 0 0; border-bottom:1px solid rgba(50,74,60,0.18); }
+  .about-point .n{ font-family:'Fraunces',serif; color:var(--sage); font-size:1.1rem; display:block; margin-bottom:8px; }
+  .about-point p{ font-size:0.92rem; margin:0; }
+
+  /* ---------- SERVICES: ACCORDION ---------- */
+  .services-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:30px; flex-wrap:wrap; margin-bottom:56px; }
+  .services-head p{ max-width:380px; font-size:1rem; }
+  .service-row{ border-top:1px solid rgba(50,74,60,0.2); }
+  .service-row:last-child{ border-bottom:1px solid rgba(50,74,60,0.2); }
+  .service-row summary{
+    list-style:none; cursor:pointer; padding:30px 0;
+    display:flex; align-items:center; gap:28px; justify-content:space-between;
+  }
+  .service-row summary::-webkit-details-marker{ display:none; }
+  .service-row-left{ display:flex; align-items:baseline; gap:26px; }
+  .service-row .n{ font-family:'Fraunces',serif; font-size:1rem; color:var(--sage); width:34px; flex-shrink:0; }
+  .service-row h3{ font-size:1.5rem; transition:color .3s ease; }
+  .service-row:hover h3{ color:var(--sage); }
+  .service-toggle{
+    width:38px; height:38px; border-radius:50%; border:1.5px solid var(--ink);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    position:relative; transition:background .3s ease, border-color .3s ease, transform .4s ease;
+  }
+  .service-toggle::before, .service-toggle::after{
+    content:''; position:absolute; background:var(--ink); transition:background .3s ease;
+  }
+  .service-toggle::before{ width:13px; height:1.5px; }
+  .service-toggle::after{ width:1.5px; height:13px; }
+  details[open] .service-toggle{ background:var(--sage); border-color:var(--sage); transform:rotate(180deg); }
+  details[open] .service-toggle::before, details[open] .service-toggle::after{ background:var(--white); }
+  details[open] .service-toggle::after{ opacity:0; }
+  .service-body{ padding:0 0 34px 60px; max-width:640px; }
+  .service-body p{ font-size:0.98rem; margin-bottom:16px; }
+  .service-body a{ font-size:0.85rem; font-weight:700; color:var(--sage); letter-spacing:0.02em; }
+
+  .services-note{ margin-top:40px; font-size:0.9rem; color:var(--text); }
+
+  /* ---------- QUOTE / PARALLAX ---------- */
+  .quote{
+    background:var(--sage-deep); color:var(--white); text-align:center;
+    padding:150px 0; overflow:hidden; position:relative;
+  }
+  .quote-leaf{
+    position:absolute; font-size:24rem; opacity:0.06; color:var(--white);
+    top:50%; left:50%; line-height:1; user-select:none; pointer-events:none;
+    transform:translate(-50%,-50%) rotate(0deg);
+  }
+  .quote h2{ color:var(--white); font-style:italic; font-size:clamp(1.7rem,3.6vw,2.7rem); max-width:760px; margin:0 auto; position:relative; z-index:1; }
+
+  /* ---------- CONTACT (dark band) ---------- */
+  .contact{ background:var(--ink); color:rgba(255,255,255,0.82); }
+  .contact .tag{ color:var(--sage-pale); }
+  .contact h2{ color:var(--white); }
+  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+  .big-phone{
+    display:inline-block; font-family:'Fraunces',serif; font-size:clamp(2.2rem,5vw,3.6rem);
+    color:var(--white); border-bottom:2px solid var(--sage); padding-bottom:6px; margin:18px 0 34px;
+    transition:color .3s ease, border-color .3s ease;
+  }
+  .big-phone:hover{ color:var(--sage-pale); border-color:var(--sage-pale); }
+  .info-cols{ display:grid; grid-template-columns:1fr 1fr; gap:30px; }
+  .info-col h4{ font-family:'Manrope'; font-weight:700; font-size:0.82rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--sage-pale); margin-bottom:14px; }
+  .info-col p{ font-size:0.95rem; line-height:1.7; color:rgba(255,255,255,0.75); }
+  .hours-list{ display:flex; flex-direction:column; gap:6px; }
+  .hours-list li{ display:flex; justify-content:space-between; font-size:0.9rem; color:rgba(255,255,255,0.75); gap:16px; }
+  .hours-list li span:last-child{ color:var(--white); }
+
+  .contact-side{ display:flex; flex-direction:column; gap:44px; }
+  .map-wrap{ margin-top:0; }
+  .map-frame{
+    width:100%; height:220px; border:0; border-radius:14px;
+    filter:grayscale(0.4) contrast(1.05);
+    transition:filter .4s ease;
+  }
+  .map-frame:hover{ filter:grayscale(0); }
+  .map-actions{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-top:18px; }
+  .map-actions p{ font-size:0.85rem; color:rgba(255,255,255,0.65); margin:0; }
+
+  .social-row{ display:flex; gap:12px; margin-top:30px; }
+  .social-row a{
+    width:42px; height:42px; border-radius:50%;
+    border:1px solid rgba(255,255,255,0.3);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--sand); font-size:1rem;
+    transition:background .3s ease, border-color .3s ease, transform .3s ease;
+  }
+  .social-row a:hover{ background:var(--sage); border-color:var(--sage); transform:translateY(-3px); }
+
+  /* ---------- FOOTER ---------- */
+  footer{ background:var(--ink); border-top:1px solid rgba(255,255,255,0.12); padding:26px 0; }
+  .footer-row{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:0.8rem; color:rgba(255,255,255,0.55); }
+
+  /* ---------- MOBILE ---------- */
+  @media (max-width:900px){
+    :root{ --sidebar-w:0px; }
+    .sidebar{ display:none; }
+    .mobile-bar{
+      display:flex; position:fixed; top:0; left:0; width:100%; z-index:200;
+      background:var(--ink); padding:18px 24px; align-items:center; justify-content:space-between;
+    }
+    .mobile-bar .wordmark{ color:var(--sand); font-size:1.1rem; letter-spacing:0.1em; }
+    .mobile-burger{ width:30px; height:22px; position:relative; cursor:pointer; background:none; border:none; }
+    .mobile-burger span{ position:absolute; left:0; width:100%; height:2px; background:var(--sand); transition:transform .3s ease, opacity .3s ease; }
+    .mobile-burger span:nth-child(1){ top:0; }
+    .mobile-burger span:nth-child(2){ top:10px; }
+    .mobile-burger span:nth-child(3){ top:20px; }
+    .mobile-menu{
+      position:fixed; inset:0; background:var(--sage-deep); z-index:190;
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:30px;
+      opacity:0; pointer-events:none; transition:opacity .4s ease;
+    }
+    .mobile-menu.open{ opacity:1; pointer-events:all; }
+    .mobile-menu a{ font-family:'Fraunces',serif; font-size:2rem; color:var(--white); }
+    .hero{ padding-top:120px; }
+    .hero-index{ display:none; }
+    .hero-grid, .about-grid, .contact-grid, .info-cols{ grid-template-columns:1fr; }
+    .map-frame{ height:280px; }
+    .map-actions{ flex-direction:column; align-items:flex-start; }
+    .hero-visual{ order:-1; max-width:340px; margin:0 auto; }
+    .about-photo{ margin:44px auto 0; max-width:320px; }
+    .about-num{ top:-24px; left:calc(50% - 100px); font-size:5.5rem; }
+    .about-points{ flex-direction:column; }
+    .about-point{ width:100%; }
+    section{ padding:100px 0; }
+    .container{ padding:0 26px; }
+    .service-body{ padding-left:0; }
+    .service-row-left{ gap:16px; }
+    .quote-leaf{ font-size:12rem; }
+  }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <a href="#inicio" class="wordmark">INNOVAE</a>
+  <nav class="side-dots" id="sideDots">
+    <a href="#inicio" data-target="inicio"><span class="tip">Inicio</span></a>
+    <a href="#nosotros" data-target="nosotros"><span class="tip">Nosotros</span></a>
+    <a href="#servicios" data-target="servicios"><span class="tip">Servicios</span></a>
+    <a href="#contacto" data-target="contacto"><span class="tip">Contacto</span></a>
+  </nav>
+  <a href="tel:661734870" class="side-call">📞</a>
+</aside>
+
+<div class="mobile-bar">
+  <a href="#inicio" class="wordmark">INNOVAE</a>
+  <button class="mobile-burger" id="mobileBurger"><span></span><span></span><span></span></button>
+</div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#inicio">Inicio</a>
+  <a href="#nosotros">Nosotros</a>
+  <a href="#servicios">Servicios</a>
+  <a href="#contacto">Contacto</a>
+</div>
+
+<div class="shell">
+
+  <section class="hero" id="inicio">
+    <div class="container">
+      <div class="hero-grid">
+        <span class="hero-index">01</span>
+        <div class="hero-copy">
+          <span class="hero-eyebrow reveal">Clínica Innovae · Úbeda, Jaén</span>
+          <h1 class="reveal">Cuida tu piel, <i>redescubre</i> tu belleza natural</h1>
+          <p class="reveal">Tratamientos de medicina estética seguros y personalizados, pensados para resultados naturales y una experiencia tranquila de principio a fin.</p>
+          <div class="hero-actions reveal">
+            <a href="tel:661734870" class="btn btn-solid">Pedir cita</a>
+            <a href="#servicios" class="btn btn-line">Ver servicios</a>
+          </div>
+        </div>
+        <div class="hero-visual reveal"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="nosotros">
+    <div class="container about-grid">
+      <div class="about-visual-wrap">
+        <span class="about-num reveal">02</span>
+        <div class="about-photo reveal">
+          <img src="assets/equipo.jpg" alt="Equipo de Clínica Innovae">
+        </div>
+      </div>
+      <div class="about-body">
+        <span class="tag reveal">Sobre nosotros</span>
+        <h2 class="heading reveal">Medicina estética con un enfoque cercano</h2>
+        <p class="reveal">En Clínica Innovae entendemos que cada rostro y cada piel son distintos. Diseñamos cada tratamiento de forma personalizada, priorizando siempre resultados naturales, la seguridad y tu bienestar.</p>
+        <p class="reveal">Estamos en pleno centro de Úbeda, en un espacio pensado para que tu visita sea una experiencia tranquila de principio a fin.</p>
+        <div class="about-points stagger">
+          <div class="about-point reveal" style="--i:0"><span class="n">—</span><p>Atención personalizada en cada consulta</p></div>
+          <div class="about-point reveal" style="--i:1"><span class="n">—</span><p>Tratamientos faciales y corporales adaptados a ti</p></div>
+          <div class="about-point reveal" style="--i:2"><span class="n">—</span><p>Ambiente cuidado, relajado y profesional</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="servicios">
+    <div class="container">
+      <div class="services-head reveal">
+        <div>
+          <span class="tag">Servicios</span>
+          <h2 class="heading">Tratamientos pensados para ti</h2>
+        </div>
+        <p>Despliega cada tratamiento para saber más. Escríbenos o llama para resolver cualquier duda antes de tu cita.</p>
+      </div>
+
+      <details class="service-row reveal">
+        <summary>
+          <div class="service-row-left"><span class="n">01</span><h3>Toxina Botulínica</h3></div>
+          <span class="service-toggle"></span>
+        </summary>
+        <div class="service-body">
+          <p>Suaviza líneas de expresión en frente, entrecejo y contorno de ojos con resultados naturales y progresivos.</p>
+          <a href="tel:661734870">Pedir cita →</a>
+        </div>
+      </details>
+
+      <details class="service-row reveal">
+        <summary>
+          <div class="service-row-left"><span class="n">02</span><h3>Ácido Hialurónico</h3></div>
+          <span class="service-toggle"></span>
+        </summary>
+        <div class="service-body">
+          <p>Devuelve volumen y define labios, pómulos y surcos de forma armoniosa y personalizada.</p>
+          <a href="tel:661734870">Pedir cita →</a>
+        </div>
+      </details>
+
+      <details class="service-row reveal">
+        <summary>
+          <div class="service-row-left"><span class="n">03</span><h3>Hilos Tensores</h3></div>
+          <span class="service-toggle"></span>
+        </summary>
+        <div class="service-body">
+          <p>Efecto lifting sin cirugía para recuperar firmeza en rostro y cuello.</p>
+          <a href="tel:661734870">Pedir cita →</a>
+        </div>
+      </details>
+
+      <details class="service-row reveal">
+        <summary>
+          <div class="service-row-left"><span class="n">04</span><h3>Mesoterapia Facial</h3></div>
+          <span class="service-toggle"></span>
+        </summary>
+        <div class="service-body">
+          <p>Hidratación profunda y luminosidad para todo tipo de piel.</p>
+          <a href="tel:661734870">Pedir cita →</a>
+        </div>
+      </details>
+
+      <details class="service-row reveal">
+        <summary>
+          <div class="service-row-left"><span class="n">05</span><h3>Peeling Químico</h3></div>
+          <span class="service-toggle"></span>
+        </summary>
+        <div class="service-body">
+          <p>Renueva la textura de la piel y mejora manchas y marcas de acné.</p>
+          <a href="tel:661734870">Pedir cita →</a>
+        </div>
+      </details>
+
+      <details class="service-row reveal">
+        <summary>
+          <div class="service-row-left"><span class="n">06</span><h3>Tratamientos Corporales</h3></div>
+          <span class="service-toggle"></span>
+        </summary>
+        <div class="service-body">
+          <p>Protocolos de remodelación y firmeza corporal adaptados a cada caso.</p>
+          <a href="tel:661734870">Pedir cita →</a>
+        </div>
+      </details>
+
+      <p class="services-note reveal">Servicios orientativos a modo de ejemplo — sustitúyelos por tu cartera real de tratamientos cuando quieras.</p>
+    </div>
+  </section>
+
+  <section class="quote">
+    <span class="quote-leaf">✦</span>
+    <div class="container">
+      <h2 class="reveal">"Cada tratamiento comienza escuchando lo que realmente necesita tu piel."</h2>
+    </div>
+  </section>
+
+  <section class="contact" id="contacto">
+    <div class="container contact-grid">
+      <div>
+        <span class="tag reveal">Contacto</span>
+        <h2 class="heading reveal">Pide tu cita</h2>
+        <a href="tel:661734870" class="big-phone reveal">661 73 48 70</a>
+
+        <p class="reveal" style="max-width:420px;">Llámanos y te atenderemos sin compromiso para resolver todas tus dudas sobre el tratamiento que mejor se adapta a ti.</p>
+
+        <div class="social-row reveal" aria-label="Redes sociales">
+          <a href="#" title="Instagram (pendiente de enlazar)" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <circle cx="12" cy="12" r="4.2"/>
+              <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+          <a href="#" title="Facebook (pendiente de enlazar)" aria-label="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M14.5 21v-7.5h2.5l.5-3h-3V8.3c0-.9.25-1.5 1.55-1.5H17.5V4.14C17.2 4.1 16.2 4 15 4c-2.4 0-4 1.46-4 4.15V10.5H8.5v3H11V21"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="contact-side reveal">
+        <div class="info-cols">
+          <div class="info-col">
+            <h4>Dirección</h4>
+            <p>Av. Ramón y Cajal, 10<br>23400 Úbeda, Jaén</p>
+          </div>
+          <div class="info-col">
+            <h4>Horario</h4>
+            <ul class="hours-list">
+              <li><span>Lun–Vie</span><span>10:00–13:30, 16:30–20:30</span></li>
+              <li><span>Sábado</span><span>10:30–13:00</span></li>
+              <li><span>Domingo</span><span>Cerrado</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="map-wrap">
+          <iframe
+            class="map-frame"
+            src="https://www.google.com/maps?q=Av.+Ram%C3%B3n+y+Cajal,+10,+23400+%C3%9Abeda,+Ja%C3%A9n&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación de Clínica Innovae en Google Maps">
+          </iframe>
+          <div class="map-actions">
+            <p>Av. Ramón y Cajal, 10 · 23400 Úbeda, Jaén</p>
+            <a class="btn btn-line" style="border-color:rgba(255,255,255,0.4); color:var(--white);" href="https://www.google.com/maps/search/?api=1&query=Av.+Ram%C3%B3n+y+Cajal,+10,+23400+%C3%9Abeda,+Ja%C3%A9n" target="_blank" rel="noopener">Cómo llegar →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-row">
+      <span>© <span id="year"></span> Clínica Innovae · Úbeda, Jaén</span>
+      <span>Av. Ramón y Cajal, 10 · 661 73 48 70</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold:0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  const sections = ['inicio','nosotros','servicios','contacto'].map(id => document.getElementById(id));
+  const dots = document.querySelectorAll('.side-dots a');
+  const sectionIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        dots.forEach(d => d.classList.toggle('active', d.dataset.target === entry.target.id));
+      }
+    });
+  }, { threshold:0.5 });
+  sections.forEach(s => s && sectionIO.observe(s));
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const leaf = document.querySelector('.quote-leaf');
+  if (leaf && !prefersReduced){
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking){
+        requestAnimationFrame(() => {
+          const rect = leaf.closest('.quote').getBoundingClientRect();
+          const rotate = rect.top * 0.05;
+          leaf.style.transform = `translate(-50%,-50%) rotate(${rotate}deg)`;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive:true });
+  }
+
+  const burger = document.getElementById('mobileBurger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (burger){
+    burger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target){
+        e.preventDefault();
+        target.scrollIntoView({ behavior:'smooth' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
