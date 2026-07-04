@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clínica Innovae — Medicina Estética en Úbeda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fafafa;
+    --cream:#f2ece8;
+    --tan:#c8a280;
+    --tan-dark:#a9835f;
+    --ink:#3a3a3a;
+    --text:#6b6660;
+    --line:#d9d9d9;
+    --white:#ffffff;
+    --shadow: 0 20px 50px rgba(58,58,58,0.09);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Be Vietnam Pro',sans-serif;
+    color:var(--text);
+    background:var(--bg);
+    line-height:1.7;
+    overflow-x:hidden;
+    font-weight:400;
+  }
+  h1,h2,h3,h4{
+    font-family:'Be Vietnam Pro',sans-serif;
+    color:var(--ink);
+    font-weight:600;
+    letter-spacing:-0.5px;
+    line-height:1.15;
+  }
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;border:none;background:none;cursor:pointer;}
+  .container{max-width:1220px;margin:0 auto;padding:0 32px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:0.78rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--tan-dark);
+    font-weight:700;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{content:'';width:22px;height:2px;background:var(--tan-dark);}
+  .section{padding:120px 0;}
+  .section-alt{background:var(--cream);}
+  .section-head{max-width:620px;margin:0 auto 60px;text-align:center;}
+  .section-head.left{margin:0 0 60px;text-align:left;}
+  .section-head h2{font-size:clamp(2rem,3.6vw,2.9rem);margin-bottom:16px;}
+  .section-head p{color:var(--text);font-size:1.02rem;}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:16px 34px;border-radius:40px;
+    font-weight:600;font-size:0.92rem;
+    transition:all .35s cubic-bezier(.22,.9,.32,1);
+    cursor:pointer;border:1.5px solid transparent;
+  }
+  .btn-primary{background:var(--ink);color:var(--white);}
+  .btn-primary:hover{background:var(--tan-dark);transform:translateY(-3px);box-shadow:0 14px 30px rgba(169,131,95,0.35);}
+  .btn-outline{border-color:var(--ink);color:var(--ink);}
+  .btn-outline:hover{background:var(--ink);color:var(--white);transform:translateY(-3px);}
+  .btn-sm{padding:10px 22px;font-size:0.82rem;}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;width:100%;z-index:1000;padding:24px 0;transition:all .4s ease;}
+  nav .container{display:flex;align-items:center;justify-content:space-between;}
+  nav.scrolled{background:rgba(250,250,250,0.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:14px 0;box-shadow:0 4px 30px rgba(58,58,58,0.06);}
+  .logo{font-size:1.4rem;font-weight:800;color:var(--ink);letter-spacing:-0.5px;}
+  .logo span{color:var(--tan-dark);}
+  .nav-links{display:flex;gap:36px;align-items:center;}
+  .nav-links a{font-size:0.88rem;font-weight:500;color:var(--ink);position:relative;padding-bottom:4px;}
+  .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--tan-dark);transition:width .35s ease;}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{padding:11px 26px;background:var(--ink);color:var(--white)!important;border-radius:40px;font-size:0.85rem;}
+  .nav-cta:hover{background:var(--tan-dark);}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1100;}
+  .burger span{width:24px;height:2px;background:var(--ink);}
+
+  /* HERO */
+  .hero{
+    min-height:100vh;position:relative;display:flex;align-items:flex-end;
+    background:
+      linear-gradient(180deg, rgba(58,50,42,0.15) 0%, rgba(30,26,22,0.75) 100%),
+      url('assets/Recepción.jpg') center/cover no-repeat;
+    color:var(--white);
+    overflow:hidden;
+  }
+  .hero-content{position:relative;z-index:2;padding-bottom:120px;width:100%;}
+  .hero-content .eyebrow{color:var(--white);}
+  .hero-content .eyebrow::before{background:var(--white);}
+  .hero-content h1{color:var(--white);font-size:clamp(2.4rem,5.2vw,4rem);max-width:820px;margin-bottom:20px;}
+  .hero-content h2{color:rgba(255,255,255,0.85);font-weight:400;font-size:1.15rem;max-width:520px;margin-bottom:36px;font-family:inherit;}
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap;}
+  .hero-actions .btn-outline{border-color:rgba(255,255,255,0.6);color:var(--white);}
+  .hero-actions .btn-outline:hover{background:var(--white);color:var(--ink);}
+  .hero-photo-note{
+    position:absolute;top:24px;right:32px;z-index:2;
+    font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;
+    color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.4);
+    padding:8px 14px;border-radius:30px;
+  }
+
+  /* MARQUEE */
+  .marquee-strip{background:var(--ink);overflow:hidden;padding:20px 0;position:relative;z-index:3;}
+  .marquee-track{display:flex;gap:16px;width:max-content;animation:marquee 26s linear infinite;}
+  .marquee-track span{
+    display:inline-flex;align-items:center;
+    padding:10px 24px;border:1px solid rgba(255,255,255,0.25);
+    border-radius:30px;color:rgba(255,255,255,0.85);
+    font-size:0.85rem;white-space:nowrap;font-weight:500;
+  }
+  @keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(36px);transition:opacity .8s cubic-bezier(.22,.9,.32,1), transform .8s cubic-bezier(.22,.9,.32,1);}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .reveal-scale{opacity:0;transform:scale(.94);transition:opacity .8s ease, transform .8s cubic-bezier(.22,.9,.32,1);}
+  .reveal-scale.visible{opacity:1;transform:scale(1);}
+
+  /* INTRO / ENFOQUE */
+  .intro-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:70px;align-items:center;}
+  .intro-visual{
+    aspect-ratio:4/5;border-radius:8px;
+    background:url('assets/equipo.jpg') center/cover no-repeat;
+  }
+  .intro-text p{margin-bottom:18px;font-size:1.02rem;}
+
+  /* TREATMENT CATEGORY TILES */
+  .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+  .cat-tile{
+    position:relative;border-radius:10px;overflow:hidden;aspect-ratio:3/4;
+    background:linear-gradient(160deg,#e9d9bb,#c8a280 60%,#8f6f4f);
+    background-size:cover;background-position:center;
+    display:flex;align-items:flex-end;padding:30px;
+    transition:transform .5s cubic-bezier(.22,.9,.32,1);
+  }
+  .cat-tile::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(30,26,22,0.75));}
+  .cat-tile:hover{transform:translateY(-10px);}
+  .cat-tile-body{position:relative;z-index:2;color:var(--white);}
+  .cat-tile-body h4{color:var(--white);font-size:1.3rem;margin-bottom:8px;}
+  .cat-tile-body a{font-size:0.82rem;text-decoration:underline;text-underline-offset:4px;}
+
+  /* FEATURED TREATMENTS */
+  .featured-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+  .feat-card{
+    background:var(--white);border:1px solid var(--line);border-radius:10px;
+    padding:32px 26px;transition:all .4s cubic-bezier(.22,.9,.32,1);
+  }
+  .feat-card:hover{transform:translateY(-8px);box-shadow:var(--shadow);border-color:var(--tan);}
+  .feat-tag{display:inline-block;background:var(--cream);color:var(--tan-dark);font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;border-radius:20px;margin-bottom:18px;}
+  .feat-card h4{font-size:1.15rem;margin-bottom:10px;}
+  .feat-card p{font-size:0.92rem;margin-bottom:22px;min-height:44px;}
+  .feat-price{border-top:1px solid var(--line);padding-top:16px;}
+  .feat-book{
+    display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+    padding:12px 18px;border-radius:8px;border:1.5px solid var(--ink);
+    font-size:0.85rem;font-weight:600;color:var(--ink);
+    transition:all .35s cubic-bezier(.22,.9,.32,1);
+  }
+  .feat-book:hover{background:var(--ink);color:var(--white);}
+
+  /* WHY CHOOSE US */
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;}
+  .why-card{text-align:left;padding:8px;}
+  .why-icon{
+    width:56px;height:56px;border-radius:14px;background:var(--cream);
+    display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:20px;
+    transition:transform .4s ease;
+  }
+  .why-card:hover .why-icon{transform:rotate(-8deg) scale(1.06);background:var(--tan);}
+  .why-card h4{font-size:1.05rem;margin-bottom:8px;}
+  .why-card p{font-size:0.9rem;}
+
+  /* ABOUT / STATS */
+  .about-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:70px;align-items:center;}
+  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;margin-top:40px;}
+  .stat{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:24px;}
+  .stat-num{font-size:2.2rem;font-weight:800;color:var(--tan-dark);}
+  .stat-label{font-size:0.8rem;color:var(--text);text-transform:uppercase;letter-spacing:0.5px;margin-top:4px;}
+  .about-visual{aspect-ratio:1/1;border-radius:10px;background:linear-gradient(150deg,var(--cream),var(--tan));display:flex;align-items:center;justify-content:center;color:var(--white);font-weight:500;text-align:center;padding:20px;}
+
+  /* TESTIMONIALS */
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+  .testi-card{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:30px 26px;transition:all .4s ease;}
+  .testi-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+  .testi-stars{color:var(--tan-dark);letter-spacing:3px;margin-bottom:14px;}
+  .testi-text{font-size:0.92rem;font-style:italic;margin-bottom:20px;color:var(--ink);}
+  .testi-name{font-weight:700;font-size:0.9rem;color:var(--ink);}
+  .testi-role{font-size:0.78rem;color:var(--text);}
+
+  /* TEAM */
+  .team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:520px;margin:0 auto;}
+  .team-card{text-align:center;}
+  .team-photo{width:100%;aspect-ratio:1/1;border-radius:50%;background:linear-gradient(150deg,var(--tan),var(--tan-dark));display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:var(--white);font-weight:700;margin-bottom:18px;transition:transform .5s ease;}
+  .team-card:hover .team-photo{transform:scale(1.05) rotate(-2deg);}
+  .team-card h4{font-size:1rem;margin-bottom:3px;}
+  .team-card .role{color:var(--tan-dark);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.5px;}
+
+  /* FAQ */
+  .faq-list{max-width:820px;margin:0 auto;}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;padding:24px 0;font-weight:600;color:var(--ink);font-size:1rem;}
+  .faq-q .icon{font-size:1.3rem;color:var(--tan-dark);transition:transform .35s ease;}
+  .faq-item.open .faq-q .icon{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+  .faq-a p{padding-bottom:22px;font-size:0.92rem;max-width:680px;}
+
+  /* LOCATION */
+  .loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:10px;overflow:hidden;box-shadow:var(--shadow);}
+  .loc-map{width:100%;min-height:380px;border:0;}
+  .loc-info{background:var(--ink);color:rgba(255,255,255,0.85);padding:50px;display:flex;flex-direction:column;justify-content:center;}
+  .loc-info h3{color:var(--white);margin-bottom:18px;}
+  .loc-row{display:flex;gap:14px;margin-bottom:20px;}
+  .loc-row .ico{color:var(--tan);}
+  .loc-info a.btn{margin-top:12px;align-self:flex-start;}
+
+  /* CONTACT */
+  .contact-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:60px;}
+  .contact-info h2{font-size:clamp(2rem,3.4vw,2.6rem);margin-bottom:18px;}
+  .social-row{display:flex;gap:12px;margin-top:26px;}
+  .social-row a{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:0.8rem;transition:all .3s ease;}
+  .social-row a:hover{background:var(--ink);border-color:var(--ink);color:var(--white);}
+  form{background:var(--white);padding:40px;border-radius:10px;box-shadow:var(--shadow);}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  form input, form select, form textarea{width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:0.9rem;background:var(--bg);transition:border-color .3s ease;}
+  form input:focus, form select:focus, form textarea:focus{outline:none;border-color:var(--tan);}
+  form textarea{min-height:110px;resize:vertical;margin-bottom:16px;}
+  form .btn{width:100%;justify-content:center;border-radius:8px;}
+  .form-note{font-size:0.76rem;color:var(--text);margin-top:12px;text-align:center;}
+
+  /* FOOTER */
+  footer{background:var(--ink);color:rgba(255,255,255,0.6);padding:60px 0 24px;}
+  .footer-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:40px;margin-bottom:50px;}
+  .footer-logo{font-size:1.4rem;font-weight:800;color:var(--white);margin-bottom:14px;}
+  .footer-logo span{color:var(--tan);}
+  footer h5{color:var(--white);font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:18px;}
+  footer ul li{margin-bottom:11px;font-size:0.88rem;}
+  footer ul li a:hover{color:var(--tan);}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:0.8rem;}
+
+  @media(max-width:960px){
+    .nav-links{display:none;}
+    .burger{display:flex;}
+    .intro-grid, .about-grid, .contact-grid{grid-template-columns:1fr;}
+    .cat-grid, .featured-grid, .testi-grid{grid-template-columns:1fr 1fr;}
+    .why-grid{grid-template-columns:1fr 1fr;}
+    .team-grid{grid-template-columns:1fr 1fr;}
+    .stats{grid-template-columns:1fr 1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:30px;}
+    .loc-grid{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+    .section{padding:80px 0;}
+  }
+  @media(max-width:600px){
+    .cat-grid, .featured-grid, .testi-grid, .why-grid, .team-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="container">
+    <a href="#inicio" class="logo">Innov<span>ae</span></a>
+    <ul class="nav-links">
+      <li><a href="#tratamientos">Tratamientos</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#equipo">Equipo</a></li>
+      <li><a href="#opiniones">Opiniones</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contacto" class="nav-cta">Pide tu cita</a></li>
+    </ul>
+    <div class="burger" id="burger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<header class="hero" id="inicio">
+  <div class="container hero-content">
+    <span class="eyebrow reveal">Clínica Innovae · Úbeda, Jaén</span>
+    <h1 class="reveal">Somos una clínica de medicina estética en Úbeda</h1>
+    <h2 class="reveal">Estética avanzada con resultados visibles, con tecnología de última generación y un trato cercano.</h2>
+    <div class="hero-actions reveal">
+      <a href="#contacto" class="btn btn-primary">Pide tu cita</a>
+      <a href="#tratamientos" class="btn btn-outline">Ver tratamientos</a>
+    </div>
+  </div>
+</header>
+
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>Cuidado de la piel</span>
+    <span>Facial</span>
+    <span>Tecnología estética</span>
+    <span>Tratamientos personalizados</span>
+    <span>Corporal</span>
+    <span>Capilar</span>
+    <span>Cuidado de la piel</span>
+    <span>Facial</span>
+    <span>Tecnología estética</span>
+    <span>Tratamientos personalizados</span>
+    <span>Corporal</span>
+    <span>Capilar</span>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container intro-grid">
+    <div class="intro-visual reveal-scale"></div>
+    <div class="intro-text reveal">
+      <span class="eyebrow">Clínica Innovae</span>
+      <h2>Un enfoque integral en medicina estética</h2>
+      <p>En Clínica Innovae combinamos protocolos personalizados, productos de calidad y seguimiento continuo para cuidar de ti dentro y fuera. Nuestro equipo médico está especializado en tratamientos faciales, corporales y capilares.</p>
+      <p>Trabajamos en Úbeda desde la cercanía, escuchando cada caso antes de proponer un plan de tratamiento adaptado a tus objetivos.</p>
+      <a href="#nosotros" class="btn btn-outline btn-sm">Conocer la clínica</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="tratamientos">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Tratamientos</span>
+      <h2>¿Qué tratamiento necesitas?</h2>
+      <p>Elige el área que quieres cuidar y descubre nuestros protocolos.</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-tile reveal" style="background-image:url('assets/Tratamiento-Higiene-facial.jpg')">
+        <div class="cat-tile-body"><h4>Facial</h4><a href="#servicios-facial">Conocer más →</a></div>
+      </div>
+      <div class="cat-tile reveal" style="background-image:url('assets/radiofrecuencia-tratamiento-para-cuerpo.jpg')">
+        <div class="cat-tile-body"><h4>Corporal</h4><a href="#servicios-corporal">Conocer más →</a></div>
+      </div>
+      <div class="cat-tile reveal" style="background-image:url('assets/Tratamiento-capilar.jpg')">
+        <div class="cat-tile-body"><h4>Capilar</h4><a href="#servicios-capilar">Conocer más →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="servicios-facial">
+  <div class="container">
+    <div class="section-head left reveal">
+      <span class="eyebrow">Tratamientos destacados</span>
+      <h2>Facial</h2>
+      <p>Protocolo personalizado con la tecnología más avanzada para un resultado natural.</p>
+    </div>
+    <div class="featured-grid">
+      <div class="feat-card reveal">
+        <span class="feat-tag">Protocolo personalizado</span>
+        <h4>Ácido hialurónico</h4>
+        <p>Relleno facial para recuperar volumen y definir rasgos de forma natural.</p>
+        <div class="feat-price"><a href="#contacto" class="feat-book">Reserva tu primera sesión</a></div>
+      </div>
+      <div class="feat-card reveal">
+        <span class="feat-tag">Protocolo personalizado</span>
+        <h4>Toxina botulínica</h4>
+        <p>Suaviza líneas de expresión en frente, entrecejo y contorno de ojos.</p>
+        <div class="feat-price"><a href="#contacto" class="feat-book">Reserva tu primera sesión</a></div>
+      </div>
+      <div class="feat-card reveal">
+        <span class="feat-tag">Protocolo personalizado</span>
+        <h4>Hidrafacial</h4>
+        <p>Limpieza facial profunda, hidratación y luminosidad inmediata.</p>
+        <div class="feat-price"><a href="#contacto" class="feat-book">Reserva tu primera sesión</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="servicios-corporal">
+  <div class="container">
+    <div class="section-head left reveal">
+      <span class="eyebrow">Tratamientos destacados</span>
+      <h2>Corporal</h2>
+      <p>Tecnología no invasiva para firmeza, remodelación y reducción localizada.</p>
+    </div>
+    <div class="featured-grid">
+      <div class="feat-card reveal">
+        <span class="feat-tag">Protocolo personalizado</span>
+        <h4>Radiofrecuencia corporal</h4>
+        <p>Firmeza y remodelación corporal mediante calor controlado.</p>
+        <div class="feat-price"><a href="#contacto" class="feat-book">Reserva tu primera sesión</a></div>
+      </div>
+      <div class="feat-card reveal">
+        <span class="feat-tag">Protocolo personalizado</span>
+        <h4>Mesoterapia</h4>
+        <p>Microinyecciones localizadas para reducir grasa y celulitis.</p>
+        <div class="feat-price"><a href="#contacto" class="feat-book">Reserva tu primera sesión</a></div>
+      </div>
+      <div class="feat-card reveal">
+        <span class="feat-tag">Protocolo personalizado</span>
+        <h4>Criolipólisis</h4>
+        <p>Eliminación de grasa localizada mediante frío controlado.</p>
+        <div class="feat-price"><a href="#contacto" class="feat-book">Reserva tu primera sesión</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="servicios-capilar">
+  <div class="container">
+    <div class="section-head left reveal">
+      <span class="eyebrow">Tratamientos destacados</span>
+      <h2>Capilar</h2>
+      <p>Diagnóstico y tratamiento especializado para frenar la caída y fortalecer el cabello.</p>
+    </div>
+    <div class="featured-grid">
+      <div class="feat-card reveal">
+        <span class="feat-tag">Protocolo personalizado</span>
+        <h4>Mesoterapia capilar</h4>
+        <p>Estimula el crecimiento y fortalece el cabello débil.</p>
+        <div class="feat-price"><a href="#contacto" class="feat-book">Reserva tu primera sesión</a></div>
+      </div>
+      <div class="feat-card reveal">
+        <span class="feat-tag">Protocolo personalizado</span>
+        <h4>PRP capilar</h4>
+        <p>Plasma rico en plaquetas para frenar la caída y regenerar el folículo.</p>
+        <div class="feat-price"><a href="#contacto" class="feat-book">Reserva tu primera sesión</a></div>
+      </div>
+      <div class="feat-card reveal">
+        <span class="feat-tag">Protocolo personalizado</span>
+        <h4>Diagnóstico capilar</h4>
+        <p>Estudio personalizado del cuero cabelludo y plan de tratamiento.</p>
+        <div class="feat-price"><a href="#contacto" class="feat-book">Reserva tu primera sesión</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Clínica Innovae</span>
+      <h2>¿Por qué elegirnos?</h2>
+      <p>Tratamientos profesionales con productos de calidad, asesoramiento personalizado y seguimiento continuo.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-icon">🩺</div>
+        <h4>Especialistas colegiados</h4>
+        <p>Equipo médico con formación continua en las últimas técnicas.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">✨</div>
+        <h4>Tecnología avanzada</h4>
+        <p>Equipamiento de última generación para resultados seguros.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">📋</div>
+        <h4>Protocolo a medida</h4>
+        <p>Cada tratamiento se adapta a tus objetivos y tipo de piel.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">🤝</div>
+        <h4>Seguimiento continuo</h4>
+        <p>Acompañamiento antes, durante y después del tratamiento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="nosotros">
+  <div class="container about-grid">
+    <div class="reveal">
+      <span class="eyebrow">Nuestra clínica</span>
+      <h2>Cuidamos tu piel como si fuera la nuestra</h2>
+      <p>Clínica Innovae nace en Úbeda con una misión clara: acercar la medicina estética de alta calidad a Jaén, con un trato cercano y protocolos personalizados para cada paciente.</p>
+      <div class="stats">
+        <div class="stat"><div class="stat-num" data-count="10">0</div><div class="stat-label">Años de experiencia</div></div>
+        <div class="stat"><div class="stat-num" data-count="3000">0</div><div class="stat-label">Tratamientos realizados</div></div>
+        <div class="stat"><div class="stat-num" data-count="98">0</div><div class="stat-label">% de satisfacción</div></div>
+        <div class="stat"><div class="stat-num" data-count="4">0</div><div class="stat-label">Especialistas</div></div>
+      </div>
+    </div>
+    <div class="about-visual reveal-scale">Foto del equipo /<br>instalaciones</div>
+  </div>
+</section>
+
+<section class="section section-alt" id="opiniones">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Opiniones</span>
+      <h2>Nuestros pacientes opinan</h2>
+      <p>Testimonios de ejemplo — sustituir por reseñas reales de pacientes.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Trato cercano desde el primer momento y resultados muy naturales. Repetiré sin duda."</p>
+        <div class="testi-name">María S.</div>
+        <div class="testi-role">Paciente desde 2023</div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"El equipo me explicó todo el proceso con mucha paciencia. Me siento muy segura aquí."</p>
+        <div class="testi-name">Isabel R.</div>
+        <div class="testi-role">Tratamiento facial</div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Instalaciones impecables y profesionales de primer nivel. 100% recomendable."</p>
+        <div class="testi-name">Lucía F.</div>
+        <div class="testi-role">Tratamiento corporal</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="equipo">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Equipo</span>
+      <h2>Nuestro equipo de especialistas</h2>
+      <p>Profesionales colegiados con formación continua en medicina estética.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal"><div class="team-photo">CM</div><h4>Carmen Martínez</h4><div class="role">Médico</div></div>
+      <div class="team-card reveal"><div class="team-photo">AP</div><h4>Alba Pérez</h4><div class="role">Esteticista</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="faq">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Preguntas frecuentes</span>
+      <h2>Preguntas frecuentes sobre nuestra clínica en Úbeda</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q"><span>¿La primera consulta tiene algún coste?</span><span class="icon">+</span></button>
+        <div class="faq-a"><p>La primera consulta de valoración es gratuita y sin compromiso. Analizamos tu caso y te proponemos el plan más adecuado.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q"><span>¿Duele el tratamiento con ácido hialurónico?</span><span class="icon">+</span></button>
+        <div class="faq-a"><p>Utilizamos anestesia tópica previa, por lo que la molestia es mínima. La mayoría de pacientes lo describen como un pinchazo leve.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q"><span>¿Cuánto dura el efecto de la toxina botulínica?</span><span class="icon">+</span></button>
+        <div class="faq-a"><p>El efecto suele durar entre 4 y 6 meses, dependiendo de cada paciente y de la zona tratada.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q"><span>¿Ofrecéis pago fraccionado?</span><span class="icon">+</span></button>
+        <div class="faq-a"><p>Sí, consúltanos las opciones de financiación disponibles para tu tratamiento.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Dónde estamos</span>
+      <h2>Visítanos o consulta por teléfono o WhatsApp</h2>
+    </div>
+    <div class="loc-grid reveal">
+      <iframe class="loc-map" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps?q=Av.+Ram%C3%B3n+y+Cajal,+10,+23400+%C3%9Abeda,+Ja%C3%A9n&output=embed"></iframe>
+      <div class="loc-info">
+        <h3>Clínica Innovae</h3>
+        <div class="loc-row"><span class="ico">📍</span><span>Av. Ramón y Cajal, 10 · 23400 Úbeda, Jaén</span></div>
+        <div class="loc-row"><span class="ico">📞</span><span>953 123 456</span></div>
+        <div class="loc-row"><span class="ico">🕐</span><span>Lun–Vie 9:00–14:00 y 16:00–20:00 · Sáb 10:00–14:00</span></div>
+        <a href="#contacto" class="btn btn-primary btn-sm">Pide tu cita</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="contacto">
+  <div class="container contact-grid">
+    <div class="contact-info reveal">
+      <span class="eyebrow">Contacto</span>
+      <h2>Contáctanos sin compromiso</h2>
+      <p>Escríbenos y te ayudamos a encontrar el tratamiento adecuado para ti.</p>
+      <div class="loc-row"><span class="ico">✉️</span><span>info@clinicainnovae.es</span></div>
+      <div class="social-row">
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="Facebook">FB</a>
+      </div>
+    </div>
+    <form class="reveal" id="contactForm">
+      <div class="form-row">
+        <input type="text" placeholder="Nombre" required>
+        <input type="tel" placeholder="Teléfono" required>
+      </div>
+      <div class="form-row">
+        <input type="email" placeholder="Email" required>
+        <select required>
+          <option value="" disabled selected>Tratamiento de interés</option>
+          <option>Facial</option>
+          <option>Corporal</option>
+          <option>Capilar</option>
+          <option>No lo sé, quiero información</option>
+        </select>
+      </div>
+      <textarea placeholder="Cuéntanos qué necesitas..."></textarea>
+      <button type="submit" class="btn btn-primary">Enviar solicitud</button>
+      <p class="form-note">Formulario de ejemplo — requiere conexión a un servicio de envío (email, WhatsApp o CRM) para funcionar.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Innov<span>ae</span></div>
+        <p style="max-width:300px;font-size:0.88rem;">Clínica de medicina estética en Úbeda, Jaén. Resultados naturales, tecnología avanzada y trato cercano.</p>
+      </div>
+      <div>
+        <h5>Contacto</h5>
+        <ul>
+          <li>Av. Ramón y Cajal, 10, Úbeda (Jaén)</li>
+          <li>953 123 456</li>
+          <li>info@clinicainnovae.es</li>
+        </ul>
+      </div>
+      <div>
+        <h5>Información</h5>
+        <ul>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#equipo">Equipo</a></li>
+          <li><a href="#faq">Preguntas frecuentes</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Otros servicios</h5>
+        <ul>
+          <li><a href="#servicios-facial">Facial</a></li>
+          <li><a href="#servicios-corporal">Corporal</a></li>
+          <li><a href="#servicios-capilar">Capilar</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Clínica Innovae. Todos los derechos reservados.</span>
+      <span>Diseño de ejemplo — datos ficticios para boceto</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive:true });
+
+const burger = document.getElementById('burger');
+burger.addEventListener('click', () => burger.classList.toggle('active'));
+
+const revealEls = document.querySelectorAll('.reveal, .reveal-scale');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+revealEls.forEach(el => revealObserver.observe(el));
+
+document.querySelectorAll('.cat-grid, .featured-grid, .why-grid, .testi-grid, .team-grid, .stats').forEach(grid => {
+  [...grid.children].forEach((child, i) => { child.style.transitionDelay = (i * 0.1) + 's'; });
+});
+
+const counters = document.querySelectorAll('[data-count]');
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.getAttribute('data-count'), 10);
+      const duration = 1600;
+      const start = performance.now();
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(eased * target);
+        if (progress < 1) requestAnimationFrame(tick);
+        else el.textContent = target;
+      }
+      requestAnimationFrame(tick);
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+counters.forEach(c => counterObserver.observe(c));
+
+document.querySelectorAll('.faq-item').forEach(item => {
+  const q = item.querySelector('.faq-q');
+  const a = item.querySelector('.faq-a');
+  q.addEventListener('click', () => {
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(other => {
+      other.classList.remove('open');
+      other.querySelector('.faq-a').style.maxHeight = null;
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      a.style.maxHeight = a.scrollHeight + 'px';
+    }
+  });
+});
+
+const form = document.getElementById('contactForm');
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const btn = form.querySelector('button');
+  const original = btn.textContent;
+  btn.textContent = 'Solicitud enviada ✓';
+  setTimeout(() => { btn.textContent = original; form.reset(); }, 2200);
+});
+</script>
+
+</body>
+</html>
