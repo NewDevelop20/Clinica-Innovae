@@ -595,6 +595,11 @@
       font-size: .72rem; color: var(--text-light); letter-spacing: .05em; line-height: 1.7;
     }
 
+    /* PRODUCT LINKS */
+    a.shop-card { color: inherit; text-decoration: none; }
+    a.shop-card:focus-visible { outline: 3px solid var(--gold-dark); outline-offset: 5px; }
+    .shop-placeholder { display: grid; place-items: center; }
+    .shop-placeholder span { font-size: .7rem; color: var(--text-mid); position: relative; z-index: 1; }
     /* ── SCHEDULE ── */
     #horario { background: #141414; color: var(--white); }
     .schedule-grid {
@@ -1038,136 +1043,67 @@
   </section>
 
   <!-- TIENDA -->
-  <section id="tienda">
-    <div class="container">
-      <div class="shop-header">
-        <span class="label reveal">Tienda Online</span>
-        <h2 class="title reveal" style="transition-delay:.1s">Cosmética profesional<br><em>para llevar a casa</em></h2>
-        <div class="rule reveal" style="transition-delay:.2s"></div>
-        <p class="body-text reveal" style="transition-delay:.3s;text-align:center;max-width:100%">
-          Prolonga los resultados de tus tratamientos con nuestra selección de cosmética profesional.
-          Productos de alta eficacia formulados para el cuidado diario de tu piel.
-        </p>
-        <span class="shop-brand reveal" style="transition-delay:.35s">Distribuidor oficial · <strong>Germaine de Capuccini</strong></span>
-      </div>
-
-      <div class="shop-grid">
-
-        <div class="shop-card reveal" style="transition-delay:.05s">
-          <div class="shop-img">
-            <img src="https://www.germainedecapuccini.com/media/catalog/product/0/0/00270004_1.jpg?quality=80&height=600&width=600&canvas=600:600" alt="Defined & Fit 24H" loading="lazy" onerror="this.remove()">
-          </div>
-          <div class="shop-body">
-            <span class="shop-line">Expert Forms</span>
-            <h3 class="shop-name">Defined &amp; Fit 24H</h3>
-            <p class="shop-desc">Crema reafirmante corporal de acción prolongada. Redefine la silueta y mejora la elasticidad de la piel.</p>
-            <div class="shop-foot">
-              <span class="shop-price">62,70&nbsp;€</span>
-              <a href="#contacto" class="shop-btn">Consultar</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="shop-card reveal" style="transition-delay:.1s">
-          <div class="shop-img">
-            <img src="https://www.germainedecapuccini.com/media/catalog/product/0/0/00911795_1.jpg?quality=80&height=600&width=600&canvas=600:600" alt="Cellu-Dren Complex" loading="lazy" onerror="this.remove()">
-          </div>
-          <div class="shop-body">
-            <span class="shop-line">Perfect Forms</span>
-            <h3 class="shop-name">Cellu-Dren Complex</h3>
-            <p class="shop-desc">Concentrado anticelulítico y drenante. Combate la celulitis y activa la microcirculación para unas piernas más ligeras.</p>
-            <div class="shop-foot">
-              <span class="shop-price">51,00&nbsp;€</span>
-              <a href="#contacto" class="shop-btn">Consultar</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="shop-card reveal" style="transition-delay:.15s">
-          <div class="shop-img">
-            <span class="shop-badge soft">Novedad</span>
-            <img src="https://www.germainedecapuccini.com/media/catalog/product/0/0/00911793_1.jpg?quality=80&height=600&width=600&canvas=600:600" alt="Retinol Body Treatment" loading="lazy" onerror="this.remove()">
-          </div>
-          <div class="shop-body">
-            <span class="shop-line">Perfect Forms</span>
-            <h3 class="shop-name">Retinol Body Treatment</h3>
-            <p class="shop-desc">Tratamiento corporal con retinol que reafirma, alisa y mejora la textura de la piel del cuerpo.</p>
-            <div class="shop-foot">
-              <span class="shop-price">55,00&nbsp;€</span>
-              <a href="#contacto" class="shop-btn">Consultar</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="shop-card reveal" style="transition-delay:.2s">
-          <div class="shop-img">
-            <img src="https://www.germainedecapuccini.com/media/catalog/product/0/0/00380013_1.jpg?quality=80&height=600&width=600&canvas=600:600" alt="Antiox-C Body" loading="lazy" onerror="this.remove()">
-          </div>
-          <div class="shop-body">
-            <span class="shop-line">Timexpert Radiance C+</span>
-            <h3 class="shop-name">Antiox-C Body</h3>
-            <p class="shop-desc">Emulsión corporal antioxidante con vitamina C. Aporta luminosidad y protege frente al envejecimiento prematuro.</p>
-            <div class="shop-foot">
-              <span class="shop-price">48,00&nbsp;€</span>
-              <a href="#contacto" class="shop-btn">Consultar</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="shop-card reveal" style="transition-delay:.05s">
-          <div class="shop-img">
-            <span class="shop-badge">Oferta</span>
-            <img src="https://www.germainedecapuccini.com/media/catalog/product/0/0/00310005_1.jpg?quality=80&height=600&width=600&canvas=600:600" alt="Gel Confort de Masaje" loading="lazy" onerror="this.remove()">
-          </div>
-          <div class="shop-body">
-            <span class="shop-line">Sperience</span>
-            <h3 class="shop-name">Gel Confort de Masaje</h3>
-            <p class="shop-desc">Gel de masaje de deslizamiento prolongado. Relaja la musculatura y prepara la piel para el tratamiento.</p>
-            <div class="shop-foot">
-              <span class="shop-price"><s>32,45&nbsp;€</s>25,96&nbsp;€</span>
-              <a href="#contacto" class="shop-btn">Consultar</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="shop-card reveal" style="transition-delay:.1s">
-          <div class="shop-img">
-            <img src="https://www.germainedecapuccini.com/media/catalog/product/0/0/00310007_1.jpg?quality=80&height=600&width=600&canvas=600:600" alt="Mousse Antioxidante Corporal" loading="lazy" onerror="this.remove()">
-          </div>
-          <div class="shop-body">
-            <span class="shop-line">Sperience</span>
-            <h3 class="shop-name">Mousse Antioxidante Corporal</h3>
-            <p class="shop-desc">Mousse ligera de rápida absorción que hidrata y protege la piel del cuerpo con activos antioxidantes.</p>
-            <div class="shop-foot">
-              <span class="shop-price">28,00&nbsp;€</span>
-              <a href="#contacto" class="shop-btn">Consultar</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="shop-card reveal" style="transition-delay:.15s">
-          <div class="shop-img">
-            <img src="https://www.germainedecapuccini.com/media/catalog/product/0/0/00750431_1.jpg?quality=80&height=600&width=600&canvas=600:600" alt="Zen Attitude" loading="lazy" onerror="this.remove()">
-          </div>
-          <div class="shop-body">
-            <span class="shop-line">Sperience</span>
-            <h3 class="shop-name">Zen Attitude</h3>
-            <p class="shop-desc">Bruma aromática relajante. Envuelve los sentidos y crea una atmósfera de calma y bienestar.</p>
-            <div class="shop-foot">
-              <span class="shop-price">15,80&nbsp;€</span>
-              <a href="#contacto" class="shop-btn">Consultar</a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <p class="shop-note reveal">
-        * Catálogo de muestra. Los productos, precios y disponibilidad reales se actualizarán próximamente.<br>
-        Para consultar stock o realizar tu pedido, contáctanos y te asesoramos personalmente.
-      </p>
-    </div>
-  </section>
+  <section id="tienda"><div class="container"><div class="shop-header">
+  <span class="label reveal">Nuestro catálogo</span><h2 class="title reveal">Cosmética profesional<br><em>para llevar a casa</em></h2>
+  <div class="rule reveal"></div><p class="body-text reveal">Descubre nuestra selección de productos para el cuidado diario de tu piel. Consulta cada ficha para conocer sus beneficios y cómo utilizarlos.</p>
+  <span class="shop-brand reveal"><strong>Germaine de Capuccini</strong> · <strong>mesoestetic</strong></span></div>
+  <div class="shop-grid"><a class="shop-card reveal" href="productos/night-crema-confort-alta-recuperacion.html">
+  <div class="shop-img shop-placeholder"><span>Imagen próximamente</span></div>
+  <div class="shop-body"><span class="shop-line">Germaine de Capuccini · Timexpert SRNS</span>
+  <h3 class="shop-name">NIGHT Crema Confort Alta Recuperación</h3><p class="shop-desc">Crema de noche de alta recuperación que nutre intensamente y refuerza la barrera mientras duermes.</p>
+  <div class="shop-foot"><span class="shop-btn">Ver ficha <span aria-hidden="true">↗</span></span></div></div></a>
+<a class="shop-card reveal" href="productos/pro-60-crema-extra-nutritiva-alta-exigencia.html">
+  <div class="shop-img shop-placeholder"><span>Imagen próximamente</span></div>
+  <div class="shop-body"><span class="shop-line">Germaine de Capuccini · Timexpert SRNS</span>
+  <h3 class="shop-name">PRO 60+ Crema Extra-Nutritiva Alta Exigencia</h3><p class="shop-desc">Crema extra-nutritiva de alta exigencia para pieles maduras, secas o muy secas.</p>
+  <div class="shop-foot"><span class="shop-btn">Ver ficha <span aria-hidden="true">↗</span></span></div></div></a>
+<a class="shop-card reveal" href="productos/crema-recuperadora-intensiva.html">
+  <div class="shop-img shop-placeholder"><span>Imagen próximamente</span></div>
+  <div class="shop-body"><span class="shop-line">Germaine de Capuccini · Timexpert SRNS</span>
+  <h3 class="shop-name">Crema Recuperadora Intensiva</h3><p class="shop-desc">Crema recuperadora de textura fina y fundente para piel madura.</p>
+  <div class="shop-foot"><span class="shop-btn">Ver ficha <span aria-hidden="true">↗</span></span></div></div></a>
+<a class="shop-card reveal" href="productos/crema-pro-colageno.html">
+  <div class="shop-img shop-placeholder"><span>Imagen próximamente</span></div>
+  <div class="shop-body"><span class="shop-line">Germaine de Capuccini · Timexpert Wrink·Less</span>
+  <h3 class="shop-name">Crema Pro-Colágeno</h3><p class="shop-desc">Crema antiarrugas que reduce las arrugas, mejora la densidad de la piel y aporta el equilibrio ideal de hidratación.</p>
+  <div class="shop-foot"><span class="shop-btn">Ver ficha <span aria-hidden="true">↗</span></span></div></div></a>
+<a class="shop-card reveal" href="productos/serum-pro-colageno.html">
+  <div class="shop-img shop-placeholder"><span>Imagen próximamente</span></div>
+  <div class="shop-body"><span class="shop-line">Germaine de Capuccini · Timexpert Wrink·Less</span>
+  <h3 class="shop-name">Sérum Pro-Colágeno</h3><p class="shop-desc">Concentrado intensivo que suaviza arrugas en solo 10 minutos y mejora visiblemente la elasticidad día tras día.</p>
+  <div class="shop-foot"><span class="shop-btn">Ver ficha <span aria-hidden="true">↗</span></span></div></div></a>
+<a class="shop-card reveal" href="productos/crema-antioxidante-iluminadora.html">
+  <div class="shop-img shop-placeholder"><span>Imagen próximamente</span></div>
+  <div class="shop-body"><span class="shop-line">Germaine de Capuccini · Timexpert Radiance C+</span>
+  <h3 class="shop-name">Crema Antioxidante Iluminadora</h3><p class="shop-desc">Crema antioxidante iluminadora con vitaminas C y E y nanopolímero HLG.</p>
+  <div class="shop-foot"><span class="shop-btn">Ver ficha <span aria-hidden="true">↗</span></span></div></div></a>
+<a class="shop-card reveal" href="productos/rutina-de-limpieza-experta-en-tamano-viaje.html">
+  <div class="shop-img shop-placeholder"><span>Imagen próximamente</span></div>
+  <div class="shop-body"><span class="shop-line">Germaine de Capuccini · The Cleansing Expert</span>
+  <h3 class="shop-name">Rutina de Limpieza Experta en Tamaño Viaje</h3><p class="shop-desc">Rutina de limpieza facial completa en tamaño viaje, apta para cabina de avión.</p>
+  <div class="shop-foot"><span class="shop-btn">Ver ficha <span aria-hidden="true">↗</span></span></div></div></a>
+<a class="shop-card reveal" href="productos/all-year-bronze-powder-spf-15.html">
+  <div class="shop-img shop-placeholder"><span>Imagen próximamente</span></div>
+  <div class="shop-body"><span class="shop-line">Germaine de Capuccini · Timexpert Sun</span>
+  <h3 class="shop-name">All Year Bronze Powder SPF 15</h3><p class="shop-desc">Dúo de polvos bronceadores con efecto &quot;buena cara&quot; y SPF 15.</p>
+  <div class="shop-foot"><span class="shop-btn">Ver ficha <span aria-hidden="true">↗</span></span></div></div></a>
+<a class="shop-card reveal" href="productos/hi-protection-makeup-spf50.html">
+  <div class="shop-img shop-placeholder"><span>Imagen próximamente</span></div>
+  <div class="shop-body"><span class="shop-line">Germaine de Capuccini · Timexpert Sun</span>
+  <h3 class="shop-name">Hi-Protection Makeup SPF50+</h3><p class="shop-desc">Fotoprotector compacto con color: fotoprotección, tratamiento y maquillaje en uno.</p>
+  <div class="shop-foot"><span class="shop-btn">Ver ficha <span aria-hidden="true">↗</span></span></div></div></a>
+<a class="shop-card reveal" href="productos/mesoprotech-water-veil-spf50.html">
+  <div class="shop-img shop-placeholder"><span>Imagen próximamente</span></div>
+  <div class="shop-body"><span class="shop-line">mesoestetic · mesoprotech® · Photoprotection Solutions</span>
+  <h3 class="shop-name">mesoprotech® water veil SPF50+</h3><p class="shop-desc">Protector solar facial ligero SPF50+ en gel-crema ultraligero para piel mixta y grasa.</p>
+  <div class="shop-foot"><span class="shop-btn">Ver ficha <span aria-hidden="true">↗</span></span></div></div></a>
+<a class="shop-card reveal" href="productos/mesoprotech-melan-130-pigment-control-spf50.html">
+  <div class="shop-img shop-placeholder"><span>Imagen próximamente</span></div>
+  <div class="shop-body"><span class="shop-line">mesoestetic · mesoprotech® · Photoprotection Solutions</span>
+  <h3 class="shop-name">mesoprotech® melan 130 pigment control SPF50+</h3><p class="shop-desc">Emulsión con color SPF50+ para el control de la pigmentación.</p>
+  <div class="shop-foot"><span class="shop-btn">Ver ficha <span aria-hidden="true">↗</span></span></div></div></a></div>
+  <p class="shop-note reveal">Para consultar precios, disponibilidad o realizar tu pedido, contáctanos y te asesoramos personalmente.</p>
+  </div></section>
 
   <!-- HORARIO -->
   <section id="horario">

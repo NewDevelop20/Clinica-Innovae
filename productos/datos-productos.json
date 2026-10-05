@@ -1,0 +1,493 @@
+[
+  {
+    "id": "night-crema-confort-alta-recuperacion",
+    "name": "NIGHT Crema Confort Alta Recuperación",
+    "fields": {
+      "Marca": "Germaine de Capuccini",
+      "Línea": "Timexpert SRNS",
+      "Referencia": "00480115",
+      "Formato": "50 ml",
+      "Tipo de piel": "Madura, seca o muy seca",
+      "Categoría": "Crema de noche",
+      "Ficha oficial": "https://www.germainedecapuccini.com/us_en/night-high-recovery-comfort-cream-timexpert-srns-00480115",
+      "Imagen local sugerida": "`assets/productos/gdc-srns-night.jpg`"
+    },
+    "sections": [
+      {
+        "title": "Descripción",
+        "text": "Actúa durante el descanso para devolver a la piel nutrición, elasticidad y bienestar duradero. Su textura rica y envolvente se funde al instante y aporta confort inmediato con acabado sedoso. Ayuda a acelerar la renovación nocturna para despertar con una piel más firme, lisa y luminosa."
+      },
+      {
+        "title": "Beneficios",
+        "text": "- Nutre intensamente y fortalece la barrera cutánea\n- Acelera la renovación nocturna\n- Suaviza el aspecto de las líneas y mejora la firmeza\n- Recupera la luminosidad perdida por el estrés diario\n- Apta durante el embarazo"
+      },
+      {
+        "title": "Ingredientes clave",
+        "text": "- **Euglena Gracilis:** estimulante cronobiológico que maximiza la reparación y regeneración nocturna.\n- **RC-Advanced:** devuelve la energía diaria de la piel y acelera la reparación del ADN.\n- **Complejo Zinc-Glicina:** mejora la resistencia celular al estrés oxidativo inducido por la radiación UV."
+      },
+      {
+        "title": "Modo de uso",
+        "text": "Por la noche, tras la limpieza y el sérum, aplicar una cantidad del tamaño de una almendra en rostro, cuello y escote. Masajear con movimientos lentos y ascendentes hasta su absorción. Último paso de la rutina nocturna. *Tip:* en noches de mayor sequedad, aplicar una segunda capa como mascarilla de noche."
+      }
+    ],
+    "summary": "Crema de noche de alta recuperación que nutre intensamente y refuerza la barrera mientras duermes.",
+    "images": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "sourceImages": [
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00480115_1.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00480115_2.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00480115_4.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00480115_5.jpg"
+    ]
+  },
+  {
+    "id": "pro-60-crema-extra-nutritiva-alta-exigencia",
+    "name": "PRO 60+ Crema Extra-Nutritiva Alta Exigencia",
+    "fields": {
+      "Marca": "Germaine de Capuccini",
+      "Línea": "Timexpert SRNS",
+      "Referencia": "00480668",
+      "Formato": "50 ml",
+      "Tipo de piel": "Madura, seca o muy seca",
+      "Categoría": "Crema nutritiva día y noche",
+      "Ficha oficial": "https://www.germainedecapuccini.com/us_en/pro-60-timexpert-srns-00480668",
+      "Imagen local sugerida": "`assets/productos/gdc-srns-pro60.jpg`"
+    },
+    "sections": [
+      {
+        "title": "Descripción",
+        "text": "Tratamiento diario que cubre las necesidades de las pieles más exigentes. Aporta nutrición intensa y confort inmediato, refuerza la barrera, mejora la elasticidad, suaviza las líneas y devuelve un aspecto más firme y luminoso. Textura rica y sedosa con acabado aterciopelado."
+      },
+      {
+        "title": "Beneficios",
+        "text": "- Nutrición intensa y confort inmediato\n- Mejora la elasticidad\n- Suaviza las líneas de expresión\n- Restaura la firmeza"
+      },
+      {
+        "title": "Ingredientes clave",
+        "text": "- **Citoquinas:** ayudan a mejorar la piel para una apariencia más firme.\n- **Epigenol:** contribuye a una piel más elástica y tonificada.\n- **Ácido hialurónico:** hidrata y mejora elasticidad y suavidad."
+      },
+      {
+        "title": "Modo de uso",
+        "text": "Tras la limpieza y el sérum, aplicar una cantidad del tamaño de una almendra en rostro, cuello y escote, mañana y noche. Masajear con movimientos ascendentes hasta su absorción."
+      }
+    ],
+    "summary": "Crema extra-nutritiva de alta exigencia para pieles maduras, secas o muy secas.",
+    "images": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "sourceImages": [
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00480668_1.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00480668_2.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00480668_3.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00480668_4.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00480668_5.jpg"
+    ]
+  },
+  {
+    "id": "crema-recuperadora-intensiva",
+    "name": "Crema Recuperadora Intensiva",
+    "fields": {
+      "Marca": "Germaine de Capuccini",
+      "Línea": "Timexpert SRNS",
+      "Referencia": "00480002",
+      "Formato": "50 ml",
+      "Tipo de piel": "Madura, seca o muy seca (también sensible)",
+      "Categoría": "Crema día y noche",
+      "Ficha oficial": "https://www.germainedecapuccini.com/us_en/intensive-recovery-cream-timexpert-srns-00480002",
+      "Imagen local sugerida": "`assets/productos/gdc-srns-recuperadora.jpg`"
+    },
+    "sections": [
+      {
+        "title": "Descripción",
+        "text": "Tratamiento diario que devuelve nutrición, firmeza y confort duradero a la piel madura. Su textura se funde al instante y envuelve el rostro con un velo sedoso que aporta luminosidad inmediata. Refuerza la barrera, mejora la elasticidad, suaviza las arrugas y unifica el tono."
+      },
+      {
+        "title": "Beneficios",
+        "text": "- Nutre en profundidad y refuerza la barrera\n- Mejora la elasticidad\n- Atenúa el aspecto de las arrugas\n- Unifica el tono y aporta luminosidad"
+      },
+      {
+        "title": "Ingredientes clave",
+        "text": "- **Aceite de semilla de Lupinus Albus:** antioxidante; favorece la hidratación y flexibilidad.\n- **Complejo Zinc-Glicina:** aumenta la resistencia celular al estrés oxidativo por radiación UV.\n- **Ácido hialurónico:** hidrata y mejora elasticidad y suavidad."
+      },
+      {
+        "title": "Modo de uso",
+        "text": "Tras limpieza y sérum, aplicar una cantidad del tamaño de una almendra en rostro, cuello y escote, mañana y noche. Masajear con movimientos ascendentes hasta su absorción."
+      }
+    ],
+    "summary": "Crema recuperadora de textura fina y fundente para piel madura.",
+    "images": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "sourceImages": [
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00480002_1.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00480002_2.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00480002_5.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00480002_6.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00480002_7.jpg"
+    ]
+  },
+  {
+    "id": "crema-pro-colageno",
+    "name": "Crema Pro-Colágeno",
+    "fields": {
+      "Marca": "Germaine de Capuccini",
+      "Línea": "Timexpert Wrink·Less",
+      "Referencia": "00300002",
+      "Formato": "50 ml",
+      "Tipo de piel": "Todo tipo de pieles",
+      "Categoría": "Crema antiarrugas",
+      "Ficha oficial": "https://www.germainedecapuccini.com/us_en/pro-collagen-cream-timexpert-wrinkless-00300002",
+      "Imagen local sugerida": "`assets/productos/gdc-wrinkless-crema.jpg`"
+    },
+    "sections": [
+      {
+        "title": "Descripción",
+        "text": "Tratamiento antiedad diario que \"reentrena\" la piel para comportarse como una piel joven. Combina el complejo biotecnológico CELASPEP·4™ con activos que actúan sobre las arrugas visibles y la pérdida de elasticidad. Ideal para quien busca una piel visiblemente más joven, firme y protegida."
+      },
+      {
+        "title": "Beneficios",
+        "text": "- Reduce las arrugas con efecto relleno\n- Mejora la densidad de la piel\n- Hidrata sin sobrecargar\n- Aporta firmeza y elasticidad"
+      },
+      {
+        "title": "Ingredientes clave",
+        "text": "- **CELASPEP·4™:** favorece la renovación celular y aumenta la producción de colágeno y elastina.\n- **Neuromoduladores:** modulan las microcontracciones y reducen la profundidad de las arrugas.\n- **Péptidos Pro-Colágeno:** actúan como \"bloques\" para sintetizar colágeno nuevo.\n- **Potenciadores de elasticidad:** refuerzan la red de colágeno."
+      },
+      {
+        "title": "Modo de uso",
+        "text": "Aplicar mañana y noche en rostro, cuello y escote, después del Sérum Pro-Colágeno."
+      }
+    ],
+    "summary": "Crema antiarrugas que reduce las arrugas, mejora la densidad de la piel y aporta el equilibrio ideal de hidratación.",
+    "images": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "sourceImages": [
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00300002_1.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00300002_2.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00300002_4.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00300002_5.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00300002_6.jpg"
+    ]
+  },
+  {
+    "id": "serum-pro-colageno",
+    "name": "Sérum Pro-Colágeno",
+    "fields": {
+      "Marca": "Germaine de Capuccini",
+      "Línea": "Timexpert Wrink·Less",
+      "Referencia": "00300003",
+      "Formato": "50 ml",
+      "Tipo de piel": "Todo tipo de pieles",
+      "Categoría": "Sérum antiarrugas",
+      "Ficha oficial": "https://www.germainedecapuccini.com/es_es/serum-pro-colageno-timexpert-wrinkless-00300003",
+      "Imagen local sugerida": "`assets/productos/gdc-wrinkless-serum.jpg`"
+    },
+    "sections": [
+      {
+        "title": "Descripción",
+        "text": "Solución rejuvenecedora no invasiva con resultados visibles desde la primera aplicación. Fórmula con un 94 % de ingredientes de origen natural y el complejo biotecnológico CELASPEP·4™, que reactiva la producción de colágeno. Aporta un toque glow rosado inmediato y potencia la eficacia del resto de la rutina."
+      },
+      {
+        "title": "Beneficios",
+        "text": "- Suaviza las arrugas en 10 minutos\n- Mejora la elasticidad de la piel\n- Efecto glow rosado instantáneo\n- Reduce signos de fotoenvejecimiento"
+      },
+      {
+        "title": "Ingredientes clave",
+        "text": "- **CELASPEP·4™:** reactiva la producción de colágeno y mejora la elasticidad.\n- **Neuromoduladores:** reducen la profundidad de las arrugas sin alterar la expresión natural.\n- **Péptidos Pro-Colágeno:** favorecen la síntesis de colágeno nuevo.\n- **Potenciadores de elasticidad:** mantienen firmeza y elasticidad."
+      },
+      {
+        "title": "Modo de uso",
+        "text": "Agitar antes de usar. Aplicar mañana y noche en rostro, cuello y escote como primer paso del ritual antiarrugas, antes de la Crema Pro-Colágeno."
+      }
+    ],
+    "summary": "Concentrado intensivo que suaviza arrugas en solo 10 minutos y mejora visiblemente la elasticidad día tras día.",
+    "images": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "sourceImages": [
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00300003_1.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00300003_2.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00300003_4.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00300003_5.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00300003_6.jpg"
+    ]
+  },
+  {
+    "id": "crema-antioxidante-iluminadora",
+    "name": "Crema Antioxidante Iluminadora",
+    "fields": {
+      "Marca": "Germaine de Capuccini",
+      "Línea": "Timexpert Radiance C+",
+      "Referencia": "00380000",
+      "Formato": "50 ml",
+      "Tipo de piel": "Normal a seca",
+      "Categoría": "Crema iluminadora con vitamina C",
+      "Ficha oficial": "https://www.germainedecapuccini.com/us_en/illuminating-antioxidant-cream-timexpert-radiance-c-00380000",
+      "Imagen local sugerida": "`assets/productos/gdc-radiance-crema.jpg`"
+    },
+    "sections": [
+      {
+        "title": "Descripción",
+        "text": "Devuelve luz, uniformidad y confort al rostro desde el primer uso. Combina vitaminas C y E con el nanopolímero HLG para potenciar la luminosidad y aportar una hidratación duradera. Ayuda a unificar el tono."
+      },
+      {
+        "title": "Beneficios",
+        "text": "- Luminosidad inmediata\n- Hidrata y reconforta\n- Unifica el tono\n- Suaviza la apariencia de líneas finas"
+      },
+      {
+        "title": "Ingredientes clave",
+        "text": "- **Vitamina C:** efecto antioxidante; optimiza la hidratación.\n- **Vitamina E:** protege frente a radicales libres y daños por UV.\n- **Nanopolímero HLG:** multiplica la eficacia de la vitamina C con efecto prolongado."
+      },
+      {
+        "title": "Modo de uso",
+        "text": "Tras el sérum, aplicar una cantidad del tamaño de una almendra en rostro, cuello y escote, mañana y noche, con movimientos ascendentes hasta su absorción."
+      }
+    ],
+    "summary": "Crema antioxidante iluminadora con vitaminas C y E y nanopolímero HLG.",
+    "images": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "sourceImages": [
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00380000_1.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00380000_2.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/3/8/38f0034_illuminatingantioxidantcream_usa-award.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00380000_4.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00380000_5.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00380000_6.png"
+    ]
+  },
+  {
+    "id": "rutina-de-limpieza-experta-en-tamano-viaje",
+    "name": "Rutina de Limpieza Experta en Tamaño Viaje",
+    "fields": {
+      "Marca": "Germaine de Capuccini",
+      "Línea": "The Cleansing Expert",
+      "Referencia": "00290022",
+      "Formato": "Neceser con 4 minis (30 ml + 30 ml + 50 ml + 50 ml)",
+      "Tipo de piel": "Todo tipo de pieles",
+      "Categoría": "Limpieza · Set de viaje",
+      "Ficha oficial": "https://www.germainedecapuccini.com/es_es/rutina-de-limpieza-experta-en-tamano-viaje-the-cleansing-expert-00290022",
+      "Imagen local sugerida": "`assets/productos/gdc-cleansing-kit-viaje.jpg`"
+    },
+    "sections": [
+      {
+        "title": "Descripción",
+        "text": "Reúne cuatro esenciales de The Cleansing Expert en tamaño viaje para completar una rutina experta de desmaquillado, limpieza, renovación y tonificación. Fórmulas con prebióticos, para todo tipo de pieles."
+      },
+      {
+        "title": "Contenido",
+        "text": "- Desmaquillante Bifásico Ojos y Labios: 50 ml (CLEANSE)\n- Gel en Espuma Limpieza Profunda: 30 ml (CLEANSE)\n- 365 Espuma Exfoliante: 30 ml (RENEW)\n- Tónico Hidratante Confort: 50 ml (TONE)"
+      },
+      {
+        "title": "Beneficios",
+        "text": "- Retira el maquillaje de ojos y labios, incluso waterproof y de larga duración\n- Elimina impurezas, sebo y restos de maquillaje sin resecar\n- Renueva suavemente la textura y potencia la luminosidad\n- Reequilibra, hidrata y prepara la piel para el tratamiento"
+      },
+      {
+        "title": "Modo de uso",
+        "text": "1) Desmaquillar ojos y labios con el bifásico. 2) Limpiar el rostro con el gel en espuma. 3) Exfoliar con la 365 Espuma Exfoliante. 4) Tonificar con el Tónico Hidratante Confort antes del sérum y la crema."
+      }
+    ],
+    "summary": "Rutina de limpieza facial completa en tamaño viaje, apta para cabina de avión.",
+    "images": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "sourceImages": [
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00290022_1.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00290022_2.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00290022_3.jpg"
+    ]
+  },
+  {
+    "id": "all-year-bronze-powder-spf-15",
+    "name": "All Year Bronze Powder SPF 15",
+    "fields": {
+      "Marca": "Germaine de Capuccini",
+      "Línea": "Timexpert Sun",
+      "Referencia": "00360020",
+      "Formato": "18 ml (dúo de polvos)",
+      "Tipo de piel": "Todo tipo de pieles",
+      "Categoría": "Maquillaje solar · Polvos bronceadores",
+      "Ficha oficial": "https://www.germainedecapuccini.com/es_es/all-year-bronze-powder-spf-15-timexpert-sun-00360020",
+      "Imagen local sugerida": "`assets/productos/gdc-sun-bronze-powder.jpg`"
+    },
+    "sections": [
+      {
+        "title": "Descripción",
+        "text": "Sus tonos vitaminados y pigmentos dorados iluminan y realzan la piel, mientras que su cobertura natural disimula imperfecciones y ofrece protección UVB."
+      },
+      {
+        "title": "Beneficios",
+        "text": "- Efecto buena cara todo el año\n- Ilumina y realza el tono\n- Disimula imperfecciones\n- Protección UVB (SPF 15)"
+      },
+      {
+        "title": "Modo de uso",
+        "text": "Con brocha, aplicar sobre las zonas deseadas del rostro para simular un bronceado o aportar un rubor natural."
+      }
+    ],
+    "summary": "Dúo de polvos bronceadores con efecto \"buena cara\" y SPF 15.",
+    "images": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "sourceImages": [
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00360020_1.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/0/0/00360020_2.jpg"
+    ]
+  },
+  {
+    "id": "hi-protection-makeup-spf50",
+    "name": "Hi-Protection Makeup SPF50+",
+    "fields": {
+      "Marca": "Germaine de Capuccini",
+      "Línea": "Timexpert Sun",
+      "Referencia": "360MAQFOTSOLAR",
+      "Formato": "8 ml (compacto con espejo y esponja)",
+      "Tonos": "Tender · Nude · Golden",
+      "Tipo de piel": "Todo tipo de pieles",
+      "Categoría": "Maquillaje solar · Fotoprotector compacto con color",
+      "Ficha oficial": "https://www.germainedecapuccini.com/es_es/hi-protection-makeup-spf50-timexpert-sun-360maqfotsolar",
+      "Imagen local sugerida": "`assets/productos/gdc-sun-hi-protection-makeup.jpg`"
+    },
+    "sections": [
+      {
+        "title": "Descripción",
+        "text": "Combina muy alta protección UVA/UVB con un toque de color en un compacto. Se funde con la piel y aporta una cobertura uniforme que disimula imperfecciones, con acabado natural. Ideal para retoques a lo largo del día."
+      },
+      {
+        "title": "Beneficios",
+        "text": "- Muy alta protección SPF50+ frente a UVA y UVB\n- Cobertura uniforme que disimula imperfecciones\n- Textura fina, no grasa\n- Formato práctico para retocar, con espejo"
+      },
+      {
+        "title": "Ingredientes clave",
+        "text": "- **Skinbiome Repair:** protege y reequilibra la microbiota cutánea.\n- **Dióxido de titanio:** filtro físico frente a la radiación UV.\n- **Acetato de tocoferol (vitamina E):** antioxidante."
+      },
+      {
+        "title": "Modo de uso",
+        "text": "Aplicar con la esponja a toquecitos sobre rostro, cuello y escote antes de la exposición solar. Reaplicar a lo largo del día."
+      }
+    ],
+    "summary": "Fotoprotector compacto con color: fotoprotección, tratamiento y maquillaje en uno.",
+    "images": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "sourceImages": [
+      "https://www.germainedecapuccini.com/media/catalog/product/3/6/360maqfotsolar_1.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/3/6/360maqfotsolar_2.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/3/6/360maqfotsolar_3.jpg",
+      "https://www.germainedecapuccini.com/media/catalog/product/3/6/360maqfotsolar_4.jpg"
+    ]
+  },
+  {
+    "id": "mesoprotech-water-veil-spf50",
+    "name": "mesoprotech® water veil SPF50+",
+    "fields": {
+      "Marca": "mesoestetic",
+      "Línea": "mesoprotech® · Photoprotection Solutions",
+      "Formato": "50 ml",
+      "Tipo de piel": "Mixta y grasa",
+      "Categoría": "Protector solar facial",
+      "Ficha oficial": "https://www.mesoestetic.com/mesoprotech-water-veil.html",
+      "Imagen local sugerida": "`assets/productos/meso-water-veil.jpg`"
+    },
+    "sections": [
+      {
+        "title": "Descripción",
+        "text": "Muy alta fotoprotección (IR, HEV, UVB y UVA) con textura gel-crema de rápida absorción que hidrata y deja un acabado fresco. El ácido hialurónico y el colágeno ayudan a mejorar la elasticidad y la firmeza. No comedogénico."
+      },
+      {
+        "title": "Beneficios",
+        "text": "- Muy alta protección SPF50+ (IR · HEV · UVB · UVA)\n- Textura gel-crema ultraligera, acabado fresco\n- Hidrata y mejora elasticidad y firmeza\n- No comedogénico, resistente al agua, testado dermatológicamente"
+      },
+      {
+        "title": "Ingredientes clave",
+        "text": "- **Ácido hialurónico:** mantiene la hidratación epidérmica y mejora la elasticidad.\n- **Colágeno pro-47:** aporta firmeza.\n- **Complejo mesoprotech®:** sistema de filtros de alta protección."
+      },
+      {
+        "title": "Modo de uso",
+        "text": "Aplicar en cantidad suficiente sobre piel limpia y seca 30 minutos antes de la exposición solar. Reaplicar cada 2 horas y después de nadar, sudar o secarse con toalla."
+      }
+    ],
+    "summary": "Protector solar facial ligero SPF50+ en gel-crema ultraligero para piel mixta y grasa.",
+    "images": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "sourceImages": [
+      "https://www.mesoestetic.com/media/catalog/product/cache/7fbebcbe452a9ca6c9fa0baba8544c87/m/e/mesoprotech_water_veil_primario.jpg",
+      "https://www.mesoestetic.com/media/catalog/product/cache/7fbebcbe452a9ca6c9fa0baba8544c87/m/e/mesoprotech_water_veil_primario_secundario.jpg",
+      "https://www.mesoestetic.com/media/catalog/product/cache/7fbebcbe452a9ca6c9fa0baba8544c87/m/e/mesoprotech_water_veil_primario_textura.jpg",
+      "https://www.mesoestetic.com/media/catalog/product/cache/7fbebcbe452a9ca6c9fa0baba8544c87/m/e/mesoprotech_water_veil_textura.jpg"
+    ]
+  },
+  {
+    "id": "mesoprotech-melan-130-pigment-control-spf50",
+    "name": "mesoprotech® melan 130 pigment control SPF50+",
+    "fields": {
+      "Marca": "mesoestetic",
+      "Línea": "mesoprotech® · Photoprotection Solutions",
+      "Formato": "50 ml",
+      "Tipo de piel": "Todo tipo de pieles",
+      "Categoría": "Protector solar facial con color · Antimanchas",
+      "Ficha oficial": "https://www.mesoestetic.com/melan-130-pigment-control.html",
+      "Imagen local sugerida": "`assets/productos/meso-melan-130.jpg`"
+    },
+    "sections": [
+      {
+        "title": "Descripción",
+        "text": "Protector solar facial con color de amplio espectro (IR, HEV, UVB y UVA) que ayuda a prevenir y controlar las manchas. Unifica el tono con un ligero color y es resistente al agua (40 minutos)."
+      },
+      {
+        "title": "Beneficios",
+        "text": "- Muy alta protección SPF50+ de amplio espectro\n- Ayuda a controlar la hiperpigmentación\n- Color que unifica el tono\n- Resistente al agua (40 min)"
+      },
+      {
+        "title": "Ingredientes clave",
+        "text": "- **Óxido de zinc:** filtro físico de amplio espectro.\n- **Dióxido de titanio:** protección adicional frente a UV."
+      },
+      {
+        "title": "Modo de uso",
+        "text": "Aplicar generosamente 15 minutos antes de la exposición solar. Reaplicar al menos cada 2 horas, tras 40 minutos de baño o sudor y después de secarse con toalla."
+      }
+    ],
+    "summary": "Emulsión con color SPF50+ para el control de la pigmentación.",
+    "images": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "sourceImages": [
+      "https://www.mesoestetic.us/media/catalog/product/cache/7fbebcbe452a9ca6c9fa0baba8544c87/m/e/mesoprotech_primario_melan_130.jpg",
+      "https://www.mesoestetic.us/media/catalog/product/cache/7fbebcbe452a9ca6c9fa0baba8544c87/u/s/usa_secundario_mesoprotech_melan_130.jpg"
+    ]
+  }
+]
