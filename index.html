@@ -813,6 +813,93 @@
       color: rgba(255,255,255,0.18);
     }
 
+    /* ── EQUIPO ── */
+    #equipo { background: var(--white); }
+    .team-header { text-align: center; max-width: 640px; margin: 0 auto 60px; }
+    .team-header .rule { margin: 0 auto 24px; }
+    .team-header .body-text { max-width: 100%; }
+    .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+    .team-card { text-align: center; }
+    .team-photo {
+      width: 148px; height: 148px; margin: 0 auto 24px;
+      border-radius: 50%;
+      border: 1px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      background: var(--cream);
+      overflow: hidden;
+      transition: border-color 0.4s ease, transform 0.4s ease;
+    }
+    .team-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .team-photo span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.3rem; color: var(--gold); font-weight: 400; letter-spacing: 0.04em;
+    }
+    .team-card:hover .team-photo { border-color: var(--gold-dark); transform: translateY(-4px); }
+    .team-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem; font-weight: 400; color: var(--text-dark); margin-bottom: 6px;
+    }
+    .team-role {
+      font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold-dark); font-weight: 600; margin-bottom: 8px;
+    }
+    .team-spec { font-size: 0.8rem; color: var(--text-mid); line-height: 1.6; padding: 0 8px; }
+
+    .treatment-detail {
+      position: fixed; inset: 0; z-index: 5000;
+      background: var(--cream);
+      overflow-y: auto;
+      display: none;
+    }
+    .treatment-detail.active { display: block; }
+    .td-bar {
+      position: sticky; top: 0; z-index: 2;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(250,250,247,0.92);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-gold);
+    }
+    .td-back {
+      color: var(--text-dark); text-decoration: none;
+      font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500;
+      transition: color 0.3s;
+    }
+    .td-back:hover { color: var(--gold); }
+    .td-barname { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: var(--text-dark); letter-spacing: 0.06em; }
+    .td-body { max-width: 860px; margin: 0 auto; padding: 64px 40px 110px; }
+    .td-body .label { color: var(--gold); }
+    .td-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.6rem, 6vw, 4.2rem); font-weight: 300; line-height: 1.08; color: var(--text-dark); margin-bottom: 6px; }
+    .td-title em { font-style: italic; color: var(--gold); }
+    .td-body .rule { margin: 24px 0 34px; }
+    .td-lead { font-size: 1.06rem; line-height: 1.9; color: var(--text-mid); margin-bottom: 50px; font-weight: 300; }
+    .td-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 38px 50px; margin-bottom: 58px; }
+    .td-block h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--text-dark); margin-bottom: 12px; }
+    .td-block p { font-size: 0.9rem; line-height: 1.85; color: var(--text-mid); }
+    .td-cta { text-align: center; padding-top: 6px; }
+    .td-note { text-align: center; font-size: 0.75rem; color: var(--text-light); margin-top: 22px; letter-spacing: 0.02em; }
+
+
+    /* ── PERFIL DE PROFESIONAL ── */
+    .team-card { cursor: pointer; }
+    .team-more { display: inline-block; margin-top: 16px; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dark); font-weight: 600; }
+    .team-card:hover .team-more { color: var(--gold); }
+    .profile-head { display: flex; align-items: center; gap: 38px; margin-bottom: 46px; flex-wrap: wrap; }
+    .profile-photo {
+      width: 150px; height: 150px; flex-shrink: 0;
+      border-radius: 50%; border: 1px solid var(--gold);
+      background: linear-gradient(135deg, #FFFFFF, var(--cream-2));
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .profile-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-photo span { font-family: 'Cormorant Garamond', serif; font-size: 2.7rem; color: var(--gold); }
+    .profile-intro .label { color: var(--gold); }
+    .profile-intro .td-title { margin-bottom: 6px; }
+    .profile-spec { font-size: 0.85rem; color: var(--text-mid); letter-spacing: 0.02em; line-height: 1.6; }
+    .profile-block { margin-bottom: 32px; }
+    .profile-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .ptag { border: 1px solid var(--border-gold); padding: 8px 16px; font-size: 0.72rem; color: var(--text-mid); letter-spacing: 0.03em; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       section { padding: 80px 28px; }
@@ -825,6 +912,10 @@
       .contact-grid { grid-template-columns: 1fr; gap: 48px; }
       .stats-row { grid-template-columns: repeat(3, 1fr); gap: 10px; }
       .form-row { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); gap: 44px 24px; }
+      .td-grid { grid-template-columns: 1fr; gap: 32px; }
+      .td-bar { padding: 16px 24px; }
+      .td-body { padding: 44px 24px 80px; }
       .hero-content { padding: 110px 24px 70px; }
       footer { padding: 48px 24px 36px; }
       .parallax-wrap { padding: 80px 28px; }
@@ -838,6 +929,7 @@
     <button class="mobile-nav-close" id="closeNav">&#x2715;</button>
     <a href="#sobre"    onclick="closeMob()">Sobre Nosotros</a>
     <a href="#servicios" onclick="closeMob()">Servicios</a>
+    <a href="#equipo" onclick="closeMob()">Nuestro Equipo</a>
     <a href="#tienda"   onclick="closeMob()">Tienda</a>
     <a href="#horario"  onclick="closeMob()">Horario</a>
     <a href="#contacto" onclick="closeMob()">Contacto</a>
@@ -849,6 +941,7 @@
     <ul class="nav-links">
       <li><a href="#sobre">Sobre Nosotros</a></li>
       <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#equipo">Nuestro Equipo</a></li>
       <li><a href="#tienda">Tienda</a></li>
       <li><a href="#horario">Horario</a></li>
       <li><a href="#contacto">Contacto</a></li>
@@ -1176,11 +1269,53 @@
     </div>
   </section>
 
+  <!-- EQUIPO -->
+  <section id="equipo">
+    <div class="container">
+      <div class="team-header reveal">
+        <span class="label">Nuestro Equipo</span>
+        <h2 class="title">Profesionales <em>a tu cuidado</em></h2>
+        <div class="rule"></div>
+        <p class="body-text">Un equipo cualificado y cercano, comprometido con ofrecerte los mejores resultados en un entorno seguro y de confianza.</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card reveal" role="link" tabindex="0" onclick="location.hash='#p-romero'" onkeydown="if(event.key==='Enter'){location.hash='#p-romero'}">
+          <div class="team-photo"><span>FR</span></div>
+          <h3 class="team-name">Dr. Francisco Javier Romero</h3>
+          <p class="team-role">Director Médico</p>
+          <p class="team-spec">Medicina Estética y Flebología</p>
+          <span class="team-more">Ver perfil &rarr;</span>
+        </div>
+        <div class="team-card reveal" style="transition-delay:.1s" role="link" tabindex="0" onclick="location.hash='#p-jimenez'" onkeydown="if(event.key==='Enter'){location.hash='#p-jimenez'}">
+          <div class="team-photo"><span>MJ</span></div>
+          <h3 class="team-name">Marta Jiménez</h3>
+          <p class="team-role">Técnico en Estética Avanzada</p>
+          <p class="team-spec">Tratamientos faciales y corporales</p>
+          <span class="team-more">Ver perfil &rarr;</span>
+        </div>
+        <div class="team-card reveal" style="transition-delay:.2s" role="link" tabindex="0" onclick="location.hash='#p-serrano'" onkeydown="if(event.key==='Enter'){location.hash='#p-serrano'}">
+          <div class="team-photo"><span>LS</span></div>
+          <h3 class="team-name">Lucía Serrano</h3>
+          <p class="team-role">Especialista en Aparatología</p>
+          <p class="team-spec">Depilación láser y remodelación corporal</p>
+          <span class="team-more">Ver perfil &rarr;</span>
+        </div>
+        <div class="team-card reveal" style="transition-delay:.3s" role="link" tabindex="0" onclick="location.hash='#p-torres'" onkeydown="if(event.key==='Enter'){location.hash='#p-torres'}">
+          <div class="team-photo"><span>AT</span></div>
+          <h3 class="team-name">Andrea Torres</h3>
+          <p class="team-role">Coordinadora</p>
+          <p class="team-spec">Atención y asesoramiento al paciente</p>
+          <span class="team-more">Ver perfil &rarr;</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACTO -->
   <section id="contacto">
     <div class="container">
       <div class="contact-grid">
-        <div class="reveal-l">
+        <div class="reveal-l" id="reservas">
           <span class="label">Contacto</span>
           <h2 class="title">Pide tu cita<br><em>hoy mismo</em></h2>
           <div class="rule"></div>
@@ -1300,6 +1435,91 @@
     </div>
   </section>
 
+  <!-- PERFILES DEL EQUIPO -->
+  <div class="treatment-detail" id="p-romero">
+    <div class="td-bar">
+      <a href="#equipo" class="td-back">&larr; Volver al equipo</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <div class="profile-head">
+        <div class="profile-photo"><span>FR</span></div>
+        <div class="profile-intro">
+          <span class="label">Director Médico</span>
+          <h1 class="td-title">Dr. Francisco Javier <em>Romero</em></h1>
+          <p class="profile-spec">Medicina Estética y Flebología · Colegiado nº 181810156</p>
+        </div>
+      </div>
+      <div class="td-block profile-block"><h3>Formación</h3><p>Licenciado en Medicina, con especialización en Medicina Estética y Flebología (colegiado nº 181810156). Mantiene una formación continua en las técnicas más actuales de rejuvenecimiento facial, medicina estética inyectable y tratamientos vasculares.</p></div>
+      <div class="td-block profile-block"><h3>Experiencia</h3><p>Dirige la consulta médica de Clínica Innovae y realiza personalmente los tratamientos médicos del centro, con una amplia trayectoria en medicina estética y flebología.</p></div>
+      <div class="td-block profile-block"><h3>Tratamientos</h3><div class="profile-tags"><span class="ptag">Eliminación de arrugas</span><span class="ptag">Rellenos con ácido hialurónico</span><span class="ptag">Hilos tensores</span><span class="ptag">Mesoterapia</span><span class="ptag">Endolifting</span><span class="ptag">Eliminación de lesiones (Blumed)</span><span class="ptag">Arañas vasculares</span></div></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary">Reservar cita</a></div>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="p-jimenez">
+    <div class="td-bar">
+      <a href="#equipo" class="td-back">&larr; Volver al equipo</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <div class="profile-head">
+        <div class="profile-photo"><span>MJ</span></div>
+        <div class="profile-intro">
+          <span class="label">Técnico en Estética Avanzada</span>
+          <h1 class="td-title">Marta <em>Jiménez</em></h1>
+          <p class="profile-spec">Estética facial y corporal</p>
+        </div>
+      </div>
+      <div class="td-block profile-block"><h3>Formación</h3><p>Técnico Superior en Estética Integral y Bienestar, con formación especializada en tratamientos faciales avanzados y en aparatología estética.</p></div>
+      <div class="td-block profile-block"><h3>Experiencia</h3><p>Varios años dedicada a la estética facial y corporal, acompañando a cada paciente en un plan de tratamiento personalizado y cercano.</p></div>
+      <div class="td-block profile-block"><h3>Tratamientos</h3><div class="profile-tags"><span class="ptag">Limpieza facial</span><span class="ptag">Peeling mecánico</span><span class="ptag">Hidratación</span><span class="ptag">Oxigenación</span><span class="ptag">Vitamina C</span><span class="ptag">Dermapen</span></div></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary">Reservar cita</a></div>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="p-serrano">
+    <div class="td-bar">
+      <a href="#equipo" class="td-back">&larr; Volver al equipo</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <div class="profile-head">
+        <div class="profile-photo"><span>LS</span></div>
+        <div class="profile-intro">
+          <span class="label">Especialista en Aparatología</span>
+          <h1 class="td-title">Lucía <em>Serrano</em></h1>
+          <p class="profile-spec">Depilación láser y remodelación corporal</p>
+        </div>
+      </div>
+      <div class="td-block profile-block"><h3>Formación</h3><p>Técnico en Estética con especialización en aparatología y en tecnologías de remodelación corporal y depilación avanzada.</p></div>
+      <div class="td-block profile-block"><h3>Experiencia</h3><p>Experiencia en tratamientos corporales y de depilación, con un enfoque orientado a resultados y al bienestar del paciente.</p></div>
+      <div class="td-block profile-block"><h3>Tratamientos</h3><div class="profile-tags"><span class="ptag">Depilación SHR</span><span class="ptag">Depilación IPL</span><span class="ptag">Radiofrecuencia</span><span class="ptag">Maderoterapia</span><span class="ptag">Presoterapia</span><span class="ptag">Hondas magnéticas</span></div></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary">Reservar cita</a></div>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="p-torres">
+    <div class="td-bar">
+      <a href="#equipo" class="td-back">&larr; Volver al equipo</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <div class="profile-head">
+        <div class="profile-photo"><span>AT</span></div>
+        <div class="profile-intro">
+          <span class="label">Coordinadora</span>
+          <h1 class="td-title">Andrea <em>Torres</em></h1>
+          <p class="profile-spec">Atención y asesoramiento al paciente</p>
+        </div>
+      </div>
+      <div class="td-block profile-block"><h3>Formación</h3><p>Formación en atención al paciente y en gestión de clínicas estéticas.</p></div>
+      <div class="td-block profile-block"><h3>Experiencia</h3><p>Se encarga de la acogida de los pacientes, la coordinación de las citas y el asesoramiento inicial sobre los tratamientos del centro.</p></div>
+      <div class="td-block profile-block"><h3>Tratamientos</h3><div class="profile-tags"><span class="ptag">Asesoramiento personalizado</span><span class="ptag">Coordinación de citas</span><span class="ptag">Atención al paciente</span></div></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary">Reservar cita</a></div>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">Innovae<span>.</span></div>
@@ -1308,6 +1528,7 @@
     <ul class="footer-nav">
       <li><a href="#sobre">Sobre Nosotros</a></li>
       <li><a href="#servicios">Tratamientos</a></li>
+      <li><a href="#equipo">Nuestro Equipo</a></li>
       <li><a href="#horario">Horario</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
@@ -1371,6 +1592,25 @@
         }
       }, { passive: true });
     }
+
+    // Perfiles del equipo: apertura y cierre mediante el hash.
+    (function(){
+      function route(){
+        const id = location.hash.slice(1);
+        const el = id ? document.getElementById(id) : null;
+        const isDetail = el && el.classList.contains('treatment-detail');
+        document.querySelectorAll('.treatment-detail').forEach(function(d){ d.classList.remove('active'); });
+        if(isDetail){
+          el.classList.add('active');
+          document.body.style.overflow = 'hidden';
+          el.scrollTop = 0;
+        } else {
+          document.body.style.overflow = '';
+        }
+      }
+      window.addEventListener('hashchange', route);
+      window.addEventListener('load', route);
+    })();
 
     // Hero auto-reveal on load
     setTimeout(() => {
