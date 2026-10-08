@@ -626,86 +626,83 @@
     .shop-placeholder { display: grid; place-items: center; }
     .shop-placeholder span { font-size: .7rem; color: var(--text-mid); position: relative; z-index: 1; }
     /* ── CONTACT ── */
-    #contacto { background: var(--white); }
-    .contact-grid {
+    #contacto { background: #141414; color: var(--white); }
+    .schedule-grid {
       display: grid;
-      grid-template-columns: 1.1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 88px;
       align-items: start;
     }
-    .contact-form { display: flex; flex-direction: column; gap: 20px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .form-group { display: flex; flex-direction: column; gap: 7px; }
-    .form-group label {
-      font-size: 0.64rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-light);
-      font-weight: 500;
-    }
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      padding: 14px 16px;
-      border: 1px solid rgba(0,0,0,0.1);
-      background: var(--cream);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.84rem;
-      color: var(--text-dark);
-      outline: none;
-      transition: border-color 0.3s;
-      resize: none;
-      appearance: none;
-    }
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus { border-color: var(--gold); }
-    .form-submit {
-      padding: 16px 42px;
-      background: var(--gold);
-      color: var(--white);
-      border: 2px solid var(--gold);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.3s;
-      align-self: flex-start;
-    }
-    .form-submit:hover { background: transparent; color: var(--gold); }
-    .contact-info { padding-top: 10px; }
-    .info-item {
+    .schedule-grid .label { color: var(--gold-light); }
+    .schedule-grid .title { color: var(--white); }
+    .schedule-grid .rule { }
+    .schedule-contact {
+      margin-top: 36px;
       display: flex;
-      gap: 18px;
-      margin-bottom: 30px;
-      align-items: flex-start;
+      flex-direction: column;
+      gap: 14px;
     }
-    .info-icon {
-      width: 44px; height: 44px;
-      background: var(--cream);
-      border: 1px solid var(--border-gold);
+    .sch-contact-item {
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 12px;
+      color: rgba(255,255,255,0.65);
+      font-size: 0.82rem;
+    }
+    .sch-contact-item svg {
+      width: 16px; height: 16px;
+      stroke: var(--gold);
+      fill: none;
       flex-shrink: 0;
     }
-    .info-icon svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; }
-    .info-lbl {
-      font-size: 0.62rem;
-      letter-spacing: 0.16em;
+    .sch-contact-item a { color: inherit; text-decoration: none; transition: color 0.3s; }
+    .sch-contact-item a:hover { color: var(--gold); }
+    .schedule-table {
+      border: 1px solid rgba(201,168,76,0.18);
+    }
+    .sch-row {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      padding: 15px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      align-items: center;
+      transition: background 0.3s;
+    }
+    .sch-row:last-child { border-bottom: none; }
+    .sch-row:hover { background: rgba(201,168,76,0.06); }
+    .sch-day {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--text-light);
-      margin-bottom: 4px;
+      color: rgba(255,255,255,0.65);
+      font-weight: 500;
     }
-    .info-val {
-      font-size: 0.87rem;
-      color: var(--text-dark);
-      line-height: 1.55;
+    .sch-hours {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--white);
     }
-    .info-val a { color: inherit; text-decoration: none; transition: color 0.3s; }
-    .info-val a:hover { color: var(--gold); }
+    .sch-hours.closed { color: rgba(255,255,255,0.28); font-style: italic; }
+    .sch-note {
+      margin-top: 14px;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.28);
+      letter-spacing: 0.04em;
+    }
+
+    .schedule-social { margin-top: 30px; }
+    .soc-lbl { display: block; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 12px; }
+    .contact-map { margin-top: 60px; border: 1px solid rgba(201,168,76,0.22); overflow: hidden; }
+    .contact-map iframe { display: block; width: 100%; height: 360px; border: 0; filter: grayscale(0.4) contrast(1.02); }
+    .map-cta-wrap { text-align: center; margin-top: 26px; }
+    .map-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 15px 32px; border: 1px solid var(--gold); color: var(--gold-light);
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+      text-decoration: none; transition: all 0.3s;
+    }
+    .map-cta:hover { background: var(--gold); color: #141414; }
+    .map-cta svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.6; }
     .social-row { display: flex; gap: 10px; margin-top: 8px; }
     .soc-btn {
       width: 44px; height: 44px;
@@ -833,6 +830,7 @@
       .nav-links, .nav-cta { display: none; }
       .nav-hamburger { display: flex; }
       .about-grid,
+      .schedule-grid,
       .contact-grid { grid-template-columns: 1fr; gap: 48px; }
       .stats-row { grid-template-columns: repeat(3, 1fr); gap: 10px; }
       .form-row { grid-template-columns: 1fr; }
@@ -1410,128 +1408,97 @@
   </div></section>
 
   <!-- CONTACTO -->
+  <div id="reservas" aria-hidden="true"></div>
   <section id="contacto">
     <div class="container">
-      <div class="contact-grid">
-        <div class="reveal-l" id="reservas">
+      <div class="schedule-grid">
+        <div class="reveal-l">
           <span class="label">Contacto</span>
-          <h2 class="title">Pide tu cita<br><em>hoy mismo</em></h2>
+          <h2 class="title">Dónde<br><em>encontrarnos</em></h2>
           <div class="rule"></div>
-          <p class="body-text" style="margin-bottom:40px">
-            Cuéntanos qué tratamiento te interesa y nos ponemos en contacto contigo para encontrar el mejor momento.
+          <p class="body-text" style="color:rgba(255,255,255,.55);max-width:420px">
+            Estamos en Úbeda, Jaén. Puedes visitarnos en horario de mañana y tarde, o llamarnos para concertar tu cita.
           </p>
-          <form class="contact-form" onsubmit="return false">
-            <div class="form-row">
-              <div class="form-group">
-                <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" placeholder="Tu nombre">
-              </div>
-              <div class="form-group">
-                <label for="telefono">Teléfono</label>
-                <input type="tel" id="telefono" placeholder="Tu teléfono">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" placeholder="tu@email.com">
-            </div>
-            <div class="form-group">
-              <label for="tratamiento">Tratamiento de interés</label>
-              <select id="tratamiento">
-                <option value="" disabled selected>Selecciona un tratamiento</option>
-                <option>Toxina Botulínica</option>
-                <option>Ácido Hialurónico</option>
-                <option>Mesoterapia Facial</option>
-                <option>Peeling Químico</option>
-                <option>Masaje Relajante</option>
-                <option>Masaje Descontracturante</option>
-                <option>Radiofrecuencia Facial</option>
-                <option>Limpieza Facial Profunda</option>
-                <option>Otro / Consulta general</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="mensaje">Mensaje (opcional)</label>
-              <textarea id="mensaje" rows="4" placeholder="Cuéntanos más sobre lo que buscas..."></textarea>
-            </div>
-            <button class="form-submit" type="submit">Solicitar Cita</button>
-          </form>
-        </div>
-        <div class="contact-info reveal-r">
-          <div class="info-item">
-            <div class="info-icon">
-              <svg viewBox="0 0 24 24" stroke-width="1.5">
-                <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
-            </div>
-            <div>
-              <p class="info-lbl">Dirección</p>
-              <p class="info-val">Av. Ramón y Cajal, 10<br>23400 Úbeda, Jaén</p>
-            </div>
-          </div>
-          <div class="info-item">
-            <div class="info-icon">
+          <div class="schedule-contact">
+            <div class="sch-contact-item">
               <svg viewBox="0 0 24 24" stroke-width="1.5">
                 <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
               </svg>
+              <a href="tel:+34661734870">661 73 48 70</a>
             </div>
-            <div>
-              <p class="info-lbl">Teléfono</p>
-              <p class="info-val"><a href="tel:+34661734870">661 73 48 70</a></p>
-            </div>
-          </div>
-          <div class="info-item">
-            <div class="info-icon">
+            <div class="sch-contact-item">
               <svg viewBox="0 0 24 24" stroke-width="1.5">
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                 <polyline points="22,6 12,13 2,6"/>
               </svg>
+              <a href="mailto:vicentenavasmoya@gmail.com">vicentenavasmoya@gmail.com</a>
             </div>
-            <div>
-              <p class="info-lbl">Email</p>
-              <p class="info-val"><a href="mailto:vicentenavasmoya@gmail.com">vicentenavasmoya@gmail.com</a></p>
+            <div class="sch-contact-item">
+              <svg viewBox="0 0 24 24" stroke-width="1.5">
+                <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span>Av. Ramón y Cajal, 10 &nbsp;·&nbsp; 23400 Úbeda, Jaén</span>
             </div>
           </div>
-          <div class="info-item">
-            <div class="info-icon">
-              <svg viewBox="0 0 24 24" stroke-width="1.5">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                <line x1="16" y1="2" x2="16" y2="6"/>
-                <line x1="8" y1="2" x2="8" y2="6"/>
-                <line x1="3" y1="10" x2="21" y2="10"/>
-              </svg>
-            </div>
-            <div>
-              <p class="info-lbl">Horario</p>
-              <p class="info-val">
-                Lun–Vie: 10:00–13:30 / 16:30–20:30<br>
-                Sáb: 10:30–13:00 &nbsp;·&nbsp; Dom: Cerrado
-              </p>
-            </div>
-          </div>
-          <div class="info-item">
-            <div class="info-icon">
-              <svg viewBox="0 0 24 24" stroke-width="1.5">
-                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
-              </svg>
-            </div>
-            <div>
-              <p class="info-lbl">Síguenos</p>
-              <div class="social-row">
-                <a href="https://www.instagram.com/clinicainnovae/" target="_blank" rel="noopener" class="soc-btn" aria-label="Instagram">
-                  <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                </a>
-                <a href="https://www.facebook.com/clinicainnovae/?locale=es_ES" target="_blank" rel="noopener" class="soc-btn" aria-label="Facebook">
-                  <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                </a>
-              </div>
+          <div class="schedule-social">
+            <span class="soc-lbl">Síguenos</span>
+            <div class="social-row">
+              <a href="https://www.instagram.com/clinicainnovae/" target="_blank" rel="noopener" class="soc-btn" aria-label="Instagram">
+                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              </a>
+              <a href="https://www.facebook.com/clinicainnovae/?locale=es_ES" target="_blank" rel="noopener" class="soc-btn" aria-label="Facebook">
+                <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              </a>
             </div>
           </div>
         </div>
+        <div class="reveal-r">
+          <div class="schedule-table">
+            <div class="sch-row">
+              <span class="sch-day">Lunes</span>
+              <span class="sch-hours">10:00–13:30 &nbsp;·&nbsp; 16:30–20:30</span>
+            </div>
+            <div class="sch-row">
+              <span class="sch-day">Martes</span>
+              <span class="sch-hours">10:00–13:30 &nbsp;·&nbsp; 16:30–20:30</span>
+            </div>
+            <div class="sch-row">
+              <span class="sch-day">Miércoles</span>
+              <span class="sch-hours">10:00–13:30 &nbsp;·&nbsp; 16:30–20:30</span>
+            </div>
+            <div class="sch-row">
+              <span class="sch-day">Jueves</span>
+              <span class="sch-hours">10:00–13:30 &nbsp;·&nbsp; 16:30–20:30</span>
+            </div>
+            <div class="sch-row">
+              <span class="sch-day">Viernes</span>
+              <span class="sch-hours">10:00–13:30 &nbsp;·&nbsp; 16:30–20:30</span>
+            </div>
+            <div class="sch-row">
+              <span class="sch-day">Sábado</span>
+              <span class="sch-hours">10:30–13:00</span>
+            </div>
+            <div class="sch-row">
+              <span class="sch-day">Domingo</span>
+              <span class="sch-hours closed">Cerrado</span>
+            </div>
+          </div>
+          <p class="sch-note">* El horario del 1 de mayo (festivo) podría cambiar. Consúltanos.</p>
+        </div>
+      </div>
+      <div class="contact-map reveal">
+        <iframe src="https://maps.google.com/maps?q=Cl%C3%ADnica%20Innovae%2C%20Av.%20Ram%C3%B3n%20y%20Cajal%2010%2C%20%C3%9Abeda%2C%20Ja%C3%A9n&t=&z=16&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación de Clínica Innovae en Úbeda, Jaén" allowfullscreen></iframe>
+      </div>
+      <div class="map-cta-wrap reveal">
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Cl%C3%ADnica%20Innovae%2C%20Av.%20Ram%C3%B3n%20y%20Cajal%2010%2C%2023400%20%C3%9Abeda%2C%20Ja%C3%A9n" target="_blank" rel="noopener" class="map-cta">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Cómo llegar en Google Maps
+        </a>
       </div>
     </div>
   </section>
+
 
   <!-- PERFILES DEL EQUIPO -->
   <div class="treatment-detail" id="p-romero">
@@ -1658,7 +1625,7 @@
         </div>
       </div>
       <div class="td-cta">
-        <a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Eliminación de Arrugas')">Reservar este tratamiento</a>
+        <a href="#contacto" class="btn-primary">Reservar este tratamiento</a>
       </div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
@@ -1684,7 +1651,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>La sesión es ambulatoria y suele durar entre 30 y 45 minutos. Se emplea anestesia tópica para mayor confort y puedes retomar tu actividad prácticamente de inmediato.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>El resultado es visible desde el primer momento y se asienta en los días siguientes. Es un tratamiento de duración prolongada; el médico te indicará el mantenimiento recomendado.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Rellenos con Ácido Hialurónico')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1709,7 +1676,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Se realiza en consulta con anestesia local, en una sesión de aproximadamente 30 a 45 minutos. La recuperación es sencilla, con indicaciones de cuidado durante los primeros días.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Se aprecia una mejora inmediata que se completa a medida que se genera nuevo colágeno. Los hilos se reabsorben con el tiempo; el médico te informará de la duración estimada en tu caso.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Hilos Tensores')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1734,7 +1701,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Es un procedimiento rápido y bien tolerado, de unos 20 a 30 minutos. Suele plantearse en varias sesiones para potenciar y mantener los resultados.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel gana luminosidad, hidratación y firmeza de forma progresiva. Se recomienda un plan de sesiones que el médico ajustará a tu caso.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Mesoterapia')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1759,7 +1726,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>La sesión dura aproximadamente entre 45 y 60 minutos, en un ambiente relajante. No requiere recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel queda limpia, suave y luminosa desde la primera sesión. Se aconseja repetirla periódicamente para mantener sus beneficios.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Limpieza Facial')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1784,7 +1751,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Es un tratamiento cómodo de unos 30 a 45 minutos. Tras la sesión la piel puede quedar ligeramente sonrosada durante unas horas.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Desde la primera sesión la piel luce más lisa y luminosa. Suele recomendarse en pauta de varias sesiones según el objetivo.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Peeling Mecánico')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1809,7 +1776,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión relajante de unos 45 minutos, sin molestias ni tiempo de recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel recupera confort, suavidad y luminosidad. Se recomienda como cuidado regular, sobre todo en épocas de mayor deshidratación.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Hidratación')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1834,7 +1801,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Tratamiento agradable de unos 45 minutos, sin molestias y sin recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>El rostro luce más fresco, luminoso y descansado desde la primera sesión.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Oxigenación')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1859,7 +1826,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión de unos 45 minutos, cómoda y sin recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel gana luz y uniformidad de tono. Se potencia en pauta de sesiones y con un buen cuidado domiciliario.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Vitamina C')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1884,7 +1851,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión de unos 45 a 60 minutos, sin molestias ni recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel se percibe más firme y tersa. Los resultados se optimizan con un plan de sesiones.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Reafirmante')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1909,7 +1876,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión relajante de unos 45 a 60 minutos, muy agradable y sin recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>El rostro luce más descansado, luminoso y tonificado. Su efecto se refuerza con la constancia.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Kinesiolifting')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1934,7 +1901,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Tratamiento confortable, con una sensación de calor agradable, de unos 30 a 45 minutos. Sin recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Se aprecia un efecto tensor progresivo a medida que se genera nuevo colágeno. Suele plantearse en varias sesiones.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Radiofrecuencia')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1959,7 +1926,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión de unos 30 minutos. Puede notarse un ligero calor durante la aplicación; sin apenas recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>El tono se unifica y las manchas se atenúan progresivamente. Suele recomendarse en varias sesiones.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Fotorejuvenecimiento')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1984,7 +1951,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión cómoda de unos 30 a 45 minutos, sin molestias ni recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel se percibe más firme, luminosa y revitalizada. Se optimiza con sesiones regulares.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Ultrasonix')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2009,7 +1976,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Las sesiones son rápidas y confortables; su duración depende de la zona a tratar. No requiere recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>El vello se reduce sesión tras sesión. Se recomienda completar el número de sesiones que indique el profesional para un resultado óptimo.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Depilación SHR')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2034,7 +2001,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesiones rápidas cuya duración depende de la zona. Sin recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Reducción progresiva del vello con cada sesión. El profesional te indicará el plan más adecuado.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Depilación IPL')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2059,7 +2026,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión de unos 45 a 60 minutos. Suele plantearse en pauta para potenciar los resultados.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Mejora progresiva del aspecto de la piel y del contorno. Los resultados se optimizan con constancia y hábitos saludables.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Maderoterapia')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2084,7 +2051,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión muy relajante de unos 30 a 45 minutos, sin molestias.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Sensación de ligereza y mejora de la retención desde las primeras sesiones. Se recomienda en pauta regular.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Presoterapia')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2109,7 +2076,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión relajante de unos 45 a 60 minutos. Sin molestias ni recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Sensación de ligereza y menor hinchazón. Se aconseja en pauta para mantener sus beneficios.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Drenajes Linfáticos')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2134,7 +2101,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión cómoda en la que solo notarás las contracciones musculares, de unos 30 minutos. Sin recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Mejora progresiva del tono muscular. Suele recomendarse un plan de sesiones para consolidar los resultados.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Hondas Magnéticas')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2159,7 +2126,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>La duración depende de la zona a tratar. Se cuida la piel antes y después para minimizar molestias.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Piel suave y libre de vello durante semanas. La constancia ayuda a que el vello salga más fino con el tiempo.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Cera Facial y Corporal')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2184,7 +2151,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Se realiza en consulta con anestesia local; la duración depende de la zona a tratar. Requiere unas indicaciones de cuidado durante los días posteriores.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Se aprecia un efecto tensor inicial que mejora a medida que se genera colágeno nuevo durante las semanas siguientes. El médico te indicará el número de sesiones y los cuidados en tu caso.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Endolifting con Fibra Óptica')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2209,7 +2176,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>La duración depende del número y tipo de lesiones a tratar. Es un procedimiento realizado siempre por el médico, con indicaciones de cuidado posterior.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Las lesiones tratadas se eliminan progresivamente durante los días siguientes. El médico te explicará los cuidados y si son necesarias sesiones adicionales.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Eliminación de Manchas y Lesiones (Blumed)')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2234,7 +2201,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>La duración depende de la extensión a tratar. Puede plantearse en varias sesiones según el caso, con indicaciones de cuidado posterior.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Las arañas tratadas se atenúan y desaparecen progresivamente en las semanas siguientes. El médico te indicará el número de sesiones y los cuidados recomendados.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Eliminación de Arañas Vasculares')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2259,7 +2226,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Se aplica una crema anestésica para mayor confort y la sesión dura unos 30 a 45 minutos. La piel puede quedar sonrosada durante unas horas.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel gana suavidad, firmeza y luminosidad de forma progresiva. Suele recomendarse en pauta de varias sesiones.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Dermapen')">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2336,15 +2303,7 @@
       }, { passive: true });
     }
 
-    // Detalles de servicios y perfiles del equipo; selección en el formulario existente.
-    function preselectTratamiento(nombre) {
-      const sel = document.getElementById('tratamiento');
-      if (!sel) return;
-      if (!Array.from(sel.options).some(option => option.value === nombre)) {
-        sel.add(new Option(nombre, nombre));
-      }
-      sel.value = nombre;
-    }
+    // Detalles de servicios y perfiles del equipo.
     (function(){
       function route(){
         const id = location.hash.slice(1);
