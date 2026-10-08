@@ -13,7 +13,7 @@ const products = [...source.matchAll(/^## \d+\. (.+)\r?\n([\s\S]*?)(?=^## \d+\.|
   const fields = Object.fromEntries([...body.matchAll(/^\| ([^|]+) \| ([^|]+) \|\r?$/gm)].map(m => [m[1].trim(), m[2].trim()]).filter(([key]) => key !== 'Campo'));
   const sections = [...body.matchAll(/^\*\*([^*]+)\*\*([^]*?)(?=^\*\*|^---|^> |$(?![\s\S]))/gm)].map(m => ({title: m[1].replace(/:$/, ''), text: m[2].replace(/^:\s*/, '').trim()}));
   const get = title => sections.find(s => s.title === title)?.text || '';
-  return {id: slug(name), name, fields, sections: sections.filter(s => !['Descripción corta', 'Galería'].includes(s.title)), summary: get('Descripción corta'), images: ['', '', '', ''], sourceImages: get('Galería').split(/\r?\n/).filter(s => s.startsWith('- ')).map(s => s.slice(2))};
+  return {id: slug(name), name, fields, sections: sections.filter(s => !['Descripción corta', 'Galería'].includes(s.title)), summary: get('Descripción corta'), images: [], usageImages: [], sourceImages: get('Galería').split(/\r?\n/).filter(s => s.startsWith('- ')).map(s => s.slice(2))};
 });
 assert.equal(products.length, 11, 'Deben existir las once fichas');
 assert.equal(new Set(products.map(p => p.id)).size, 11);
@@ -23,14 +23,18 @@ const dataFile = path.join(productDir, 'datos-productos.json');
 const previous = fs.existsSync(dataFile) ? JSON.parse(fs.readFileSync(dataFile, 'utf8')) : [];
 for (const p of products) {
   const saved = previous.find(item => item.id === p.id);
-  if (saved) p.images = Array.from({length: 4}, (_, i) => saved.images?.[i] || '');
+  if (saved) {
+    p.images = (saved.images || []).filter(Boolean);
+    p.usageImages = (saved.usageImages || []).filter(Boolean);
+  }
 }
 fs.writeFileSync(path.join(productDir, 'datos-productos.json'), JSON.stringify(products, null, 2) + '\n');
 const renderProduct = require('./plantilla-producto.cjs');
 for (const p of products) {
   const html = renderProduct(p);
   fs.writeFileSync(path.join(productDir, p.id + '.html'), html);
-  assert.equal((html.match(/data-image-slot=/g) || []).length, 4);
+  assert.equal((html.match(/data-image-slot=/g) || []).length, p.images.length);
+  assert.equal((html.match(/class="usage-image"/g) || []).length, p.usageImages.length);
   assert(html.includes(escape(p.summary)));
   for (const id of ['modo-de-uso', 'rutina', 'resultados']) assert(html.includes(`id="${id}"`));
   for (const section of p.sections) {
@@ -77,5 +81,5 @@ for (const file of pages) {
     if (anchor) assert(fs.readFileSync(target, 'utf8').includes(`id="${anchor}"`), `Anclaje inexistente: ${url}`);
   }
 }
-console.log('Verificado: 11 enlaces, 11 fichas completas y 44 espacios para imágenes.');
+console.log(`Verificado: 11 enlaces, 11 fichas completas, ${products.reduce((n, p) => n + p.images.length, 0)} imágenes de producto y ${products.reduce((n, p) => n + p.usageImages.length, 0)} imágenes de uso.`);
 console.log('Verificados los recursos locales y los enlaces de vuelta al catálogo en los 12 HTML.');

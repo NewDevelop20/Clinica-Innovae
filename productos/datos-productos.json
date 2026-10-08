@@ -32,10 +32,15 @@
     ],
     "summary": "Crema de noche de alta recuperación que nutre intensamente y refuerza la barrera mientras duermes.",
     "images": [
-      "",
-      "",
-      "",
-      ""
+      "../assets/productos/night-crema-confort-alta-recuperacion/01_00480115_1_2.jpg",
+      "../assets/productos/night-crema-confort-alta-recuperacion/02_00480115_2_2.jpg",
+      "../assets/productos/night-crema-confort-alta-recuperacion/03_00480115_4_2.jpg",
+      "../assets/productos/night-crema-confort-alta-recuperacion/04_00480115_5_2.jpg"
+    ],
+    "usageImages": [
+      "../assets/productos/night-crema-confort-alta-recuperacion/modo-de-uso_01_48R0020_HighRecoveryComfortCream-NIGHT_HOWTO_01.jpg",
+      "../assets/productos/night-crema-confort-alta-recuperacion/modo-de-uso_02_48R0021_HighRecoveryComfortCream-NIGHT_HOWTO_02.jpg",
+      "../assets/productos/night-crema-confort-alta-recuperacion/modo-de-uso_03_48R0022_HighRecoveryComfortCream-NIGHT_HOWTO_03.jpg"
     ],
     "sourceImages": [
       "https://www.germainedecapuccini.com/media/catalog/product/0/0/00480115_1.jpg",
@@ -77,10 +82,14 @@
     ],
     "summary": "Crema extra-nutritiva de alta exigencia para pieles maduras, secas o muy secas.",
     "images": [
-      "",
-      "",
-      "",
-      ""
+      "../assets/productos/pro-60-crema-extra-nutritiva-alta-exigencia/01_00480668_1.jpg",
+      "../assets/productos/pro-60-crema-extra-nutritiva-alta-exigencia/02_00480668_2.jpg",
+      "../assets/productos/pro-60-crema-extra-nutritiva-alta-exigencia/03_00480668_3.jpg",
+      "../assets/productos/pro-60-crema-extra-nutritiva-alta-exigencia/04_00480668_4.jpg"
+    ],
+    "usageImages": [
+      "../assets/productos/pro-60-crema-extra-nutritiva-alta-exigencia/modo-de-uso_01_48R0026_ExtraNourishingHighlyDemandingCream-PRO6020_HOWTO_01.jpg",
+      "../assets/productos/pro-60-crema-extra-nutritiva-alta-exigencia/modo-de-uso_02_48R0027_ExtraNourishingHighlyDemandingCream-PRO6020_HOWTO_02.jpg"
     ],
     "sourceImages": [
       "https://www.germainedecapuccini.com/media/catalog/product/0/0/00480668_1.jpg",
@@ -123,10 +132,14 @@
     ],
     "summary": "Crema recuperadora de textura fina y fundente para piel madura.",
     "images": [
-      "",
-      "",
-      "",
-      ""
+      "../assets/productos/crema-recuperadora-intensiva/01_00480002_1.jpg",
+      "../assets/productos/crema-recuperadora-intensiva/02_00480002_2.jpg",
+      "../assets/productos/crema-recuperadora-intensiva/03_00480002_5.jpg",
+      "../assets/productos/crema-recuperadora-intensiva/04_00480002_6.jpg"
+    ],
+    "usageImages": [
+      "../assets/productos/crema-recuperadora-intensiva/modo-de-uso_01_48R0015_IntensiveRecoveryCream_HOWTO_01.jpg",
+      "../assets/productos/crema-recuperadora-intensiva/modo-de-uso_02_48R0016_IntensiveRecoveryCream_HOWTO_02.jpg"
     ],
     "sourceImages": [
       "https://www.germainedecapuccini.com/media/catalog/product/0/0/00480002_1.jpg",
@@ -169,11 +182,12 @@
     ],
     "summary": "Crema antiarrugas que reduce las arrugas, mejora la densidad de la piel y aporta el equilibrio ideal de hidratación.",
     "images": [
-      "",
-      "",
-      "",
-      ""
+      "../assets/productos/crema-pro-colageno/01_00300002_1.jpg",
+      "../assets/productos/crema-pro-colageno/02_00300002_2.jpg",
+      "../assets/productos/crema-pro-colageno/03_00300002_4.jpg",
+      "../assets/productos/crema-pro-colageno/04_00300002_5.jpg"
     ],
+    "usageImages": [],
     "sourceImages": [
       "https://www.germainedecapuccini.com/media/catalog/product/0/0/00300002_1.jpg",
       "https://www.germainedecapuccini.com/media/catalog/product/0/0/00300002_2.jpg",
@@ -215,11 +229,12 @@
     ],
     "summary": "Concentrado intensivo que suaviza arrugas en solo 10 minutos y mejora visiblemente la elasticidad día tras día.",
     "images": [
-      "",
-      "",
-      "",
-      ""
+      "../assets/productos/serum-pro-colageno/01_00300003_1.jpg",
+      "../assets/productos/serum-pro-colageno/02_00300003_2.jpg",
+      "../assets/productos/serum-pro-colageno/03_00300003_4.jpg",
+      "../assets/productos/serum-pro-colageno/04_00300003_5.jpg"
     ],
+    "usageImages": [],
     "sourceImages": [
       "https://www.germainedecapuccini.com/media/catalog/product/0/0/00300003_1.jpg",
       "https://www.germainedecapuccini.com/media/catalog/product/0/0/00300003_2.jpg",
@@ -261,10 +276,14 @@
     ],
     "summary": "Crema antioxidante iluminadora con vitaminas C y E y nanopolímero HLG.",
     "images": [
-      "",
-      "",
-      "",
-      ""
+      "../assets/productos/crema-antioxidante-iluminadora/01_00380000_1.jpg",
+      "../assets/productos/crema-antioxidante-iluminadora/02_00380000_2.jpg",
+      "../assets/productos/crema-antioxidante-iluminadora/03_38f0034_illuminatingantioxidantcream_usa-award.jpg",
+      "../assets/productos/crema-antioxidante-iluminadora/04_00380000_4.jpg"
+    ],
+    "usageImages": [
+      "../assets/productos/crema-antioxidante-iluminadora/modo-de-uso_01_38V0014_TIMEXPERT_RADIANCE_C_ANTIOXIDANT_ILLUMINATING_CREAM_REEL_9-16e_1.webp",
+      "../assets/productos/crema-antioxidante-iluminadora/modo-de-uso_02_38R0075_CremaAntioxidanteIluminadora_HOWTO_02.webp"
     ],
     "sourceImages": [
       "https://www.germainedecapuccini.com/media/catalog/product/0/0/00380000_1.jpg",
@@ -308,11 +327,11 @@
     ],
     "summary": "Rutina de limpieza facial completa en tamaño viaje, apta para cabina de avión.",
     "images": [
-      "",
-      "",
-      "",
-      ""
+      "../assets/productos/rutina-de-limpieza-experta-en-tamano-viaje/01_00290022_1.jpg",
+      "../assets/productos/rutina-de-limpieza-experta-en-tamano-viaje/02_00290022_2.jpg",
+      "../assets/productos/rutina-de-limpieza-experta-en-tamano-viaje/03_00290022_3.jpg"
     ],
+    "usageImages": [],
     "sourceImages": [
       "https://www.germainedecapuccini.com/media/catalog/product/0/0/00290022_1.jpg",
       "https://www.germainedecapuccini.com/media/catalog/product/0/0/00290022_2.jpg",
@@ -348,10 +367,12 @@
     ],
     "summary": "Dúo de polvos bronceadores con efecto \"buena cara\" y SPF 15.",
     "images": [
-      "",
-      "",
-      "",
-      ""
+      "../assets/productos/all-year-bronze-powder-spf-15/01_00360020_1.jpg",
+      "../assets/productos/all-year-bronze-powder-spf-15/02_00360020_2.jpg"
+    ],
+    "usageImages": [
+      "../assets/productos/all-year-bronze-powder-spf-15/modo-de-uso_01_360020_AllYearBronzePowder.jpg",
+      "../assets/productos/all-year-bronze-powder-spf-15/modo-de-uso_02_36_TanningWithoutSun.jpg"
     ],
     "sourceImages": [
       "https://www.germainedecapuccini.com/media/catalog/product/0/0/00360020_1.jpg",
@@ -392,10 +413,14 @@
     ],
     "summary": "Fotoprotector compacto con color: fotoprotección, tratamiento y maquillaje en uno.",
     "images": [
-      "",
-      "",
-      "",
-      ""
+      "../assets/productos/hi-protection-makeup-spf50/01_360maqfotsolar_1.jpg",
+      "../assets/productos/hi-protection-makeup-spf50/02_360maqfotsolar_2.jpg",
+      "../assets/productos/hi-protection-makeup-spf50/03_360maqfotsolar_3.jpg",
+      "../assets/productos/hi-protection-makeup-spf50/04_360maqfotsolar_4.jpg"
+    ],
+    "usageImages": [
+      "../assets/productos/hi-protection-makeup-spf50/modo-de-uso_01_360023_Hi-ProtectionMakeup.jpg",
+      "../assets/productos/hi-protection-makeup-spf50/modo-de-uso_02_36_TanningWithoutSun.jpg"
     ],
     "sourceImages": [
       "https://www.germainedecapuccini.com/media/catalog/product/3/6/360maqfotsolar_1.jpg",
@@ -436,11 +461,12 @@
     ],
     "summary": "Protector solar facial ligero SPF50+ en gel-crema ultraligero para piel mixta y grasa.",
     "images": [
-      "",
-      "",
-      "",
-      ""
+      "../assets/productos/mesoprotech-water-veil-spf50/01_mesoprotech_water_veil_primario.jpg",
+      "../assets/productos/mesoprotech-water-veil-spf50/02_mesoprotech_water_veil_primario_secundario.jpg",
+      "../assets/productos/mesoprotech-water-veil-spf50/03_mesoprotech_water_veil_primario_textura.jpg",
+      "../assets/productos/mesoprotech-water-veil-spf50/04_mesoprotech_water_veil_textura.jpg"
     ],
+    "usageImages": [],
     "sourceImages": [
       "https://www.mesoestetic.com/media/catalog/product/cache/7fbebcbe452a9ca6c9fa0baba8544c87/m/e/mesoprotech_water_veil_primario.jpg",
       "https://www.mesoestetic.com/media/catalog/product/cache/7fbebcbe452a9ca6c9fa0baba8544c87/m/e/mesoprotech_water_veil_primario_secundario.jpg",
@@ -480,11 +506,12 @@
     ],
     "summary": "Emulsión con color SPF50+ para el control de la pigmentación.",
     "images": [
-      "",
-      "",
-      "",
-      ""
+      "../assets/productos/mesoprotech-melan-130-pigment-control-spf50/02_mesoprotech-melan-130_primario_1.jpg",
+      "../assets/productos/mesoprotech-melan-130-pigment-control-spf50/01_meseostetic-clarifying-piel7806-post.jpg",
+      "../assets/productos/mesoprotech-melan-130-pigment-control-spf50/03_melan130.jpg",
+      "../assets/productos/mesoprotech-melan-130-pigment-control-spf50/04_mesoprotech-melan-130_primario_secundario_1.jpg"
     ],
+    "usageImages": [],
     "sourceImages": [
       "https://www.mesoestetic.us/media/catalog/product/cache/7fbebcbe452a9ca6c9fa0baba8544c87/m/e/mesoprotech_primario_melan_130.jpg",
       "https://www.mesoestetic.us/media/catalog/product/cache/7fbebcbe452a9ca6c9fa0baba8544c87/u/s/usa_secundario_mesoprotech_melan_130.jpg"

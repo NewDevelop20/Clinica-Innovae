@@ -6,7 +6,7 @@ function selectImage(index, focus = false) {
     tab.tabIndex = i === index ? 0 : -1;
     panels[i].hidden = i !== index;
   });
-  document.querySelector('.image-count').textContent = `${String(index + 1).padStart(2, '0')} / 04`;
+  document.querySelector('.image-count').textContent = `${String(index + 1).padStart(2, '0')} / ${String(tabs.length).padStart(2, '0')}`;
   if (focus) tabs[index].focus();
 }
 tabs.forEach((tab, index) => {
