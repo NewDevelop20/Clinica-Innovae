@@ -625,71 +625,6 @@
     a.shop-card:focus-visible { outline: 3px solid var(--gold-dark); outline-offset: 5px; }
     .shop-placeholder { display: grid; place-items: center; }
     .shop-placeholder span { font-size: .7rem; color: var(--text-mid); position: relative; z-index: 1; }
-    /* ── SCHEDULE ── */
-    #horario { background: #141414; color: var(--white); }
-    .schedule-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 88px;
-      align-items: start;
-    }
-    .schedule-grid .label { color: var(--gold-light); }
-    .schedule-grid .title { color: var(--white); }
-    .schedule-grid .rule { }
-    .schedule-contact {
-      margin-top: 36px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .sch-contact-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: rgba(255,255,255,0.65);
-      font-size: 0.82rem;
-    }
-    .sch-contact-item svg {
-      width: 16px; height: 16px;
-      stroke: var(--gold);
-      fill: none;
-      flex-shrink: 0;
-    }
-    .sch-contact-item a { color: inherit; text-decoration: none; transition: color 0.3s; }
-    .sch-contact-item a:hover { color: var(--gold); }
-    .schedule-table {
-      border: 1px solid rgba(201,168,76,0.18);
-    }
-    .sch-row {
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      padding: 15px 24px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      align-items: center;
-      transition: background 0.3s;
-    }
-    .sch-row:last-child { border-bottom: none; }
-    .sch-row:hover { background: rgba(201,168,76,0.06); }
-    .sch-day {
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.65);
-      font-weight: 500;
-    }
-    .sch-hours {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem;
-      color: var(--white);
-    }
-    .sch-hours.closed { color: rgba(255,255,255,0.28); font-style: italic; }
-    .sch-note {
-      margin-top: 14px;
-      font-size: 0.7rem;
-      color: rgba(255,255,255,0.28);
-      letter-spacing: 0.04em;
-    }
-
     /* ── CONTACT ── */
     #contacto { background: var(--white); }
     .contact-grid {
@@ -898,7 +833,6 @@
       .nav-links, .nav-cta { display: none; }
       .nav-hamburger { display: flex; }
       .about-grid,
-      .schedule-grid,
       .contact-grid { grid-template-columns: 1fr; gap: 48px; }
       .stats-row { grid-template-columns: repeat(3, 1fr); gap: 10px; }
       .form-row { grid-template-columns: 1fr; }
@@ -983,7 +917,6 @@
     <a href="#servicios" onclick="closeMob()">Servicios</a>
     <a href="#equipo" onclick="closeMob()">Nuestro Equipo</a>
     <a href="#tienda"   onclick="closeMob()">Tienda</a>
-    <a href="#horario"  onclick="closeMob()">Horario</a>
     <a href="#contacto" onclick="closeMob()">Contacto</a>
   </div>
 
@@ -995,7 +928,6 @@
       <li><a href="#servicios">Servicios</a></li>
       <li><a href="#equipo">Nuestro Equipo</a></li>
       <li><a href="#tienda">Tienda</a></li>
-      <li><a href="#horario">Horario</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
     <a href="#contacto" class="nav-cta">Pide Cita</a>
@@ -1372,6 +1304,48 @@
     </div>
   </section>
 
+  <!-- EQUIPO -->
+  <section id="equipo">
+    <div class="container">
+      <div class="team-header reveal">
+        <span class="label">Nuestro Equipo</span>
+        <h2 class="title">Profesionales <em>a tu cuidado</em></h2>
+        <div class="rule"></div>
+        <p class="body-text">Un equipo cualificado y cercano, comprometido con ofrecerte los mejores resultados en un entorno seguro y de confianza.</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card reveal" role="link" tabindex="0" onclick="location.hash='#p-romero'" onkeydown="if(event.key==='Enter'){location.hash='#p-romero'}">
+          <div class="team-photo"><span>FR</span></div>
+          <h3 class="team-name">Dr. Francisco Javier Romero</h3>
+          <p class="team-role">Director Médico</p>
+          <p class="team-spec">Medicina Estética y Flebología</p>
+          <span class="team-more">Ver perfil &rarr;</span>
+        </div>
+        <div class="team-card reveal" style="transition-delay:.1s" role="link" tabindex="0" onclick="location.hash='#p-jimenez'" onkeydown="if(event.key==='Enter'){location.hash='#p-jimenez'}">
+          <div class="team-photo"><span>MJ</span></div>
+          <h3 class="team-name">Marta Jiménez</h3>
+          <p class="team-role">Técnico en Estética Avanzada</p>
+          <p class="team-spec">Tratamientos faciales y corporales</p>
+          <span class="team-more">Ver perfil &rarr;</span>
+        </div>
+        <div class="team-card reveal" style="transition-delay:.2s" role="link" tabindex="0" onclick="location.hash='#p-serrano'" onkeydown="if(event.key==='Enter'){location.hash='#p-serrano'}">
+          <div class="team-photo"><span>LS</span></div>
+          <h3 class="team-name">Lucía Serrano</h3>
+          <p class="team-role">Especialista en Aparatología</p>
+          <p class="team-spec">Depilación láser y remodelación corporal</p>
+          <span class="team-more">Ver perfil &rarr;</span>
+        </div>
+        <div class="team-card reveal" style="transition-delay:.3s" role="link" tabindex="0" onclick="location.hash='#p-torres'" onkeydown="if(event.key==='Enter'){location.hash='#p-torres'}">
+          <div class="team-photo"><span>AT</span></div>
+          <h3 class="team-name">Andrea Torres</h3>
+          <p class="team-role">Coordinadora</p>
+          <p class="team-spec">Atención y asesoramiento al paciente</p>
+          <span class="team-more">Ver perfil &rarr;</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- TIENDA -->
   <section id="tienda"><div class="container"><div class="shop-header">
   <span class="label reveal">Nuestro catálogo</span><h2 class="title reveal">Cosmética profesional<br><em>para llevar a casa</em></h2>
@@ -1434,119 +1408,6 @@
   <div class="shop-foot"><span class="shop-btn">Ver ficha <span aria-hidden="true">↗</span></span></div></div></a></div>
   <p class="shop-note reveal">Para consultar precios, disponibilidad o realizar tu pedido, contáctanos y te asesoramos personalmente.</p>
   </div></section>
-
-  <!-- HORARIO -->
-  <section id="horario">
-    <div class="container">
-      <div class="schedule-grid">
-        <div class="reveal-l">
-          <span class="label">Horario de Atención</span>
-          <h2 class="title">Cuándo<br><em>encontrarnos</em></h2>
-          <div class="rule"></div>
-          <p class="body-text" style="color:rgba(255,255,255,.55);max-width:420px">
-            Estamos en Úbeda, Jaén. Puedes visitarnos en horario de mañana y tarde, o llamarnos para concertar tu cita.
-          </p>
-          <div class="schedule-contact">
-            <div class="sch-contact-item">
-              <svg viewBox="0 0 24 24" stroke-width="1.5">
-                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
-              </svg>
-              <a href="tel:+34661734870">661 73 48 70</a>
-            </div>
-            <div class="sch-contact-item">
-              <svg viewBox="0 0 24 24" stroke-width="1.5">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                <polyline points="22,6 12,13 2,6"/>
-              </svg>
-              <a href="mailto:vicentenavasmoya@gmail.com">vicentenavasmoya@gmail.com</a>
-            </div>
-            <div class="sch-contact-item">
-              <svg viewBox="0 0 24 24" stroke-width="1.5">
-                <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
-              <span>Av. Ramón y Cajal, 10 &nbsp;·&nbsp; 23400 Úbeda, Jaén</span>
-            </div>
-          </div>
-        </div>
-        <div class="reveal-r">
-          <div class="schedule-table">
-            <div class="sch-row">
-              <span class="sch-day">Lunes</span>
-              <span class="sch-hours">10:00–13:30 &nbsp;·&nbsp; 16:30–20:30</span>
-            </div>
-            <div class="sch-row">
-              <span class="sch-day">Martes</span>
-              <span class="sch-hours">10:00–13:30 &nbsp;·&nbsp; 16:30–20:30</span>
-            </div>
-            <div class="sch-row">
-              <span class="sch-day">Miércoles</span>
-              <span class="sch-hours">10:00–13:30 &nbsp;·&nbsp; 16:30–20:30</span>
-            </div>
-            <div class="sch-row">
-              <span class="sch-day">Jueves</span>
-              <span class="sch-hours">10:00–13:30 &nbsp;·&nbsp; 16:30–20:30</span>
-            </div>
-            <div class="sch-row">
-              <span class="sch-day">Viernes</span>
-              <span class="sch-hours">10:00–13:30 &nbsp;·&nbsp; 16:30–20:30</span>
-            </div>
-            <div class="sch-row">
-              <span class="sch-day">Sábado</span>
-              <span class="sch-hours">10:30–13:00</span>
-            </div>
-            <div class="sch-row">
-              <span class="sch-day">Domingo</span>
-              <span class="sch-hours closed">Cerrado</span>
-            </div>
-          </div>
-          <p class="sch-note">* El horario del 1 de mayo (festivo) podría cambiar. Consúltanos.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- EQUIPO -->
-  <section id="equipo">
-    <div class="container">
-      <div class="team-header reveal">
-        <span class="label">Nuestro Equipo</span>
-        <h2 class="title">Profesionales <em>a tu cuidado</em></h2>
-        <div class="rule"></div>
-        <p class="body-text">Un equipo cualificado y cercano, comprometido con ofrecerte los mejores resultados en un entorno seguro y de confianza.</p>
-      </div>
-      <div class="team-grid">
-        <div class="team-card reveal" role="link" tabindex="0" onclick="location.hash='#p-romero'" onkeydown="if(event.key==='Enter'){location.hash='#p-romero'}">
-          <div class="team-photo"><span>FR</span></div>
-          <h3 class="team-name">Dr. Francisco Javier Romero</h3>
-          <p class="team-role">Director Médico</p>
-          <p class="team-spec">Medicina Estética y Flebología</p>
-          <span class="team-more">Ver perfil &rarr;</span>
-        </div>
-        <div class="team-card reveal" style="transition-delay:.1s" role="link" tabindex="0" onclick="location.hash='#p-jimenez'" onkeydown="if(event.key==='Enter'){location.hash='#p-jimenez'}">
-          <div class="team-photo"><span>MJ</span></div>
-          <h3 class="team-name">Marta Jiménez</h3>
-          <p class="team-role">Técnico en Estética Avanzada</p>
-          <p class="team-spec">Tratamientos faciales y corporales</p>
-          <span class="team-more">Ver perfil &rarr;</span>
-        </div>
-        <div class="team-card reveal" style="transition-delay:.2s" role="link" tabindex="0" onclick="location.hash='#p-serrano'" onkeydown="if(event.key==='Enter'){location.hash='#p-serrano'}">
-          <div class="team-photo"><span>LS</span></div>
-          <h3 class="team-name">Lucía Serrano</h3>
-          <p class="team-role">Especialista en Aparatología</p>
-          <p class="team-spec">Depilación láser y remodelación corporal</p>
-          <span class="team-more">Ver perfil &rarr;</span>
-        </div>
-        <div class="team-card reveal" style="transition-delay:.3s" role="link" tabindex="0" onclick="location.hash='#p-torres'" onkeydown="if(event.key==='Enter'){location.hash='#p-torres'}">
-          <div class="team-photo"><span>AT</span></div>
-          <h3 class="team-name">Andrea Torres</h3>
-          <p class="team-role">Coordinadora</p>
-          <p class="team-spec">Atención y asesoramiento al paciente</p>
-          <span class="team-more">Ver perfil &rarr;</span>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- CONTACTO -->
   <section id="contacto">
@@ -2412,7 +2273,6 @@
       <li><a href="#sobre">Sobre Nosotros</a></li>
       <li><a href="#servicios">Tratamientos</a></li>
       <li><a href="#equipo">Nuestro Equipo</a></li>
-      <li><a href="#horario">Horario</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
     <p class="footer-copy">&copy; 2026 Clínica Innovae Medicina Estética &nbsp;&middot;&nbsp; Av. Ramón y Cajal, 10 &nbsp;&middot;&nbsp; Úbeda, Jaén</p>

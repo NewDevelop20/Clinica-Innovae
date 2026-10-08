@@ -50,7 +50,7 @@ const cards = products.map(p => `<a class="shop-card reveal" href="productos/${p
   <h3 class="shop-name">${escape(p.name)}</h3><p class="shop-desc">${escape(p.summary)}</p>
   <div class="shop-foot"><span class="shop-btn">Ver ficha <span aria-hidden="true">↗</span></span></div></div></a>`).join('\n');
 const start = index.indexOf('  <!-- TIENDA -->');
-const end = index.indexOf('  <!-- HORARIO -->', start);
+const end = index.indexOf('  <!-- CONTACTO -->', start);
 assert(start > 0 && end > start);
 const shop = `  <!-- TIENDA -->
   <section id="tienda"><div class="container"><div class="shop-header">
@@ -61,12 +61,12 @@ const shop = `  <!-- TIENDA -->
   <p class="shop-note reveal">Para consultar precios, disponibilidad o realizar tu pedido, contáctanos y te asesoramos personalmente.</p>
   </div></section>\n\n`;
 index = index.slice(0, start) + shop + index.slice(end);
-if (!index.includes('/* PRODUCT LINKS */')) index = index.replace('    /* ── SCHEDULE ── */', `    /* PRODUCT LINKS */
+if (!index.includes('/* PRODUCT LINKS */')) index = index.replace('    /* ── CONTACT ── */', `    /* PRODUCT LINKS */
     a.shop-card { color: inherit; text-decoration: none; }
     a.shop-card:focus-visible { outline: 3px solid var(--gold-dark); outline-offset: 5px; }
     .shop-placeholder { display: grid; place-items: center; }
     .shop-placeholder span { font-size: .7rem; color: var(--text-mid); position: relative; z-index: 1; }
-    /* ── SCHEDULE ── */`);
+    /* ── CONTACT ── */`);
 fs.writeFileSync(path.join(root, 'index.html'), index);
 assert.equal((index.match(/href="productos\//g) || []).length, 11);
 const pages = [path.join(root, 'index.html'), ...products.map(p => path.join(productDir, p.id + '.html'))];
