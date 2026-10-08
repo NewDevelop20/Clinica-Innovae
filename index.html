@@ -432,13 +432,38 @@
     }
     .services-header .rule { margin: 0 auto 28px; }
     .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-      gap: 2px;
-      background: var(--border-gold);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0;
+    }
+    .svc-category {
+      text-align: center;
+      max-width: 620px;
+      margin: 0 auto 40px;
+    }
+    .svc-category:not(:first-of-type) { margin-top: 88px; }
+    .svc-cat-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.7rem, 3vw, 2.5rem);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--text-dark);
+    }
+    .svc-cat-name em { font-style: italic; color: var(--gold); }
+    .svc-cat-rule { width: 40px; height: 1px; background: var(--gold); margin: 18px auto 0; }
+    .svc-cat-note {
+      font-size: 0.66rem;
+      letter-spacing: 0.06em;
+      color: var(--text-light);
+      margin-top: 16px;
+      line-height: 1.7;
     }
     .svc-card {
       background: var(--white);
+      border: 1px solid var(--border-gold);
+      flex: 1 1 260px;
+      max-width: 300px;
       padding: 42px 32px;
       position: relative;
       overflow: hidden;
@@ -829,6 +854,71 @@
       footer { padding: 48px 24px 36px; }
       .parallax-wrap { padding: 80px 28px; }
     }
+    /* ── DETALLE DE TRATAMIENTO ── */
+    .svc-clickable { cursor: pointer; }
+    .svc-more {
+      display: inline-block; margin-top: 18px;
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold-dark); font-weight: 600;
+    }
+    .svc-clickable:hover .svc-more { color: var(--gold); }
+    .treatment-detail {
+      position: fixed; inset: 0; z-index: 5000;
+      background: var(--cream);
+      overflow-y: auto;
+      display: none;
+    }
+    .treatment-detail.active { display: block; }
+    .td-bar {
+      position: sticky; top: 0; z-index: 2;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(250,250,247,0.92);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-gold);
+    }
+    .td-back {
+      color: var(--text-dark); text-decoration: none;
+      font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500;
+      transition: color 0.3s;
+    }
+    .td-back:hover { color: var(--gold); }
+    .td-barname { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: var(--text-dark); letter-spacing: 0.06em; }
+    .td-body { max-width: 860px; margin: 0 auto; padding: 64px 40px 110px; }
+    .td-body .label { color: var(--gold); }
+    .td-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.6rem, 6vw, 4.2rem); font-weight: 300; line-height: 1.08; color: var(--text-dark); margin-bottom: 6px; }
+    .td-title em { font-style: italic; color: var(--gold); }
+    .td-body .rule { margin: 24px 0 34px; }
+    .td-lead { font-size: 1.06rem; line-height: 1.9; color: var(--text-mid); margin-bottom: 50px; font-weight: 300; }
+    .td-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 38px 50px; margin-bottom: 58px; }
+    .td-block h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--text-dark); margin-bottom: 12px; }
+    .td-block p { font-size: 0.9rem; line-height: 1.85; color: var(--text-mid); }
+    .td-cta { text-align: center; padding-top: 6px; }
+    .td-note { text-align: center; font-size: 0.75rem; color: var(--text-light); margin-top: 22px; letter-spacing: 0.02em; }
+
+    .ba-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin: 6px 0 54px; }
+    .ba-item { margin: 0; }
+    .ba-frame {
+      aspect-ratio: 4 / 5;
+      border: 1px solid var(--border-gold);
+      background: linear-gradient(135deg, #FFFFFF, var(--cream-2));
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .ba-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .ba-ph { font-size: 0.6rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--text-light); opacity: 0.55; }
+    .ba-label {
+      text-align: center; margin-top: 14px;
+      font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold-dark); font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+      .td-grid { grid-template-columns: 1fr; gap: 32px; }
+      .td-bar { padding: 16px 24px; }
+      .td-body { padding: 44px 24px 80px; }
+      .ba-compare { gap: 14px; }
+    }
   </style>
 </head>
 <body>
@@ -946,93 +1036,278 @@
           Cada tratamiento es único, como tú. Adaptamos cada sesión a las necesidades específicas de tu piel.
         </p>
       </div>
+      <div class="svc-category reveal">
+        <span class="label">Medicina Estética</span>
+        <h3 class="svc-cat-name">Tratamientos <em>médico-estéticos</em></h3>
+        <div class="svc-cat-rule"></div>
+        <p class="svc-cat-note">Centro sanitario autorizado por la Junta de Andalucía (Nº 46863)<br>Dr. Francisco Javier Romero Conesa · Medicina Estética y Flebología</p>
+      </div>
       <div class="services-grid">
 
-        <div class="svc-card reveal" style="transition-delay:.05s">
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.05s" role="link" tabindex="0" onclick="location.hash='#t-arrugas'" onkeydown="if(event.key==='Enter'){location.hash='#t-arrugas'}">
           <span class="svc-num">01</span>
           <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
-            <path d="M12 8v4l3 3"/>
+            <path d="M12 2l2.2 6.4L21 11l-6.8 2.6L12 20l-2.2-6.4L3 11l6.8-2.6L12 2z"/>
           </svg>
-          <h3 class="svc-name">Toxina Botulínica</h3>
-          <p class="svc-desc">Suaviza líneas de expresión y arrugas faciales con resultados naturales y duraderos. Tratamiento rápido, sin recuperación.</p>
+          <h3 class="svc-name">Eliminación de Arrugas</h3>
+          <p class="svc-desc">Toxina botulínica aplicada por médico especialista para suavizar arrugas de expresión de forma natural, rápida y sin recuperación.</p>
+          <span class="svc-more">Ver más &rarr;</span>
         </div>
 
-        <div class="svc-card reveal" style="transition-delay:.1s">
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.1s" role="link" tabindex="0" onclick="location.hash='#t-hialuronico'" onkeydown="if(event.key==='Enter'){location.hash='#t-hialuronico'}">
           <span class="svc-num">02</span>
           <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+            <path d="M12 2.5S5 9.7 5 14.5a7 7 0 0014 0C19 9.7 12 2.5 12 2.5z"/>
           </svg>
-          <h3 class="svc-name">Ácido Hialurónico</h3>
-          <p class="svc-desc">Hidratación profunda y relleno facial para recuperar volumen y luminosidad. Resultados inmediatos y de aspecto natural.</p>
+          <h3 class="svc-name">Rellenos con Ácido Hialurónico</h3>
+          <p class="svc-desc">Rinomodelación, corrección de ojeras, aumento de volumen, perfilado de labios y pómulos. Resultados inmediatos y de aspecto natural.</p>
+                  <span class="svc-more">Ver más &rarr;</span>
         </div>
 
-        <div class="svc-card reveal" style="transition-delay:.15s">
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.15s" role="link" tabindex="0" onclick="location.hash='#t-hilos'" onkeydown="if(event.key==='Enter'){location.hash='#t-hilos'}">
           <span class="svc-num">03</span>
           <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M12 6v6l4 2"/>
+            <line x1="5" y1="19" x2="19" y2="5"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="6" r="2.2"/>
           </svg>
-          <h3 class="svc-name">Mesoterapia Facial</h3>
-          <p class="svc-desc">Cóctel de vitaminas y principios activos que revitalizan la piel desde el interior con un efecto rejuvenecedor visible.</p>
+          <h3 class="svc-name">Hilos Tensores</h3>
+          <p class="svc-desc">Efecto lifting sin cirugía: reposicionan y tensan los tejidos del rostro estimulando la producción natural de colágeno.</p>
+                  <span class="svc-more">Ver más &rarr;</span>
         </div>
 
-        <div class="svc-card reveal" style="transition-delay:.2s">
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.2s" role="link" tabindex="0" onclick="location.hash='#t-mesoterapia'" onkeydown="if(event.key==='Enter'){location.hash='#t-mesoterapia'}">
           <span class="svc-num">04</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M17 3l4 4"/><path d="M18.5 6.5l-11 11L3 19l1.5-4.5 11-11z"/><path d="M13 6l5 5"/><path d="M8 13l3 3"/>
+          </svg>
+          <h3 class="svc-name">Mesoterapia</h3>
+          <p class="svc-desc">Microinyecciones de vitaminas y activos que revitalizan e hidratan la piel en profundidad para un aspecto visiblemente rejuvenecido.</p>
+                  <span class="svc-more">Ver más &rarr;</span>
+        </div>
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.25s" role="link" tabindex="0" onclick="location.hash='#t-endolifting'" onkeydown="if(event.key==='Enter'){location.hash='#t-endolifting'}">
+          <span class="svc-num">05</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="5" y1="19" x2="19" y2="5"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="6" r="2.2"/>
+          </svg>
+          <h3 class="svc-name">Endolifting con Fibra Óptica</h3>
+          <p class="svc-desc">El endolifting es un tratamiento médico que, mediante una fina fibra óptica introducida bajo la piel, aporta un efecto tensor y reafirmante estimulando la producción de colágeno, sin cirugía.</p>
+          <span class="svc-more">Ver más &rarr;</span>
+        </div>
+
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.3s" role="link" tabindex="0" onclick="location.hash='#t-blumed'" onkeydown="if(event.key==='Enter'){location.hash='#t-blumed'}">
+          <span class="svc-num">06</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2l2.2 6.4L21 11l-6.8 2.6L12 20l-2.2-6.4L3 11l6.8-2.6L12 2z"/>
+          </svg>
+          <h3 class="svc-name">Eliminación de Manchas y Lesiones (Blumed)</h3>
+          <p class="svc-desc">Un tratamiento médico que, con la tecnología Blumed, permite eliminar de forma precisa y segura lesiones cutáneas frecuentes como puntos rubí, lentigos solares, melasmas y verrugas.</p>
+          <span class="svc-more">Ver más &rarr;</span>
+        </div>
+
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.35s" role="link" tabindex="0" onclick="location.hash='#t-aranas'" onkeydown="if(event.key==='Enter'){location.hash='#t-aranas'}">
+          <span class="svc-num">07</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2v6"/><path d="M12 8l-4.5 4.5"/><path d="M12 8l4.5 4.5"/><path d="M7.5 12.5V20"/><path d="M16.5 12.5V20"/><path d="M7.5 16H4"/><path d="M16.5 16H20"/>
+          </svg>
+          <h3 class="svc-name">Eliminación de Arañas Vasculares</h3>
+          <p class="svc-desc">Las arañas vasculares son pequeños vasos dilatados visibles en la piel, sobre todo en las piernas.</p>
+          <span class="svc-more">Ver más &rarr;</span>
+        </div>
+
+      </div>
+
+      <div class="svc-category reveal">
+        <span class="label">Estética Facial</span>
+        <h3 class="svc-cat-name">Cuidado <em>del rostro</em></h3>
+        <div class="svc-cat-rule"></div>
+      </div>
+      <div class="services-grid">
+
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.05s" role="link" tabindex="0" onclick="location.hash='#t-limpieza'" onkeydown="if(event.key==='Enter'){location.hash='#t-limpieza'}">
+          <span class="svc-num">01</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01"/><path d="M9 15c1 1 5 1 6 0"/>
+          </svg>
+          <h3 class="svc-name">Limpieza Facial</h3>
+          <p class="svc-desc">Higiene profunda que elimina impurezas y exceso de sebo, dejando la piel limpia, oxigenada y luminosa.</p>
+                  <span class="svc-more">Ver más &rarr;</span>
+        </div>
+
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.1s" role="link" tabindex="0" onclick="location.hash='#t-peeling'" onkeydown="if(event.key==='Enter'){location.hash='#t-peeling'}">
+          <span class="svc-num">02</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M11 21c8-1 10-8 10-15-6 0-13 1-13 8a5 5 0 002 4z"/><path d="M3 21c2-5 5-8 9-10"/>
+          </svg>
+          <h3 class="svc-name">Peeling Mecánico</h3>
+          <p class="svc-desc">Exfoliación que renueva la superficie de la piel, mejora la textura y aporta luminosidad de forma inmediata.</p>
+                  <span class="svc-more">Ver más &rarr;</span>
+        </div>
+
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.15s" role="link" tabindex="0" onclick="location.hash='#t-hidratacion'" onkeydown="if(event.key==='Enter'){location.hash='#t-hidratacion'}">
+          <span class="svc-num">03</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2.5S5 9.7 5 14.5a7 7 0 0014 0C19 9.7 12 2.5 12 2.5z"/>
+          </svg>
+          <h3 class="svc-name">Hidratación</h3>
+          <p class="svc-desc">Aporte intensivo de agua y activos para nutrir la piel, restaurar su elasticidad y prevenir la sequedad.</p>
+                  <span class="svc-more">Ver más &rarr;</span>
+        </div>
+
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.2s" role="link" tabindex="0" onclick="location.hash='#t-oxigenacion'" onkeydown="if(event.key==='Enter'){location.hash='#t-oxigenacion'}">
+          <span class="svc-num">04</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 8h11a3 3 0 100-6"/><path d="M3 12h15a3 3 0 110 6"/><path d="M3 16h8"/>
+          </svg>
+          <h3 class="svc-name">Oxigenación</h3>
+          <p class="svc-desc">Revitaliza la piel apagada aportando oxígeno y principios activos que devuelven frescura, luz y vitalidad al rostro.</p>
+                  <span class="svc-more">Ver más &rarr;</span>
+        </div>
+
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.25s" role="link" tabindex="0" onclick="location.hash='#t-vitaminac'" onkeydown="if(event.key==='Enter'){location.hash='#t-vitaminac'}">
+          <span class="svc-num">05</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="4.5"/><line x1="12" y1="1.5" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22.5"/><line x1="4" y1="4" x2="5.8" y2="5.8"/><line x1="18.2" y1="18.2" x2="20" y2="20"/><line x1="1.5" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22.5" y2="12"/><line x1="4" y1="20" x2="5.8" y2="18.2"/><line x1="18.2" y1="5.8" x2="20" y2="4"/>
+          </svg>
+          <h3 class="svc-name">Vitamina C</h3>
+          <p class="svc-desc">Tratamiento antioxidante que unifica el tono, ilumina la piel y la protege frente al envejecimiento prematuro.</p>
+                  <span class="svc-more">Ver más &rarr;</span>
+        </div>
+
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.3s" role="link" tabindex="0" onclick="location.hash='#t-reafirmante'" onkeydown="if(event.key==='Enter'){location.hash='#t-reafirmante'}">
+          <span class="svc-num">06</span>
           <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
           </svg>
-          <h3 class="svc-name">Peeling Químico</h3>
-          <p class="svc-desc">Renovación celular profunda para una piel más luminosa, uniforme y libre de imperfecciones. Varios grados de profundidad.</p>
+          <h3 class="svc-name">Reafirmante</h3>
+          <p class="svc-desc">Devuelve firmeza y tono a la piel del rostro, redefiniendo el óvalo facial y combatiendo la flacidez.</p>
+                  <span class="svc-more">Ver más &rarr;</span>
         </div>
 
-        <div class="svc-card reveal" style="transition-delay:.25s">
-          <span class="svc-num">05</span>
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.35s" role="link" tabindex="0" onclick="location.hash='#t-kinesiolifting'" onkeydown="if(event.key==='Enter'){location.hash='#t-kinesiolifting'}">
+          <span class="svc-num">07</span>
           <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M18 8h1a4 4 0 010 8h-1"/>
-            <path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/>
-            <line x1="6" y1="1" x2="6" y2="4"/>
-            <line x1="10" y1="1" x2="10" y2="4"/>
-            <line x1="14" y1="1" x2="14" y2="4"/>
+            <path d="M6 11V6a2 2 0 114 0v4"/><path d="M10 10V4.5a2 2 0 114 0V10"/><path d="M14 10V6a2 2 0 114 0v7a7 7 0 01-7 7 7 7 0 01-6.5-4.4L4 13a1.6 1.6 0 012.6-1.8L8 13"/>
           </svg>
-          <h3 class="svc-name">Masaje Relajante</h3>
-          <p class="svc-desc">Libera tensiones y activa la circulación. Ideal para recuperar el equilibrio entre cuerpo y mente tras la rutina diaria.</p>
+          <h3 class="svc-name">Kinesiolifting</h3>
+          <p class="svc-desc">Masaje facial con técnica de lifting manual que tonifica la musculatura y aporta un efecto tensor natural.</p>
+                  <span class="svc-more">Ver más &rarr;</span>
         </div>
 
-        <div class="svc-card reveal" style="transition-delay:.3s">
-          <span class="svc-num">06</span>
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.4s" role="link" tabindex="0" onclick="location.hash='#t-radiofrecuencia'" onkeydown="if(event.key==='Enter'){location.hash='#t-radiofrecuencia'}">
+          <span class="svc-num">08</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M2 8c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0"/><path d="M2 13c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0"/><path d="M2 18c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0"/>
+          </svg>
+          <h3 class="svc-name">Radiofrecuencia</h3>
+          <p class="svc-desc">Estimula colágeno y elastina mediante calor controlado para tensar y rejuvenecer la piel sin cirugía.</p>
+                  <span class="svc-more">Ver más &rarr;</span>
+        </div>
+
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.45s" role="link" tabindex="0" onclick="location.hash='#t-fotorejuvenecimiento'" onkeydown="if(event.key==='Enter'){location.hash='#t-fotorejuvenecimiento'}">
+          <span class="svc-num">09</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="4.5"/><line x1="12" y1="1.5" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22.5"/><line x1="4" y1="4" x2="5.8" y2="5.8"/><line x1="18.2" y1="18.2" x2="20" y2="20"/><line x1="1.5" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22.5" y2="12"/><line x1="4" y1="20" x2="5.8" y2="18.2"/><line x1="18.2" y1="5.8" x2="20" y2="4"/>
+          </svg>
+          <h3 class="svc-name">Fotorejuvenecimiento</h3>
+          <p class="svc-desc">Luz pulsada que corrige manchas, rojeces y signos de la edad, mejorando el tono y la textura de la piel.</p>
+                  <span class="svc-more">Ver más &rarr;</span>
+        </div>
+
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.5s" role="link" tabindex="0" onclick="location.hash='#t-ultrasonix'" onkeydown="if(event.key==='Enter'){location.hash='#t-ultrasonix'}">
+          <span class="svc-num">10</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M2 8c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0"/><path d="M2 13c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0"/><path d="M2 18c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0"/>
+          </svg>
+          <h3 class="svc-name">Ultrasonix</h3>
+          <p class="svc-desc">Ultrasonidos que favorecen la penetración de activos y estimulan la piel para un efecto reafirmante y revitalizante.</p>
+                  <span class="svc-more">Ver más &rarr;</span>
+        </div>
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.55s" role="link" tabindex="0" onclick="location.hash='#t-dermapen'" onkeydown="if(event.key==='Enter'){location.hash='#t-dermapen'}">
+          <span class="svc-num">11</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="8" cy="8" r="1"/><circle cx="12" cy="8" r="1"/><circle cx="16" cy="8" r="1"/><circle cx="8" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="16" cy="12" r="1"/><circle cx="8" cy="16" r="1"/><circle cx="12" cy="16" r="1"/><circle cx="16" cy="16" r="1"/>
+          </svg>
+          <h3 class="svc-name">Dermapen</h3>
+          <p class="svc-desc">El Dermapen es un tratamiento de microneedling que, mediante finas microagujas, estimula la regeneración natural de la piel para mejorar su textura, firmeza y luminosidad.</p>
+          <span class="svc-more">Ver más &rarr;</span>
+        </div>
+
+      </div>
+
+      <div class="svc-category reveal">
+        <span class="label">Estética Corporal</span>
+        <h3 class="svc-cat-name">Cuidado <em>del cuerpo</em></h3>
+        <div class="svc-cat-rule"></div>
+      </div>
+      <div class="services-grid">
+
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.05s" role="link" tabindex="0" onclick="location.hash='#t-shr'" onkeydown="if(event.key==='Enter'){location.hash='#t-shr'}">
+          <span class="svc-num">01</span>
           <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
           </svg>
-          <h3 class="svc-name">Masaje Descontracturante</h3>
-          <p class="svc-desc">Técnica específica para aliviar contracturas musculares profundas y eliminar puntos de tensión acumulada.</p>
+          <h3 class="svc-name">Depilación SHR</h3>
+          <p class="svc-desc">Depilación progresiva de nueva generación, cómoda y eficaz sobre todo tipo de piel y vello, sesión tras sesión.</p>
+                  <span class="svc-more">Ver más &rarr;</span>
         </div>
 
-        <div class="svc-card reveal" style="transition-delay:.35s">
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.1s" role="link" tabindex="0" onclick="location.hash='#t-ipl'" onkeydown="if(event.key==='Enter'){location.hash='#t-ipl'}">
+          <span class="svc-num">02</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+          <h3 class="svc-name">Depilación IPL</h3>
+          <p class="svc-desc">Luz pulsada intensa que reduce el vello de forma duradera, con tratamientos rápidos y bien tolerados.</p>
+                  <span class="svc-more">Ver más &rarr;</span>
+        </div>
+
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.15s" role="link" tabindex="0" onclick="location.hash='#t-maderoterapia'" onkeydown="if(event.key==='Enter'){location.hash='#t-maderoterapia'}">
+          <span class="svc-num">03</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="7.5" width="13" height="6" rx="3"/><path d="M16 10.5h3"/><path d="M11 13.5v6"/>
+          </svg>
+          <h3 class="svc-name">Maderoterapia</h3>
+          <p class="svc-desc">Masaje con instrumentos de madera que moldea la figura, reduce la celulitis y activa la circulación.</p>
+                  <span class="svc-more">Ver más &rarr;</span>
+        </div>
+
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.2s" role="link" tabindex="0" onclick="location.hash='#t-presoterapia'" onkeydown="if(event.key==='Enter'){location.hash='#t-presoterapia'}">
+          <span class="svc-num">04</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 8h11a3 3 0 100-6"/><path d="M3 12h15a3 3 0 110 6"/><path d="M3 16h8"/>
+          </svg>
+          <h3 class="svc-name">Presoterapia</h3>
+          <p class="svc-desc">Presión controlada por aire que favorece el drenaje, reduce la retención de líquidos y alivia las piernas cansadas.</p>
+                  <span class="svc-more">Ver más &rarr;</span>
+        </div>
+
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.25s" role="link" tabindex="0" onclick="location.hash='#t-drenajes'" onkeydown="if(event.key==='Enter'){location.hash='#t-drenajes'}">
+          <span class="svc-num">05</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M6 11V6a2 2 0 114 0v4"/><path d="M10 10V4.5a2 2 0 114 0V10"/><path d="M14 10V6a2 2 0 114 0v7a7 7 0 01-7 7 7 7 0 01-6.5-4.4L4 13a1.6 1.6 0 012.6-1.8L8 13"/>
+          </svg>
+          <h3 class="svc-name">Drenajes Linfáticos</h3>
+          <p class="svc-desc">Masaje suave que estimula el sistema linfático para eliminar toxinas, reducir la hinchazón y aportar ligereza.</p>
+                  <span class="svc-more">Ver más &rarr;</span>
+        </div>
+
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.3s" role="link" tabindex="0" onclick="location.hash='#t-hondas'" onkeydown="if(event.key==='Enter'){location.hash='#t-hondas'}">
+          <span class="svc-num">06</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M2 8c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0"/><path d="M2 13c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0"/><path d="M2 18c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0"/>
+          </svg>
+          <h3 class="svc-name">Hondas Magnéticas</h3>
+          <p class="svc-desc">Estimulación muscular para tratar la flacidez, la diástasis abdominal y ejercitar el suelo pélvico sin esfuerzo activo.</p>
+                  <span class="svc-more">Ver más &rarr;</span>
+        </div>
+
+        <div class="svc-card svc-clickable reveal" style="transition-delay:0.35s" role="link" tabindex="0" onclick="location.hash='#t-cera'" onkeydown="if(event.key==='Enter'){location.hash='#t-cera'}">
           <span class="svc-num">07</span>
           <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="12" cy="12" r="5"/>
-            <line x1="12" y1="1" x2="12" y2="3"/>
-            <line x1="12" y1="21" x2="12" y2="23"/>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-            <line x1="1" y1="12" x2="3" y2="12"/>
-            <line x1="21" y1="12" x2="23" y2="12"/>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            <path d="M11 21c8-1 10-8 10-15-6 0-13 1-13 8a5 5 0 002 4z"/><path d="M3 21c2-5 5-8 9-10"/>
           </svg>
-          <h3 class="svc-name">Radiofrecuencia Facial</h3>
-          <p class="svc-desc">Estimula colágeno y elastina para tensar y rejuvenecer la piel sin cirugía. Resultados progresivos y duraderos.</p>
-        </div>
-
-        <div class="svc-card reveal" style="transition-delay:.4s">
-          <span class="svc-num">08</span>
-          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M14.5 4h-5L7 7H4a2 2 0 00-2 2v9a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2h-3l-2.5-3z"/>
-            <circle cx="12" cy="13" r="3"/>
-          </svg>
-          <h3 class="svc-name">Limpieza Facial Profunda</h3>
-          <p class="svc-desc">Eliminación de impurezas y exceso de sebo con técnica profesional. Base perfecta para cualquier tratamiento estético.</p>
+          <h3 class="svc-name">Cera Facial y Corporal</h3>
+          <p class="svc-desc">Depilación con cera para rostro y cuerpo, con un acabado limpio, duradero y respetuoso con la piel.</p>
+                  <span class="svc-more">Ver más &rarr;</span>
         </div>
 
       </div>
@@ -1300,6 +1575,652 @@
     </div>
   </section>
 
+  <!-- DETALLE DE TRATAMIENTO (demo) -->
+  <div class="treatment-detail" id="t-arrugas">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Medicina Estética</span>
+      <h1 class="td-title">Eliminación de <em>Arrugas</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">La eliminación de arrugas con toxina botulínica es uno de los tratamientos médico-estéticos más solicitados para suavizar las líneas de expresión del rostro y prevenir que se marquen con el tiempo, con un resultado natural y sin cirugía ni tiempo de recuperación.</p>
+      <div class="ba-compare">
+        <figure class="ba-item">
+          <div class="ba-frame"><span class="ba-ph">Imagen</span></div>
+          <figcaption class="ba-label">Antes</figcaption>
+        </figure>
+        <figure class="ba-item">
+          <div class="ba-frame"><span class="ba-ph">Imagen</span></div>
+          <figcaption class="ba-label">Después</figcaption>
+        </figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block">
+          <h3>¿En qué consiste?</h3>
+          <p>Mediante microinyecciones, se aplica toxina botulínica en los músculos responsables de las arrugas de expresión —principalmente frente, entrecejo y contorno de los ojos—. Al relajar de forma controlada esa musculatura, la piel se alisa y las líneas se atenúan progresivamente. El tratamiento lo realiza siempre un médico especialista.</p>
+        </div>
+        <div class="td-block">
+          <h3>¿Para quién está indicado?</h3>
+          <p>Es una opción pensada para quienes desean suavizar las arrugas dinámicas —las que aparecen al gesticular— o prevenir su aparición. Durante la valoración médica previa, el Dr. Romero evalúa tu caso y confirma si es el tratamiento más adecuado para ti.</p>
+        </div>
+        <div class="td-block">
+          <h3>Cómo es la sesión</h3>
+          <p>Tras la valoración, la sesión es rápida (habitualmente entre 15 y 30 minutos) y muy bien tolerada. No requiere ingreso ni reposo, por lo que puedes retomar tu día con normalidad casi de inmediato.</p>
+        </div>
+        <div class="td-block">
+          <h3>Resultados y cuidados</h3>
+          <p>Los primeros efectos suelen apreciarse en los días posteriores y se estabilizan en un par de semanas, con un aspecto natural que respeta la expresividad del rostro. El médico te dará las recomendaciones de cuidado personalizadas para tu caso.</p>
+        </div>
+      </div>
+      <div class="td-cta">
+        <a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Eliminación de Arrugas')">Reservar este tratamiento</a>
+      </div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-hialuronico">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Medicina Estética</span>
+      <h1 class="td-title">Rellenos con <em>Ácido Hialurónico</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">El ácido hialurónico es una sustancia presente de forma natural en la piel que, aplicada por un médico, permite restaurar volúmenes, corregir surcos y perfilar rasgos con un resultado natural e inmediato.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>Mediante inyecciones precisas se aporta ácido hialurónico en la zona a tratar. Es un tratamiento versátil que abarca rinomodelación, corrección de ojeras, aumento de volumen, perfilado de labios y proyección de pómulos.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Está indicado para quienes desean armonizar sus facciones, recuperar volumen perdido o suavizar surcos, siempre tras la valoración del Dr. Romero, que define la técnica y la cantidad adecuadas para cada caso.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>La sesión es ambulatoria y suele durar entre 30 y 45 minutos. Se emplea anestesia tópica para mayor confort y puedes retomar tu actividad prácticamente de inmediato.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>El resultado es visible desde el primer momento y se asienta en los días siguientes. Es un tratamiento de duración prolongada; el médico te indicará el mantenimiento recomendado.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Rellenos con Ácido Hialurónico')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-hilos">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Medicina Estética</span>
+      <h1 class="td-title">Hilos <em>Tensores</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">Los hilos tensores ofrecen un efecto lifting sin cirugía: reposicionan los tejidos y estimulan la producción natural de colágeno para un rostro más firme y definido.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>El médico introduce bajo la piel finos hilos reabsorbibles que tensan y reposicionan los tejidos. Además del efecto tensor inmediato, estimulan la regeneración de colágeno a medio plazo.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Pensado para quienes empiezan a notar flacidez o pérdida de definición en el óvalo facial, cuello o pómulos y buscan una alternativa a la cirugía. La valoración médica previa determina su idoneidad.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>Se realiza en consulta con anestesia local, en una sesión de aproximadamente 30 a 45 minutos. La recuperación es sencilla, con indicaciones de cuidado durante los primeros días.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>Se aprecia una mejora inmediata que se completa a medida que se genera nuevo colágeno. Los hilos se reabsorben con el tiempo; el médico te informará de la duración estimada en tu caso.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Hilos Tensores')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-mesoterapia">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Medicina Estética</span>
+      <h1 class="td-title"><em>Mesoterapia</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">La mesoterapia consiste en microinyecciones de vitaminas, ácido hialurónico y otros activos que revitalizan e hidratan la piel en profundidad, devolviéndole luminosidad y firmeza.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>Mediante microinyecciones superficiales se introduce un cóctel de activos adaptado a las necesidades de tu piel, nutriéndola e hidratándola desde el interior.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Ideal para pieles apagadas, deshidratadas o con signos iniciales de envejecimiento. El médico personaliza la fórmula según tu tipo de piel y tus objetivos.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>Es un procedimiento rápido y bien tolerado, de unos 20 a 30 minutos. Suele plantearse en varias sesiones para potenciar y mantener los resultados.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel gana luminosidad, hidratación y firmeza de forma progresiva. Se recomienda un plan de sesiones que el médico ajustará a tu caso.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Mesoterapia')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-limpieza">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Estética Facial</span>
+      <h1 class="td-title">Limpieza <em>Facial</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">Una limpieza facial profunda elimina impurezas, exceso de grasa y células muertas, dejando la piel limpia, oxigenada y luminosa, y preparada para absorber mejor otros tratamientos.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>Incluye análisis de la piel, exfoliación, extracción de impurezas y una fase final de hidratación, adaptando los productos a cada tipo de piel.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Recomendada para todo tipo de pieles como cuidado de mantenimiento, y especialmente útil en pieles con poros obstruidos, puntos negros o falta de luminosidad.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>La sesión dura aproximadamente entre 45 y 60 minutos, en un ambiente relajante. No requiere recuperación.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel queda limpia, suave y luminosa desde la primera sesión. Se aconseja repetirla periódicamente para mantener sus beneficios.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Limpieza Facial')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-peeling">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Estética Facial</span>
+      <h1 class="td-title">Peeling <em>Mecánico</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">El peeling mecánico renueva la superficie de la piel mediante una exfoliación controlada, mejorando la textura, el tono y aportando luminosidad inmediata.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>Mediante microexfoliación se retiran las células muertas de la capa más superficial, estimulando la renovación celular y afinando la textura de la piel.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Adecuado para pieles apagadas, con textura irregular o pequeñas imperfecciones. Se valora previamente el estado de tu piel para ajustar la intensidad.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>Es un tratamiento cómodo de unos 30 a 45 minutos. Tras la sesión la piel puede quedar ligeramente sonrosada durante unas horas.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>Desde la primera sesión la piel luce más lisa y luminosa. Suele recomendarse en pauta de varias sesiones según el objetivo.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Peeling Mecánico')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-hidratacion">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Estética Facial</span>
+      <h1 class="td-title">Hidratación <em>Facial</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">Un tratamiento de hidratación profunda repone el agua y los nutrientes de la piel, restaurando su elasticidad, confort y luminosidad.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>Combina activos hidratantes y nutritivos que penetran en la piel para reequilibrar su nivel de hidratación y reforzar su barrera natural.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Especialmente indicado para pieles secas, tirantes o deshidratadas por el clima, el sol o el paso del tiempo.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión relajante de unos 45 minutos, sin molestias ni tiempo de recuperación.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel recupera confort, suavidad y luminosidad. Se recomienda como cuidado regular, sobre todo en épocas de mayor deshidratación.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Hidratación')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-oxigenacion">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Estética Facial</span>
+      <h1 class="td-title">Oxigenación <em>Facial</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">La oxigenación facial revitaliza las pieles apagadas aportando oxígeno y activos que devuelven frescura, luz y vitalidad al rostro.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>Se aporta oxígeno junto con principios activos que favorecen la renovación celular y mejoran la oxigenación de los tejidos.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Ideal para pieles cansadas, fumadoras o expuestas a la contaminación, así como para dar luminosidad antes de un evento.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>Tratamiento agradable de unos 45 minutos, sin molestias y sin recuperación.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>El rostro luce más fresco, luminoso y descansado desde la primera sesión.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Oxigenación')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-vitaminac">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Estética Facial</span>
+      <h1 class="td-title"><em>Vitamina C</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">El tratamiento con vitamina C es un potente antioxidante que unifica el tono, ilumina la piel y ayuda a protegerla frente al envejecimiento prematuro.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>Aporta vitamina C en alta concentración, un antioxidante que combate el daño de los radicales libres, estimula el colágeno y aporta luminosidad.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Recomendado para pieles apagadas, con manchas leves o signos de fotoenvejecimiento, y como refuerzo antioxidante.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión de unos 45 minutos, cómoda y sin recuperación.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel gana luz y uniformidad de tono. Se potencia en pauta de sesiones y con un buen cuidado domiciliario.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Vitamina C')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-reafirmante">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Estética Facial</span>
+      <h1 class="td-title">Tratamiento <em>Reafirmante</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">El tratamiento reafirmante devuelve firmeza y tono a la piel del rostro, ayudando a redefinir el óvalo facial y a combatir la flacidez.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>Combina activos y técnicas que estimulan la firmeza de la piel, mejorando su tono y densidad.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Indicado para pieles con flacidez inicial o pérdida de firmeza, que buscan un efecto tensor progresivo.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión de unos 45 a 60 minutos, sin molestias ni recuperación.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel se percibe más firme y tersa. Los resultados se optimizan con un plan de sesiones.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Reafirmante')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-kinesiolifting">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Estética Facial</span>
+      <h1 class="td-title"><em>Kinesiolifting</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">El kinesiolifting es un masaje facial con técnica de lifting manual que tonifica la musculatura y aporta un efecto tensor natural, sin aparatología ni productos invasivos.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>Mediante maniobras manuales específicas se trabaja la musculatura facial, mejorando el tono, la circulación y la firmeza de la piel.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Perfecto para quienes buscan un efecto revitalizante y tensor natural, o como complemento a otros tratamientos faciales.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión relajante de unos 45 a 60 minutos, muy agradable y sin recuperación.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>El rostro luce más descansado, luminoso y tonificado. Su efecto se refuerza con la constancia.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Kinesiolifting')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-radiofrecuencia">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Estética Facial</span>
+      <h1 class="td-title"><em>Radiofrecuencia</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">La radiofrecuencia estimula la producción de colágeno y elastina mediante calor controlado, tensando y rejuveneciendo la piel sin cirugía.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>Un cabezal emite energía que calienta las capas profundas de la piel de forma controlada, estimulando la regeneración de colágeno y el efecto tensor.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Indicada para flacidez leve o moderada y pérdida de firmeza, tanto en rostro como en cuello. Se valora previamente su idoneidad.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>Tratamiento confortable, con una sensación de calor agradable, de unos 30 a 45 minutos. Sin recuperación.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>Se aprecia un efecto tensor progresivo a medida que se genera nuevo colágeno. Suele plantearse en varias sesiones.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Radiofrecuencia')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-fotorejuvenecimiento">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Estética Facial</span>
+      <h1 class="td-title"><em>Fotorejuvenecimiento</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">El fotorejuvenecimiento emplea luz pulsada para corregir manchas, rojeces y signos de la edad, mejorando el tono y la textura de la piel.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>La luz pulsada actúa sobre las manchas y las pequeñas alteraciones vasculares, unificando el tono y estimulando la renovación de la piel.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Recomendado para pieles con manchas solares, rojeces o signos de fotoenvejecimiento. Requiere valoración previa del tipo de piel.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión de unos 30 minutos. Puede notarse un ligero calor durante la aplicación; sin apenas recuperación.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>El tono se unifica y las manchas se atenúan progresivamente. Suele recomendarse en varias sesiones.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Fotorejuvenecimiento')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-ultrasonix">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Estética Facial</span>
+      <h1 class="td-title"><em>Ultrasonix</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">El tratamiento Ultrasonix aplica ultrasonidos que favorecen la penetración de activos y estimulan la piel para un efecto reafirmante y revitalizante.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>Los ultrasonidos facilitan que los principios activos penetren mejor y estimulan los tejidos, potenciando la firmeza y la luminosidad.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Adecuado para pieles que buscan un extra de firmeza y vitalidad, y como complemento de otros tratamientos faciales.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión cómoda de unos 30 a 45 minutos, sin molestias ni recuperación.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel se percibe más firme, luminosa y revitalizada. Se optimiza con sesiones regulares.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Ultrasonix')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-shr">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Estética Corporal</span>
+      <h1 class="td-title">Depilación <em>SHR</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">La depilación SHR es un método de última generación que reduce el vello de forma progresiva, cómoda y eficaz sobre prácticamente todo tipo de piel y vello.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>La tecnología SHR combina calor gradual y barrido continuo para actuar sobre el folículo de forma progresiva, con gran confort durante la sesión.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Apta para la mayoría de fototipos y zonas corporales. En la valoración se define el plan de sesiones según tu tipo de piel y vello.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>Las sesiones son rápidas y confortables; su duración depende de la zona a tratar. No requiere recuperación.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>El vello se reduce sesión tras sesión. Se recomienda completar el número de sesiones que indique el profesional para un resultado óptimo.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Depilación SHR')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-ipl">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Estética Corporal</span>
+      <h1 class="td-title">Depilación <em>IPL</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">La depilación IPL utiliza luz pulsada intensa para reducir el vello de forma duradera, con tratamientos rápidos y bien tolerados.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>La luz pulsada actúa sobre el pigmento del vello para debilitar el folículo de forma progresiva a lo largo de las sesiones.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Indicada para reducir el vello en distintas zonas del cuerpo. Se valora previamente el tipo de piel y vello para ajustar los parámetros.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesiones rápidas cuya duración depende de la zona. Sin recuperación.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>Reducción progresiva del vello con cada sesión. El profesional te indicará el plan más adecuado.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Depilación IPL')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-maderoterapia">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Estética Corporal</span>
+      <h1 class="td-title"><em>Maderoterapia</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">La maderoterapia es un masaje con instrumentos de madera que ayuda a moldear la figura, reducir la celulitis y activar la circulación.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>Mediante utensilios de madera se realizan maniobras específicas que favorecen el drenaje, la movilización de la grasa y la mejora de la circulación.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Pensada para quienes buscan mejorar el contorno corporal, reducir la celulitis y favorecer la sensación de ligereza.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión de unos 45 a 60 minutos. Suele plantearse en pauta para potenciar los resultados.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>Mejora progresiva del aspecto de la piel y del contorno. Los resultados se optimizan con constancia y hábitos saludables.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Maderoterapia')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-presoterapia">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Estética Corporal</span>
+      <h1 class="td-title"><em>Presoterapia</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">La presoterapia aplica una presión controlada por aire que favorece el drenaje, reduce la retención de líquidos y alivia la sensación de piernas cansadas.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>Un equipo ejerce presión secuencial sobre las piernas o el abdomen, estimulando el retorno venoso y el drenaje linfático.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Ideal para retención de líquidos, piernas pesadas o como complemento en tratamientos de contorno corporal.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión muy relajante de unos 30 a 45 minutos, sin molestias.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>Sensación de ligereza y mejora de la retención desde las primeras sesiones. Se recomienda en pauta regular.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Presoterapia')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-drenajes">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Estética Corporal</span>
+      <h1 class="td-title">Drenajes <em>Linfáticos</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">El drenaje linfático es un masaje suave que estimula el sistema linfático para ayudar a eliminar toxinas, reducir la hinchazón y aportar ligereza.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>Mediante maniobras manuales suaves y rítmicas se favorece la circulación linfática, ayudando a drenar el exceso de líquidos.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Recomendado para retención de líquidos, sensación de hinchazón o como complemento en recuperación y tratamientos corporales.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión relajante de unos 45 a 60 minutos. Sin molestias ni recuperación.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>Sensación de ligereza y menor hinchazón. Se aconseja en pauta para mantener sus beneficios.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Drenajes Linfáticos')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-hondas">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Estética Corporal</span>
+      <h1 class="td-title">Hondas <em>Magnéticas</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">Las hondas magnéticas ofrecen una estimulación muscular intensa que ayuda a tratar la flacidez, la diástasis abdominal y a ejercitar el suelo pélvico, sin esfuerzo activo.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>La tecnología provoca contracciones musculares profundas que tonifican la musculatura de la zona tratada, incluyendo flacidez muscular, diástasis abdominal y suelo pélvico.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Indicada para tonificar y reforzar la musculatura, mejorar la flacidez o trabajar el suelo pélvico, tras la valoración del caso.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión cómoda en la que solo notarás las contracciones musculares, de unos 30 minutos. Sin recuperación.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>Mejora progresiva del tono muscular. Suele recomendarse un plan de sesiones para consolidar los resultados.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Hondas Magnéticas')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-cera">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Estética Corporal</span>
+      <h1 class="td-title">Cera <em>Facial y Corporal</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">La depilación con cera retira el vello de raíz en rostro y cuerpo, con un acabado limpio, duradero y un cuidado especial de la piel.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>Se aplica cera adaptada a cada zona para retirar el vello de raíz, dejando la piel suave durante más tiempo que otros métodos.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Apta para distintas zonas del rostro y el cuerpo. Se adapta la técnica y el tipo de cera a la sensibilidad de cada piel.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>La duración depende de la zona a tratar. Se cuida la piel antes y después para minimizar molestias.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>Piel suave y libre de vello durante semanas. La constancia ayuda a que el vello salga más fino con el tiempo.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Cera Facial y Corporal')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-endolifting">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Medicina Estética</span>
+      <h1 class="td-title">Endolifting con <em>Fibra Óptica</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">El endolifting es un tratamiento médico que, mediante una fina fibra óptica introducida bajo la piel, aporta un efecto tensor y reafirmante estimulando la producción de colágeno, sin cirugía.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>El médico introduce una microfibra óptica bajo la piel que emite energía láser de forma controlada, retrayendo los tejidos y estimulando la formación de nuevo colágeno para un efecto lifting progresivo.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Indicado para flacidez facial o corporal —papada, brazos o abdomen— en personas que buscan una alternativa a la cirugía. La valoración médica previa con el Dr. Romero determina su idoneidad.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>Se realiza en consulta con anestesia local; la duración depende de la zona a tratar. Requiere unas indicaciones de cuidado durante los días posteriores.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>Se aprecia un efecto tensor inicial que mejora a medida que se genera colágeno nuevo durante las semanas siguientes. El médico te indicará el número de sesiones y los cuidados en tu caso.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Endolifting con Fibra Óptica')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-blumed">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Medicina Estética</span>
+      <h1 class="td-title">Eliminación de <em>Manchas y Lesiones</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">Un tratamiento médico que, con la tecnología Blumed, permite eliminar de forma precisa y segura lesiones cutáneas frecuentes como puntos rubí, lentigos solares, melasmas y verrugas.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>Con la tecnología Blumed, el médico trata de forma localizada cada lesión —puntos rubí, lentigos solares, melasmas y verrugas—, respetando la piel de alrededor.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Indicado para quienes desean eliminar manchas o pequeñas lesiones cutáneas benignas. Es imprescindible una valoración médica previa para confirmar la naturaleza de cada lesión y su tratamiento.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>La duración depende del número y tipo de lesiones a tratar. Es un procedimiento realizado siempre por el médico, con indicaciones de cuidado posterior.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>Las lesiones tratadas se eliminan progresivamente durante los días siguientes. El médico te explicará los cuidados y si son necesarias sesiones adicionales.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Eliminación de Manchas y Lesiones (Blumed)')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-aranas">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Medicina Estética</span>
+      <h1 class="td-title">Eliminación de <em>Arañas Vasculares</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">Las arañas vasculares son pequeños vasos dilatados visibles en la piel, sobre todo en las piernas. Su eliminación es un tratamiento médico realizado por el Dr. Romero, especialista en flebología.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>El médico trata los pequeños vasos dilatados mediante la técnica más adecuada para cada caso, logrando que desaparezcan de forma progresiva.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Indicado para quienes presentan arañas vasculares o pequeñas varices superficiales, tanto por motivo estético como de confort. Requiere valoración médica previa.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>La duración depende de la extensión a tratar. Puede plantearse en varias sesiones según el caso, con indicaciones de cuidado posterior.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>Las arañas tratadas se atenúan y desaparecen progresivamente en las semanas siguientes. El médico te indicará el número de sesiones y los cuidados recomendados.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Eliminación de Arañas Vasculares')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
+  <div class="treatment-detail" id="t-dermapen">
+    <div class="td-bar">
+      <a href="#servicios" class="td-back">&larr; Volver a tratamientos</a>
+      <span class="td-barname">Innovae</span>
+    </div>
+    <div class="td-body">
+      <span class="label">Estética Facial</span>
+      <h1 class="td-title"><em>Dermapen</em></h1>
+      <div class="rule"></div>
+      <p class="td-lead">El Dermapen es un tratamiento de microneedling que, mediante finas microagujas, estimula la regeneración natural de la piel para mejorar su textura, firmeza y luminosidad.</p>
+      <div class="ba-compare">
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Antes</figcaption></figure>
+        <figure class="ba-item"><div class="ba-frame"><span class="ba-ph">Imagen</span></div><figcaption class="ba-label">Después</figcaption></figure>
+      </div>
+      <div class="td-grid">
+        <div class="td-block"><h3>¿En qué consiste?</h3><p>Un cabezal con microagujas crea microestímulos controlados en la piel que activan la producción de colágeno y elastina, y favorecen la penetración de activos.</p></div>
+        <div class="td-block"><h3>¿Para quién está indicado?</h3><p>Indicado para mejorar la textura de la piel, marcas, poros dilatados o signos de envejecimiento, y para aportar luminosidad. Se valora previamente el estado de la piel.</p></div>
+        <div class="td-block"><h3>Cómo es la sesión</h3><p>Se aplica una crema anestésica para mayor confort y la sesión dura unos 30 a 45 minutos. La piel puede quedar sonrosada durante unas horas.</p></div>
+        <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel gana suavidad, firmeza y luminosidad de forma progresiva. Suele recomendarse en pauta de varias sesiones.</p></div>
+      </div>
+      <div class="td-cta"><a href="#contacto" class="btn-primary" onclick="preselectTratamiento('Dermapen')">Reservar este tratamiento</a></div>
+      <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">Innovae<span>.</span></div>
@@ -1371,6 +2292,33 @@
         }
       }, { passive: true });
     }
+
+    // Detalles de servicios y selección en el formulario existente.
+    function preselectTratamiento(nombre) {
+      const sel = document.getElementById('tratamiento');
+      if (!sel) return;
+      if (!Array.from(sel.options).some(option => option.value === nombre)) {
+        sel.add(new Option(nombre, nombre));
+      }
+      sel.value = nombre;
+    }
+    (function(){
+      function route(){
+        const id = location.hash.slice(1);
+        const el = id ? document.getElementById(id) : null;
+        const isDetail = el && el.classList.contains('treatment-detail');
+        document.querySelectorAll('.treatment-detail').forEach(function(d){ d.classList.remove('active'); });
+        if(isDetail){
+          el.classList.add('active');
+          document.body.style.overflow = 'hidden';
+          el.scrollTop = 0;
+        } else {
+          document.body.style.overflow = '';
+        }
+      }
+      window.addEventListener('hashchange', route);
+      window.addEventListener('load', route);
+    })();
 
     // Hero auto-reveal on load
     setTimeout(() => {
