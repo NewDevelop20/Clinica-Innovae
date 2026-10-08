@@ -26,6 +26,7 @@ for (const p of products) {
   if (saved) {
     p.images = (saved.images || []).filter(Boolean);
     p.usageImages = (saved.usageImages || []).filter(Boolean);
+    if (saved.hideUsageSection === true) p.hideUsageSection = true;
   }
 }
 fs.writeFileSync(path.join(productDir, 'datos-productos.json'), JSON.stringify(products, null, 2) + '\n');
@@ -34,10 +35,13 @@ for (const p of products) {
   const html = renderProduct(p);
   fs.writeFileSync(path.join(productDir, p.id + '.html'), html);
   assert.equal((html.match(/data-image-slot=/g) || []).length, p.images.length);
-  assert.equal((html.match(/class="usage-image"/g) || []).length, p.usageImages.length);
+  assert.equal((html.match(/class="usage-image"/g) || []).length, p.hideUsageSection ? 0 : p.usageImages.length);
   assert(html.includes(escape(p.summary)));
-  for (const id of ['modo-de-uso', 'rutina', 'resultados']) assert(html.includes(`id="${id}"`));
+  assert.equal(html.includes('id="modo-de-uso"'), !p.hideUsageSection);
+  assert.equal(html.includes('href="#modo-de-uso"'), !p.hideUsageSection);
+  for (const id of ['rutina', 'resultados']) assert(html.includes(`id="${id}"`));
   for (const section of p.sections) {
+    if (p.hideUsageSection && section.title === 'Modo de uso') continue;
     const plain = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
     const bits = section.text.split(/\r?\n|(?<=\.)\s+(?=[A-ZÁÉÍÓÚÜ*])|\d\)\s*/).filter(Boolean);
     for (const bit of bits) assert(plain.includes(escape(bit.replace(/^- /, '').replace(/\*/g, '')).replace(/\s+/g, ' ').trim()), `Texto ausente: ${p.name} / ${section.title}`);

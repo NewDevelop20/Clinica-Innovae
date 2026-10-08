@@ -194,7 +194,8 @@
       "https://www.germainedecapuccini.com/media/catalog/product/0/0/00300002_4.jpg",
       "https://www.germainedecapuccini.com/media/catalog/product/0/0/00300002_5.jpg",
       "https://www.germainedecapuccini.com/media/catalog/product/0/0/00300002_6.jpg"
-    ]
+    ],
+    "hideUsageSection": true
   },
   {
     "id": "serum-pro-colageno",
@@ -241,7 +242,8 @@
       "https://www.germainedecapuccini.com/media/catalog/product/0/0/00300003_4.jpg",
       "https://www.germainedecapuccini.com/media/catalog/product/0/0/00300003_5.jpg",
       "https://www.germainedecapuccini.com/media/catalog/product/0/0/00300003_6.jpg"
-    ]
+    ],
+    "hideUsageSection": true
   },
   {
     "id": "crema-antioxidante-iluminadora",
@@ -336,7 +338,8 @@
       "https://www.germainedecapuccini.com/media/catalog/product/0/0/00290022_1.jpg",
       "https://www.germainedecapuccini.com/media/catalog/product/0/0/00290022_2.jpg",
       "https://www.germainedecapuccini.com/media/catalog/product/0/0/00290022_3.jpg"
-    ]
+    ],
+    "hideUsageSection": true
   },
   {
     "id": "all-year-bronze-powder-spf-15",
@@ -472,7 +475,8 @@
       "https://www.mesoestetic.com/media/catalog/product/cache/7fbebcbe452a9ca6c9fa0baba8544c87/m/e/mesoprotech_water_veil_primario_secundario.jpg",
       "https://www.mesoestetic.com/media/catalog/product/cache/7fbebcbe452a9ca6c9fa0baba8544c87/m/e/mesoprotech_water_veil_primario_textura.jpg",
       "https://www.mesoestetic.com/media/catalog/product/cache/7fbebcbe452a9ca6c9fa0baba8544c87/m/e/mesoprotech_water_veil_textura.jpg"
-    ]
+    ],
+    "hideUsageSection": true
   },
   {
     "id": "mesoprotech-melan-130-pigment-control-spf50",
@@ -515,6 +519,7 @@
     "sourceImages": [
       "https://www.mesoestetic.us/media/catalog/product/cache/7fbebcbe452a9ca6c9fa0baba8544c87/m/e/mesoprotech_primario_melan_130.jpg",
       "https://www.mesoestetic.us/media/catalog/product/cache/7fbebcbe452a9ca6c9fa0baba8544c87/u/s/usa_secundario_mesoprotech_melan_130.jpg"
-    ]
+    ],
+    "hideUsageSection": true
   }
 ]
