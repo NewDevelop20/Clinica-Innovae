@@ -822,6 +822,144 @@
     .profile-tags { display: flex; flex-wrap: wrap; gap: 10px; }
     .ptag { border: 1px solid var(--border-gold); padding: 8px 16px; font-size: 0.72rem; color: var(--text-mid); letter-spacing: 0.03em; }
 
+    /* ── RESERVAS ── */
+    #reservas { background: #141414; color: var(--white); }
+    .booking-wrap { max-width: 680px; margin: 0 auto; }
+    .booking-head { text-align: center; margin-bottom: 46px; }
+    .booking-head .label { color: var(--gold-light); }
+    .booking-head .title { color: var(--white); }
+    .booking-head .rule { margin: 0 auto 24px; }
+    .booking-head .body-text { color: rgba(255,255,255,0.68); text-align: center; max-width: 100%; }
+    .booking-form { display: flex; flex-direction: column; gap: 20px; position: relative; }
+    .booking-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .booking-form .form-group { display: flex; flex-direction: column; gap: 7px; }
+    .booking-form label {
+      font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold-light); font-weight: 500;
+    }
+    .booking-form input,
+    .booking-form textarea,
+    .booking-form select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid rgba(201,168,76,0.35);
+      background: var(--cream);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.84rem;
+      color: var(--text-dark);
+      caret-color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      resize: none;
+      appearance: none;
+    }
+    .booking-form input::placeholder,
+    .booking-form textarea::placeholder { color: #9a978d; }
+    .booking-form input:focus,
+    .booking-form textarea:focus,
+    .booking-form select:focus { border-color: var(--gold); box-shadow: 0 0 0 2px rgba(201,168,76,0.18); }
+    .booking-form select:disabled { opacity: 0.55; cursor: not-allowed; }
+    .booking-form select option { background: #FFFFFF; color: var(--text-dark); }
+    .booking-form select optgroup { background: #FFFFFF; color: var(--gold-dark); font-weight: 600; }
+    .booking-form input[type="date"]::-webkit-calendar-picker-indicator { cursor: pointer; }
+    /* Autofill: mismo aspecto claro con texto oscuro (siempre visible) */
+    .booking-form input:-webkit-autofill,
+    .booking-form input:-webkit-autofill:hover,
+    .booking-form input:-webkit-autofill:focus,
+    .booking-form textarea:-webkit-autofill,
+    .booking-form select:-webkit-autofill {
+      -webkit-text-fill-color: var(--text-dark);
+      caret-color: var(--text-dark);
+      -webkit-box-shadow: 0 0 0 1000px var(--cream) inset;
+      box-shadow: 0 0 0 1000px var(--cream) inset;
+      transition: background-color 9999s ease-in-out 0s;
+    }
+    .field-error {
+      font-size: 0.67rem; color: #E8A9A9; letter-spacing: 0.02em;
+      display: none;
+    }
+    .form-group.invalid input,
+    .form-group.invalid select,
+    .form-group.invalid textarea { border-color: #C96A6A; background: rgba(201,106,106,0.08); }
+    .form-group.invalid .field-error { display: block; }
+    .consent-row { display: flex; align-items: flex-start; gap: 12px; }
+    .consent-row input[type="checkbox"] {
+      width: 18px; height: 18px; margin-top: 2px; padding: 0;
+      accent-color: var(--gold); flex-shrink: 0; cursor: pointer;
+      appearance: auto; background: transparent; border: none;
+    }
+    .consent-row label {
+      font-size: 0.72rem; letter-spacing: 0.02em; text-transform: none;
+      color: rgba(255,255,255,0.6); font-weight: 400; line-height: 1.6; cursor: pointer;
+    }
+    .consent-row a { color: var(--gold-light); text-decoration: underline; }
+    .booking-form .form-submit { align-self: center; margin-top: 8px; min-width: 260px; text-align: center; }
+    .booking-form .choice-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .booking-form .choice {
+      position: relative;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      padding: 13px 12px;
+      border: 1px solid rgba(201,168,76,0.25);
+      background: rgba(255,255,255,0.045);
+      color: rgba(255,255,255,0.75);
+      font-size: 0.76rem; letter-spacing: 0.02em;
+      cursor: pointer; transition: all 0.25s;
+    }
+    .booking-form .choice input {
+      position: absolute; inset: 0; opacity: 0; margin: 0;
+      width: 100%; height: 100%; cursor: pointer;
+    }
+    .booking-form .choice:hover { border-color: rgba(201,168,76,0.6); }
+    .booking-form .choice:has(input:checked) {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.14);
+      color: var(--gold-light);
+    }
+    .first-visit-note {
+      display: none; gap: 12px; margin-top: 4px;
+      padding: 14px 16px;
+      border: 1px solid rgba(201,168,76,0.25);
+      background: rgba(201,168,76,0.07);
+      align-items: flex-start;
+    }
+    .first-visit-note.show { display: flex; }
+    .first-visit-note svg { width: 20px; height: 20px; stroke: var(--gold); fill: none; stroke-width: 1.5; flex-shrink: 0; margin-top: 1px; }
+    .first-visit-note p { font-size: 0.74rem; line-height: 1.65; color: rgba(255,255,255,0.72); margin: 0; }
+    .booking-confirm .bc-note {
+      color: rgba(255,255,255,0.55); font-size: 0.78rem; font-style: italic;
+      margin: 14px auto 0; max-width: 460px; line-height: 1.6;
+    }
+    .honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .booking-confirm { display: none; text-align: center; padding: 30px 10px; }
+    .booking-confirm.show { display: block; animation: bcIn 0.5s ease; }
+    @keyframes bcIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    .booking-confirm .bc-icon {
+      width: 68px; height: 68px; margin: 0 auto 24px; border-radius: 50%;
+      border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center;
+    }
+    .booking-confirm .bc-icon svg { width: 30px; height: 30px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+    .booking-confirm h3 {
+      font-family: 'Cormorant Garamond', serif; font-size: 2.1rem; font-weight: 300;
+      color: var(--white); margin-bottom: 14px;
+    }
+    .booking-confirm p { color: rgba(255,255,255,0.7); font-size: 0.86rem; line-height: 1.8; max-width: 460px; margin: 0 auto; }
+    .booking-confirm .bc-detail { color: var(--gold-light); font-size: 0.95rem; margin-top: 20px; letter-spacing: 0.02em; }
+
+    .form-submit {
+      padding: 16px 42px;
+      background: var(--gold);
+      color: var(--white);
+      border: 2px solid var(--gold);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+      align-self: flex-start;
+    }
+    .form-submit:hover { background: transparent; color: var(--gold); }
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       section { padding: 80px 28px; }
@@ -833,7 +971,7 @@
       .schedule-grid,
       .contact-grid { grid-template-columns: 1fr; gap: 48px; }
       .stats-row { grid-template-columns: repeat(3, 1fr); gap: 10px; }
-      .form-row { grid-template-columns: 1fr; }
+      .form-row, .booking-form .form-row { grid-template-columns: 1fr; }
       .team-grid { grid-template-columns: repeat(2, 1fr); gap: 44px 24px; }
       .hero-content { padding: 110px 24px 70px; }
       footer { padding: 48px 24px 36px; }
@@ -913,6 +1051,7 @@
     <button class="mobile-nav-close" id="closeNav">&#x2715;</button>
     <a href="#sobre"    onclick="closeMob()">Sobre Nosotros</a>
     <a href="#servicios" onclick="closeMob()">Servicios</a>
+    <a href="#reservas" onclick="closeMob()">Reservas</a>
     <a href="#equipo" onclick="closeMob()">Nuestro Equipo</a>
     <a href="#tienda"   onclick="closeMob()">Tienda</a>
     <a href="#contacto" onclick="closeMob()">Contacto</a>
@@ -924,11 +1063,12 @@
     <ul class="nav-links">
       <li><a href="#sobre">Sobre Nosotros</a></li>
       <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#reservas">Reservas</a></li>
       <li><a href="#equipo">Nuestro Equipo</a></li>
       <li><a href="#tienda">Tienda</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
-    <a href="#contacto" class="nav-cta">Pide Cita</a>
+    <a href="#reservas" class="nav-cta">Pide Cita</a>
     <button class="nav-hamburger" id="hamburger" aria-label="Menú">
       <span></span><span></span><span></span>
     </button>
@@ -952,7 +1092,7 @@
         Tratamientos de vanguardia &nbsp;·&nbsp; Resultados naturales &nbsp;·&nbsp; Atención personalizada
       </p>
       <div class="hero-buttons reveal" style="transition-delay:.5s">
-        <a href="#contacto" class="btn-primary">Pedir Cita</a>
+        <a href="#reservas" class="btn-primary">Pedir Cita</a>
         <a href="#servicios" class="btn-outline">Ver Tratamientos</a>
       </div>
     </div>
@@ -1297,7 +1437,149 @@
 
       </div>
       <div class="reveal" style="text-align:center;margin-top:52px">
-        <a href="#contacto" class="btn-primary">Reserva tu primera cita</a>
+        <a href="#reservas" class="btn-primary">Reserva tu primera cita</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESERVAS -->
+  <section id="reservas">
+    <div class="container">
+      <div class="booking-wrap">
+        <div class="booking-head reveal">
+          <span class="label">Reservas</span>
+          <h2 class="title" style="transition-delay:.1s">Reserva tu cita <em>online</em></h2>
+          <div class="rule"></div>
+          <p class="body-text">Rellena el formulario y te confirmaremos tu cita lo antes posible.<br>Atención: Lunes a Viernes 10:00&ndash;19:00 &nbsp;·&nbsp; Sábados 10:00&ndash;14:00 &nbsp;·&nbsp; Domingos cerrado.</p>
+        </div>
+
+        <form class="booking-form reveal" id="bookingForm" style="transition-delay:.15s" novalidate autocomplete="on">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="r-nombre">Nombre y apellidos</label>
+              <input type="text" id="r-nombre" name="nombre" placeholder="Tu nombre" autocomplete="name" maxlength="60">
+              <span class="field-error">Introduce tu nombre (solo letras).</span>
+            </div>
+            <div class="form-group">
+              <label for="r-telefono">Teléfono</label>
+              <input type="tel" id="r-telefono" name="telefono" placeholder="600000000" autocomplete="tel" inputmode="numeric" maxlength="15">
+              <span class="field-error">Introduce un teléfono válido (mínimo 9 dígitos).</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="r-email">Email</label>
+            <input type="email" id="r-email" name="email" placeholder="tu@email.com" autocomplete="email" maxlength="80">
+            <span class="field-error">Introduce un email válido.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="r-tratamiento">Tratamiento de interés</label>
+            <select id="r-tratamiento" name="tratamiento">
+              <option value="" disabled selected>Selecciona un tratamiento</option>
+                <optgroup label="Primera visita">
+                  <option>Primera consulta / valoración</option>
+                </optgroup>
+                <optgroup label="Medicina Estética">
+                  <option>Eliminación de Arrugas</option>
+                  <option>Rellenos con Ácido Hialurónico</option>
+                  <option>Hilos Tensores</option>
+                  <option>Mesoterapia</option>
+                  <option>Endolifting con Fibra Óptica</option>
+                  <option>Eliminación de Manchas y Lesiones (Blumed)</option>
+                  <option>Eliminación de Arañas Vasculares</option>
+                </optgroup>
+                <optgroup label="Estética Facial">
+                  <option>Limpieza Facial</option>
+                  <option>Peeling Mecánico</option>
+                  <option>Hidratación</option>
+                  <option>Oxigenación</option>
+                  <option>Vitamina C</option>
+                  <option>Reafirmante</option>
+                  <option>Kinesiolifting</option>
+                  <option>Radiofrecuencia</option>
+                  <option>Fotorejuvenecimiento</option>
+                  <option>Ultrasonix</option>
+                  <option>Dermapen</option>
+                </optgroup>
+                <optgroup label="Estética Corporal">
+                  <option>Depilación SHR</option>
+                  <option>Depilación IPL</option>
+                  <option>Maderoterapia</option>
+                  <option>Presoterapia</option>
+                  <option>Drenajes Linfáticos</option>
+                  <option>Hondas Magnéticas</option>
+                  <option>Cera Facial y Corporal</option>
+                </optgroup>
+              <option>Otro / Consulta general</option>
+            </select>
+            <span class="field-error">Selecciona un tratamiento.</span>
+          </div>
+
+          <div class="form-group">
+            <label>¿Es tu primera cita en Innovae?</label>
+            <div class="choice-row">
+              <label class="choice">
+                <input type="radio" name="primera" value="Sí">
+                <span>Sí, es mi primera vez</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="primera" value="No">
+                <span>No, ya soy cliente</span>
+              </label>
+            </div>
+            <span class="field-error">Indícanos si es tu primera cita.</span>
+            <div class="first-visit-note" id="firstVisitNote">
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              <p>En tu primera visita realizaremos una breve entrevista y valoración médica previa con el Dr. Romero antes de cualquier tratamiento, para asegurar que sea el más adecuado para ti.</p>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="r-fecha">Fecha de la cita</label>
+              <input type="date" id="r-fecha" name="fecha">
+              <span class="field-error">Elige una fecha válida (no domingos).</span>
+            </div>
+            <div class="form-group">
+              <label for="r-hora">Hora</label>
+              <select id="r-hora" name="hora" disabled>
+                <option value="" disabled selected>Primero elige una fecha</option>
+              </select>
+              <span class="field-error">Selecciona una hora.</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="r-notas">Notas (opcional)</label>
+            <textarea id="r-notas" name="notas" rows="3" placeholder="Cuéntanos cualquier detalle que debamos saber..." maxlength="500"></textarea>
+          </div>
+
+          <!-- Campo anti-spam (oculto, no rellenar) -->
+          <div class="honeypot" aria-hidden="true">
+            <label>No rellenar<input type="text" id="r-website" name="website" tabindex="-1" autocomplete="off"></label>
+          </div>
+
+          <div class="form-group">
+            <div class="consent-row">
+              <input type="checkbox" id="r-rgpd" name="rgpd">
+              <label for="r-rgpd">He leído y acepto la política de privacidad y el tratamiento de mis datos con la finalidad de gestionar mi cita (RGPD).</label>
+            </div>
+            <span class="field-error">Debes aceptar la política de privacidad para continuar.</span>
+          </div>
+
+          <button class="form-submit" type="submit" id="r-submit">Solicitar cita</button>
+        </form>
+
+        <div class="booking-confirm" id="bookingConfirm">
+          <div class="bc-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <h3>¡Solicitud recibida!</h3>
+          <p>Gracias, <span id="bc-name"></span>. Hemos recibido tu solicitud de cita y nos pondremos en contacto contigo para confirmarla.</p>
+          <p class="bc-detail" id="bc-detail"></p>
+          <p class="bc-note" id="bc-note" style="display:none"></p>
+        </div>
       </div>
     </div>
   </section>
@@ -1408,7 +1690,6 @@
   </div></section>
 
   <!-- CONTACTO -->
-  <div id="reservas" aria-hidden="true"></div>
   <section id="contacto">
     <div class="container">
       <div class="schedule-grid">
@@ -1625,7 +1906,7 @@
         </div>
       </div>
       <div class="td-cta">
-        <a href="#contacto" class="btn-primary">Reservar este tratamiento</a>
+        <a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Eliminación de Arrugas')">Reservar este tratamiento</a>
       </div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
@@ -1651,7 +1932,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>La sesión es ambulatoria y suele durar entre 30 y 45 minutos. Se emplea anestesia tópica para mayor confort y puedes retomar tu actividad prácticamente de inmediato.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>El resultado es visible desde el primer momento y se asienta en los días siguientes. Es un tratamiento de duración prolongada; el médico te indicará el mantenimiento recomendado.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Rellenos con Ácido Hialurónico')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1676,7 +1957,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Se realiza en consulta con anestesia local, en una sesión de aproximadamente 30 a 45 minutos. La recuperación es sencilla, con indicaciones de cuidado durante los primeros días.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Se aprecia una mejora inmediata que se completa a medida que se genera nuevo colágeno. Los hilos se reabsorben con el tiempo; el médico te informará de la duración estimada en tu caso.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Hilos Tensores')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1701,7 +1982,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Es un procedimiento rápido y bien tolerado, de unos 20 a 30 minutos. Suele plantearse en varias sesiones para potenciar y mantener los resultados.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel gana luminosidad, hidratación y firmeza de forma progresiva. Se recomienda un plan de sesiones que el médico ajustará a tu caso.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Mesoterapia')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1726,7 +2007,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>La sesión dura aproximadamente entre 45 y 60 minutos, en un ambiente relajante. No requiere recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel queda limpia, suave y luminosa desde la primera sesión. Se aconseja repetirla periódicamente para mantener sus beneficios.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Limpieza Facial')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1751,7 +2032,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Es un tratamiento cómodo de unos 30 a 45 minutos. Tras la sesión la piel puede quedar ligeramente sonrosada durante unas horas.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Desde la primera sesión la piel luce más lisa y luminosa. Suele recomendarse en pauta de varias sesiones según el objetivo.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Peeling Mecánico')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1776,7 +2057,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión relajante de unos 45 minutos, sin molestias ni tiempo de recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel recupera confort, suavidad y luminosidad. Se recomienda como cuidado regular, sobre todo en épocas de mayor deshidratación.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Hidratación')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1801,7 +2082,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Tratamiento agradable de unos 45 minutos, sin molestias y sin recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>El rostro luce más fresco, luminoso y descansado desde la primera sesión.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Oxigenación')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1826,7 +2107,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión de unos 45 minutos, cómoda y sin recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel gana luz y uniformidad de tono. Se potencia en pauta de sesiones y con un buen cuidado domiciliario.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Vitamina C')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1851,7 +2132,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión de unos 45 a 60 minutos, sin molestias ni recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel se percibe más firme y tersa. Los resultados se optimizan con un plan de sesiones.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Reafirmante')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1876,7 +2157,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión relajante de unos 45 a 60 minutos, muy agradable y sin recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>El rostro luce más descansado, luminoso y tonificado. Su efecto se refuerza con la constancia.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Kinesiolifting')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1901,7 +2182,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Tratamiento confortable, con una sensación de calor agradable, de unos 30 a 45 minutos. Sin recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Se aprecia un efecto tensor progresivo a medida que se genera nuevo colágeno. Suele plantearse en varias sesiones.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Radiofrecuencia')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1926,7 +2207,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión de unos 30 minutos. Puede notarse un ligero calor durante la aplicación; sin apenas recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>El tono se unifica y las manchas se atenúan progresivamente. Suele recomendarse en varias sesiones.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Fotorejuvenecimiento')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1951,7 +2232,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión cómoda de unos 30 a 45 minutos, sin molestias ni recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel se percibe más firme, luminosa y revitalizada. Se optimiza con sesiones regulares.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Ultrasonix')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -1976,7 +2257,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Las sesiones son rápidas y confortables; su duración depende de la zona a tratar. No requiere recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>El vello se reduce sesión tras sesión. Se recomienda completar el número de sesiones que indique el profesional para un resultado óptimo.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Depilación SHR')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2001,7 +2282,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesiones rápidas cuya duración depende de la zona. Sin recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Reducción progresiva del vello con cada sesión. El profesional te indicará el plan más adecuado.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Depilación IPL')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2026,7 +2307,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión de unos 45 a 60 minutos. Suele plantearse en pauta para potenciar los resultados.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Mejora progresiva del aspecto de la piel y del contorno. Los resultados se optimizan con constancia y hábitos saludables.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Maderoterapia')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2051,7 +2332,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión muy relajante de unos 30 a 45 minutos, sin molestias.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Sensación de ligereza y mejora de la retención desde las primeras sesiones. Se recomienda en pauta regular.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Presoterapia')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2076,7 +2357,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión relajante de unos 45 a 60 minutos. Sin molestias ni recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Sensación de ligereza y menor hinchazón. Se aconseja en pauta para mantener sus beneficios.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Drenajes Linfáticos')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2101,7 +2382,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Sesión cómoda en la que solo notarás las contracciones musculares, de unos 30 minutos. Sin recuperación.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Mejora progresiva del tono muscular. Suele recomendarse un plan de sesiones para consolidar los resultados.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Hondas Magnéticas')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2126,7 +2407,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>La duración depende de la zona a tratar. Se cuida la piel antes y después para minimizar molestias.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Piel suave y libre de vello durante semanas. La constancia ayuda a que el vello salga más fino con el tiempo.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Cera Facial y Corporal')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2151,7 +2432,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Se realiza en consulta con anestesia local; la duración depende de la zona a tratar. Requiere unas indicaciones de cuidado durante los días posteriores.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Se aprecia un efecto tensor inicial que mejora a medida que se genera colágeno nuevo durante las semanas siguientes. El médico te indicará el número de sesiones y los cuidados en tu caso.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Endolifting con Fibra Óptica')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2176,7 +2457,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>La duración depende del número y tipo de lesiones a tratar. Es un procedimiento realizado siempre por el médico, con indicaciones de cuidado posterior.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Las lesiones tratadas se eliminan progresivamente durante los días siguientes. El médico te explicará los cuidados y si son necesarias sesiones adicionales.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Eliminación de Manchas y Lesiones (Blumed)')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2201,7 +2482,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>La duración depende de la extensión a tratar. Puede plantearse en varias sesiones según el caso, con indicaciones de cuidado posterior.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>Las arañas tratadas se atenúan y desaparecen progresivamente en las semanas siguientes. El médico te indicará el número de sesiones y los cuidados recomendados.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Eliminación de Arañas Vasculares')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2226,7 +2507,7 @@
         <div class="td-block"><h3>Cómo es la sesión</h3><p>Se aplica una crema anestésica para mayor confort y la sesión dura unos 30 a 45 minutos. La piel puede quedar sonrosada durante unas horas.</p></div>
         <div class="td-block"><h3>Resultados y cuidados</h3><p>La piel gana suavidad, firmeza y luminosidad de forma progresiva. Suele recomendarse en pauta de varias sesiones.</p></div>
       </div>
-      <div class="td-cta"><a href="#contacto" class="btn-primary">Reservar este tratamiento</a></div>
+      <div class="td-cta"><a href="#reservas" class="btn-primary" onclick="preselectTratamiento('Dermapen')">Reservar este tratamiento</a></div>
       <p class="td-note">La primera visita incluye una valoración médica previa con el Dr. Romero antes del tratamiento.</p>
     </div>
   </div>
@@ -2301,6 +2582,209 @@
           tick = true;
         }
       }, { passive: true });
+    }
+
+    // ── RESERVAS: validación y envío ──────────────────────────
+    (function () {
+      const form = document.getElementById('bookingForm');
+      if (!form) return;
+
+      const RESERVAS_ENDPOINT = ''; // ← Pega aquí la URL del Web App de Google Apps Script
+
+      const nombre = document.getElementById('r-nombre');
+      const telefono = document.getElementById('r-telefono');
+      const email = document.getElementById('r-email');
+      const tratamiento = document.getElementById('r-tratamiento');
+      const fecha = document.getElementById('r-fecha');
+      const hora = document.getElementById('r-hora');
+      const rgpd = document.getElementById('r-rgpd');
+      const honeypot = document.getElementById('r-website');
+      const submitBtn = document.getElementById('r-submit');
+      const primeraRadios = form.querySelectorAll('input[name="primera"]');
+      const firstVisitNote = document.getElementById('firstVisitNote');
+
+      // Fecha mínima = hoy
+      const now = new Date();
+      const localToday = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
+        .toISOString().split('T')[0];
+      fecha.min = localToday;
+
+      // Restricción en vivo: nombre solo letras / espacios
+      nombre.addEventListener('input', function () {
+        this.value = this.value.replace(/[^\p{L}\s'’.-]/gu, '');
+        clearError(this);
+      });
+
+      // Restricción en vivo: teléfono solo números
+      telefono.addEventListener('input', function () {
+        this.value = this.value.replace(/\D/g, '');
+        clearError(this);
+      });
+
+      [email, tratamiento, rgpd].forEach(function (el) {
+        el.addEventListener('input', function () { clearError(el); });
+        el.addEventListener('change', function () { clearError(el); });
+      });
+
+      // Primera cita: limpia el error y muestra el aviso de valoración médica
+      primeraRadios.forEach(function (radio) {
+        radio.addEventListener('change', function () {
+          clearError(radio);
+          const esPrimera = this.value === 'Sí';
+          if (firstVisitNote) firstVisitNote.classList.toggle('show', esPrimera);
+          if (esPrimera) {
+            tratamiento.value = 'Primera consulta / valoración';
+            clearError(tratamiento);
+          } else if (tratamiento.value === 'Primera consulta / valoración') {
+            tratamiento.value = '';
+          }
+        });
+      });
+
+      // Genera las horas disponibles según el día elegido
+      function buildSlots(dateStr) {
+        const d = new Date(dateStr + 'T00:00:00');
+        const day = d.getDay(); // 0 = domingo ... 6 = sábado
+        if (day === 0) return null;                 // domingo cerrado
+        const end = (day === 6) ? 14 * 60 : 19 * 60; // sábado hasta 14:00, resto 19:00
+        const slots = [];
+        for (let m = 10 * 60; m + 30 <= end; m += 30) {
+          const hh = String(Math.floor(m / 60)).padStart(2, '0');
+          const mm = String(m % 60).padStart(2, '0');
+          slots.push(hh + ':' + mm);
+        }
+        return slots;
+      }
+
+      function refreshHours() {
+        const dateStr = fecha.value;
+        if (!dateStr) {
+          hora.disabled = true;
+          hora.innerHTML = '<option value="" disabled selected>Primero elige una fecha</option>';
+          return;
+        }
+        const slots = buildSlots(dateStr);
+        if (slots === null) {
+          hora.disabled = true;
+          hora.innerHTML = '<option value="" disabled selected>Cerrado (domingo)</option>';
+          setError(fecha, 'Los domingos permanecemos cerrados. Elige otro día.');
+          return;
+        }
+        clearError(fecha);
+        hora.disabled = false;
+        let html = '<option value="" disabled selected>Selecciona una hora</option>';
+        slots.forEach(function (s) { html += '<option>' + s + '</option>'; });
+        hora.innerHTML = html;
+      }
+
+      fecha.addEventListener('change', function () { clearError(fecha); refreshHours(); clearError(hora); });
+      hora.addEventListener('change', function () { clearError(hora); });
+
+      function setError(el, msg) {
+        const group = el.closest('.form-group');
+        if (!group) return;
+        group.classList.add('invalid');
+        if (msg) {
+          const span = group.querySelector('.field-error');
+          if (span) span.textContent = msg;
+        }
+      }
+      function clearError(el) {
+        const group = el.closest('.form-group');
+        if (group) group.classList.remove('invalid');
+      }
+
+      function validate() {
+        let ok = true;
+        const firstInvalid = { el: null };
+
+        function fail(el, msg) {
+          setError(el, msg);
+          if (!firstInvalid.el) firstInvalid.el = el;
+          ok = false;
+        }
+
+        if (nombre.value.trim().length < 2) fail(nombre);
+        if (!/^\d{9,15}$/.test(telefono.value.trim())) fail(telefono);
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) fail(email);
+        if (!tratamiento.value) fail(tratamiento);
+
+        if (!fecha.value) {
+          fail(fecha, 'Elige una fecha válida (no domingos).');
+        } else if (new Date(fecha.value + 'T00:00:00').getDay() === 0) {
+          fail(fecha, 'Los domingos permanecemos cerrados. Elige otro día.');
+        }
+
+        if (!hora.value) fail(hora);
+        if (!form.querySelector('input[name="primera"]:checked')) fail(primeraRadios[0], 'Indícanos si es tu primera cita.');
+        if (!rgpd.checked) fail(rgpd);
+
+        if (firstInvalid.el) {
+          firstInvalid.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          try { firstInvalid.el.focus({ preventScroll: true }); } catch (e) {}
+        }
+        return ok;
+      }
+
+      function fmtDate(str) {
+        const p = str.split('-');
+        return p[2] + '/' + p[1] + '/' + p[0];
+      }
+
+      function showConfirm() {
+        document.getElementById('bc-name').textContent = nombre.value.trim().split(' ')[0];
+        document.getElementById('bc-detail').textContent =
+          tratamiento.value + ' · ' + fmtDate(fecha.value) + ' a las ' + hora.value;
+        const primeraSel = form.querySelector('input[name="primera"]:checked');
+        const bcNote = document.getElementById('bc-note');
+        if (primeraSel && primeraSel.value === 'Sí') {
+          bcNote.textContent = 'Al ser tu primera visita, incluirá una valoración médica previa con el Dr. Romero antes del tratamiento.';
+          bcNote.style.display = 'block';
+        } else {
+          bcNote.style.display = 'none';
+        }
+        form.style.display = 'none';
+        const box = document.getElementById('bookingConfirm');
+        box.classList.add('show');
+        box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Trampa anti-spam: si un bot rellena el honeypot, simulamos éxito
+        if (honeypot && honeypot.value) { showConfirm(); return; }
+
+        if (!validate()) return;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando...';
+
+        const data = new URLSearchParams({
+          nombre: nombre.value.trim(),
+          telefono: telefono.value.trim(),
+          email: email.value.trim(),
+          tratamiento: tratamiento.value,
+          primera: (form.querySelector('input[name="primera"]:checked') || {}).value || '',
+          fecha: fecha.value,
+          hora: hora.value,
+          notas: (document.getElementById('r-notas').value || '').trim()
+        });
+
+        const finish = function () { showConfirm(); };
+
+        if (RESERVAS_ENDPOINT) {
+          fetch(RESERVAS_ENDPOINT, { method: 'POST', mode: 'no-cors', body: data })
+            .then(finish).catch(finish);
+        } else {
+          finish(); // Sin backend aún: muestra confirmación (lista para conectar)
+        }
+      });
+    })();
+
+    function preselectTratamiento(nombre){
+      const sel = document.getElementById('r-tratamiento');
+      if(sel){ sel.value = nombre; }
     }
 
     // Detalles de servicios y perfiles del equipo.
