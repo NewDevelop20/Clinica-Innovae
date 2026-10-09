@@ -56,14 +56,18 @@
       box-shadow: 0 1px 24px rgba(0,0,0,0.06);
     }
     .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.55rem;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      color: var(--text-dark);
+      display: inline-flex;
+      align-items: center;
       text-decoration: none;
+      line-height: 0;
     }
-    .nav-logo span { color: var(--gold); }
+    .nav-logo img {
+      height: 44px;
+      width: auto;
+      display: block;
+      transition: height 0.4s ease;
+    }
+    nav.scrolled .nav-logo img { height: 38px; }
     .nav-links { display: flex; gap: 36px; list-style: none; }
     .nav-links a {
       font-size: 0.7rem;
@@ -209,6 +213,7 @@
       letter-spacing: -0.01em;
     }
     .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-logo { display: block; width: clamp(290px, 60vw, 600px); max-width: 100%; height: auto; margin: 0 auto; }
     .hero-rule {
       width: 56px; height: 1px;
       background: var(--gold);
@@ -727,14 +732,8 @@
       padding: 52px 48px 40px;
       text-align: center;
     }
-    .footer-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
-      font-weight: 600;
-      color: var(--white);
-      margin-bottom: 6px;
-    }
-    .footer-logo span { color: var(--gold); }
+    .footer-logo { margin-bottom: 14px; line-height: 0; }
+    .footer-logo img { height: 42px; width: auto; display: inline-block; }
     .footer-tagline {
       font-size: 0.75rem;
       letter-spacing: 0.18em;
@@ -960,11 +959,15 @@
       align-self: flex-start;
     }
     .form-submit:hover { background: transparent; color: var(--gold); }
+    @media (min-width: 901px) and (max-width: 1200px) {
+      .nav-links { gap: 20px; }
+    }
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       section { padding: 80px 28px; }
       nav { padding: 16px 28px; }
       nav.scrolled { padding: 12px 28px; }
+      .nav-logo img { height: 36px; }
       .nav-links, .nav-cta { display: none; }
       .nav-hamburger { display: flex; }
       .about-grid,
@@ -1059,7 +1062,7 @@
 
   <!-- NAV -->
   <nav id="navbar">
-    <a href="#inicio" class="nav-logo">Innovae<span>.</span></a>
+    <a href="#inicio" class="nav-logo" aria-label="Clínica Innovae — inicio"><img src="assets/logos/innovae-nav.png" alt="Clínica Innovae — Medicina Estética" width="598" height="150"></a>
     <ul class="nav-links">
       <li><a href="#sobre">Sobre Nosotros</a></li>
       <li><a href="#servicios">Servicios</a></li>
@@ -1084,7 +1087,7 @@
     <div class="hero-content">
       <span class="hero-eyebrow reveal">Medicina Estética &middot; Úbeda, Jaén</span>
       <h1 class="hero-title reveal" style="transition-delay:.1s">
-        Clínica<br><em>Innovae</em>
+        <img src="assets/logos/innovae-hero.png" alt="Clínica Innovae — Medicina Estética" class="hero-logo" width="1036" height="260">
       </h1>
       <div class="hero-rule reveal" style="transition-delay:.2s"></div>
       <p class="hero-slogan reveal" style="transition-delay:.3s">"De tu piel nos encargamos nosotros"</p>
@@ -2514,7 +2517,7 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo">Innovae<span>.</span></div>
+    <div class="footer-logo"><img src="assets/logos/innovae-footer.png" alt="Clínica Innovae — Medicina Estética" width="438" height="110"></div>
     <p class="footer-tagline">"De tu piel nos encargamos nosotros"</p>
     <div class="footer-rule"></div>
     <ul class="footer-nav">
