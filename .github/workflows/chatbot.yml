@@ -2,9 +2,9 @@ name: Comprobar chatbot
 on:
   push:
     branches: [main]
-    paths: ['chatbot/**', 'assets/chatbot/**', 'assets/chatbot-config.js', 'index.html', 'productos/**', 'plantilla-producto.cjs', '.github/workflows/chatbot.yml']
+    paths: ['reservas/**', 'assets/reservas*.js', 'chatbot/**', 'assets/chatbot/**', 'assets/chatbot-config.js', 'index.html', 'productos/**', 'plantilla-producto.cjs', '.github/workflows/chatbot.yml']
   pull_request:
-    paths: ['chatbot/**', 'assets/chatbot/**', 'assets/chatbot-config.js', 'index.html', 'productos/**', 'plantilla-producto.cjs', '.github/workflows/chatbot.yml']
+    paths: ['reservas/**', 'assets/reservas*.js', 'chatbot/**', 'assets/chatbot/**', 'assets/chatbot-config.js', 'index.html', 'productos/**', 'plantilla-producto.cjs', '.github/workflows/chatbot.yml']
 permissions:
   contents: read
 jobs:
@@ -26,5 +26,7 @@ jobs:
           node generar-productos.cjs
           python chatbot/exportar_web.py
           git diff --exit-code
+      - run: node --test reservas/tests/apps-script.test.cjs
       - run: python -m playwright install --with-deps chromium
       - run: python chatbot/tests/verificar_widget.py
+      - run: python reservas/tests/verificar_formulario.py
