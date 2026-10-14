@@ -18,8 +18,9 @@ try:
   for width in [1440,390]:
    page=browser.new_page(viewport={'width':width,'height':950});errors=[];posts=[]
    page.on('pageerror',lambda e:errors.append(str(e)));page.route('https://**/*',lambda r:r.abort())
+   page.add_init_script("Object.defineProperty(window,'INNOVAE_RESERVAS_CONFIG',{get:()=>({endpoint:'',modoPruebas:true}),set:()=>{}})")
    page.goto('http://127.0.0.1:8765/index.html#reservas',wait_until='networkidle')
-   expect(page.locator('#bookingStatus')).to_contain_text('no está conectada');assert page.locator('#r-submit').is_disabled();assert not page.locator('#bookingConfirm').is_visible()
+   expect(page.locator('#bookingTestNotice')).to_contain_text('no reserve una cita real');expect(page.locator('#bookingStatus')).to_contain_text('no está conectada');assert page.locator('#r-submit').is_disabled();assert not page.locator('#bookingConfirm').is_visible()
    page.close();page=browser.new_page(viewport={'width':width,'height':950});page.on('pageerror',lambda e:errors.append(str(e)))
    page.route('https://**/*',lambda r:r.abort())
    resultado={'ok':False,'error':'Esa hora ya está completa.'}

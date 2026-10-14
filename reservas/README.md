@@ -1,6 +1,15 @@
 # Reservas con Google Calendar, sin hoja de cálculo
 
-El formulario y el chatbot comparten este Web App de Google Apps Script.
+El formulario y el backend del chatbot usan la misma URL de Google Apps Script.
+La URL está configurada en `assets/reservas-config.js`, `reservas/Code.gs` y
+`chatbot/.env.example`. El despliegue sigue apuntando al calendario de pruebas y
+los avisos van al correo personal; no se ha cambiado al calendario de la clínica.
+El formulario muestra un aviso de pruebas (`modoPruebas: true`) para evitar que
+los visitantes confundan una prueba con una solicitud de cita real.
+La conexión real se verificó el 14/10/2026 desde el formulario: solicitud ficticia
+1C0C8B2A para Limpieza Facial, 19/10/2026 a las 10:00. Google devolvió el código y
+aceptó el envío del correo. Falta que el usuario compruebe su recepción y pruebe
+los enlaces de gestión. La prueba debe rechazarse al terminar para liberar el hueco.
 Los datos del cliente quedan en Calendar. Las propiedades del script guardan
 solo IDs, tokens, estado y datos de reintento (sin nombre, correo ni teléfono).
 Los índices caducan a los 180 días; el historial del calendario permanece.
@@ -19,7 +28,11 @@ es la que crea los eventos y envía los correos. No se necesita Google Sheets.
    Elige **Ejecutar como: yo** y **Quién tiene acceso: cualquier usuario** (sin iniciar sesión).
    Autoriza Calendar y el envío de correo. No se solicitan permisos para hojas de cálculo.
 5. Copia la URL terminada en `/exec`. No uses `/dev`, un ID de proyecto ni la URL del editor.
-6. Ejecuta `prepararPruebas` desde el selector de funciones del editor. Crea un calendario
+6. Si el editor devuelve una URL `/dev`, configura `WEB_APP_URL` con la URL `/exec`
+   en las propiedades del script, o en la línea `WEB_APP_URL` de `CONFIG`.
+   El valor por defecto de este repositorio ya usa el despliegue actual. No conviertas
+   una URL `/dev` a `/exec` cambiando su sufijo: los identificadores pueden ser distintos.
+   Ejecuta `prepararPruebas` desde el selector de funciones del editor. Crea un calendario
    aparte «Innovae — pruebas de reservas» y guarda su ID; no usa tu agenda personal.
 7. Ejecuta `probarReserva`. Crea una solicitud ficticia para el siguiente día abierto y envía
    los avisos solo a tu correo personal. Comprueba el evento amarillo y el correo con enlaces.
@@ -33,7 +46,7 @@ las cuotas de Apps Script y Mail dependen de la cuenta.
 
 ## Conectar la URL al sitio y al chatbot
 
-Cuando exista la URL real, ponla en `assets/reservas-config.js`:
+La URL real ya está en `assets/reservas-config.js`. Si se cambia el despliegue, actualízala:
 
 ```js
 window.INNOVAE_RESERVAS_CONFIG = {
@@ -41,7 +54,7 @@ window.INNOVAE_RESERVAS_CONFIG = {
 };
 ```
 
-Es una dirección pública, no una clave. Mientras está vacía, el formulario explica que
+Es una dirección pública, no una clave. Si se deja vacía, el formulario explica que
 no está conectado y no muestra una confirmación falsa. El sitio no puede crear por sí
 solo el proyecto Google ni autorizar la cuenta.
 
@@ -51,7 +64,7 @@ Para el chatbot, usa la misma URL como variable del servidor:
 APPS_SCRIPT_URL=https://script.google.com/macros/s/ID_REAL/exec
 ```
 
-El backend Python aún necesita su propio alojamiento y conexión con Anthropic para
+La URL también está preparada en `chatbot/.env.example`. El backend Python aún necesita su propio alojamiento y conexión con Anthropic para
 conversaciones con IA. El chat informativo publicado sin IA no crea reservas.
 
 ## Pruebas antes de aceptar clientes reales
@@ -75,6 +88,8 @@ En Configuración del proyecto → Propiedades del script configura:
 - `EMAIL_AVISOS`: correo real de la clínica cuando terminen las pruebas.
 - `WEB_APP_URL`: opcional, la URL `/exec` si Google no la detecta correctamente.
 
+Cuando se hayan comprobado el calendario real, el destinatario y los enlaces de gestión,
+configura `modoPruebas: false` en `assets/reservas-config.js` para admitir solicitudes reales.
 Revisa también `MAX_SIMULTANEAS` (actualmente 2), `DURACION_MIN` (60) y el horario.
 Los eventos manuales que se solapen bloquean la franja; los eventos de reservas aplican
 la capacidad y no permiten dos citas del mismo tratamiento a la vez.

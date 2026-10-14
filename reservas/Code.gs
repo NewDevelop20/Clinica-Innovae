@@ -29,7 +29,7 @@ const CONFIG = {
 
   // URL del Web App (/exec). Vacío = se detecta sola. Si los enlaces de los
   // emails salen con /dev, pega aquí la URL /exec del despliegue.
-  WEB_APP_URL: PropertiesService.getScriptProperties().getProperty('WEB_APP_URL') || '',
+  WEB_APP_URL: PropertiesService.getScriptProperties().getProperty('WEB_APP_URL') || 'https://script.google.com/macros/s/AKfycbwM4CVNFtDSfYyQLB9J23iXylOfaPcrx1ck9ss0MKPWGGtldsiLxaAxL5w5VUeYz4ef/exec',
 
   NOMBRE_CLINICA: 'Clínica Innovae',
   TELEFONO: '661 73 48 70',
