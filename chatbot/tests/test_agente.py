@@ -53,7 +53,7 @@ def test_flujo_completo_de_reserva(config):
     assert sistema[0]["cache_control"] == {"type": "ephemeral"}
     assert "Hora de España" in sistema[1]["text"] or "hora de España" in sistema[1]["text"]
     assert {t["name"] for t in claude.llamadas[0]["tools"]} == {
-        "consultar_disponibilidad", "crear_solicitud_reserva", "derivar_a_persona"}
+        "consultar_profesionales", "consultar_disponibilidad", "crear_solicitud_reserva", "derivar_a_persona"}
 
 
 def test_error_de_claude_no_guarda_historial_roto(config):

@@ -14,8 +14,9 @@
   }
   var configurado = /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(endpoint);
   var $ = function (id) { return document.getElementById(id); };
-  var nombre=$('r-nombre'), telefono=$('r-telefono'), email=$('r-email'), tratamiento=$('r-tratamiento'), fecha=$('r-fecha'), hora=$('r-hora'), rgpd=$('r-rgpd'), submit=$('r-submit');
+  var nombre=$('r-nombre'), telefono=$('r-telefono'), email=$('r-email'), tratamiento=$('r-tratamiento'), profesional=$('r-profesional'), fecha=$('r-fecha'), hora=$('r-hora'), rgpd=$('r-rgpd'), submit=$('r-submit');
   var estado=document.createElement('p'); estado.id='bookingStatus'; estado.setAttribute('role','status'); estado.style.cssText='color:#e8d3aa;font-size:.85rem;line-height:1.6'; form.prepend(estado);
+  var equipo=[], equipoActivo=false, cargandoEquipo=true;
   var envio=false, secuencia=0, ultimaConsulta='', idSolicitud='', firmaSolicitud='';
   function aviso(t) { estado.textContent=t; }
   function id() { return 'r_' + (crypto.randomUUID ? crypto.randomUUID().replace(/-/g,'') : Date.now().toString(36)+Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2)); }
@@ -34,33 +35,46 @@
     periodos.forEach(function(p){for(var m=p[0];m+60<=p[1];m+=30){if(d===now.dia && m<now.minutos+60)continue;horas.push(String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0'));}});return horas;
   }
   // JSONP solo consulta disponibilidad; ningún dato del cliente viaja en la URL.
-  function disponibilidad(d,t) {
+  function consulta(params) {
     return new Promise(function(resolve,reject){
       var callback='innovaeAvailability_'+id().replace(/-/g,'_'), script=document.createElement('script'),timer;
       function limpiar(){clearTimeout(timer);script.remove();delete window[callback];}
-      window[callback]=function(res){limpiar();if(!res || res.ok!==true || !Array.isArray(res.bloqueadas))reject(new Error(res && res.error || 'Respuesta de agenda no válida.'));else resolve(res);};
+      window[callback]=function(res){limpiar();if(!res || res.ok!==true)reject(new Error(res && res.error || 'Respuesta de agenda no válida.'));else resolve(res);};
+      script.onload=function(){if(window[callback]){limpiar();reject(new Error('La agenda no devuelve el formato esperado.'));}};
       script.onerror=function(){limpiar();reject(new Error('No se pudo consultar la agenda.'));};
       timer=setTimeout(function(){limpiar();reject(new Error('La agenda no ha respondido. Inténtelo de nuevo.'));},20000);
-      var url=new URL(endpoint);url.searchParams.set('disponibilidad',d);url.searchParams.set('tratamiento',t);url.searchParams.set('callback',callback);script.src=url.href;document.head.appendChild(script);
+      var url=new URL(endpoint);Object.keys(params).forEach(function(k){url.searchParams.set(k,params[k]);});url.searchParams.set('callback',callback);script.src=url.href;document.head.appendChild(script);
     });
   }
+  function filtroProfesionales() {
+    if(!equipoActivo)return;
+    var previo=profesional.value;
+    profesional.replaceChildren();
+    var vacio=new Option('Seleccione un profesional','',true,true);vacio.disabled=true;profesional.add(vacio);
+    profesional.add(new Option('Cualquier profesional disponible','cualquiera'));
+    equipo.filter(function(p){return !tratamiento.value || p.tratamientos.includes(tratamiento.value);}).forEach(function(p){profesional.add(new Option(p.nombre,p.id));});
+    if(Array.from(profesional.options).some(function(o){return o.value===previo;}))profesional.value=previo;
+    profesional.disabled=!tratamiento.value;
+  }
+  function claveConsulta(){return fecha.value+'|'+tratamiento.value+'|'+(equipoActivo?profesional.value:'');}
   function actualizar() {
-    var orden=++secuencia;ultimaConsulta='';submit.disabled=true;opciones([],'Seleccione tratamiento y fecha');
+    var orden=++secuencia;ultimaConsulta='';submit.disabled=true;opciones([],'Seleccione tratamiento, profesional y fecha');
     if(!configurado){aviso('La reserva online todavía no está conectada. Para pedir cita, llame al 661 73 48 70.');return;}
-    if(!fecha.value || !tratamiento.value)return;
+    if(cargandoEquipo || !fecha.value || !tratamiento.value || (equipoActivo && !profesional.value))return;
     var fechas=posibles(fecha.value);
     if(!fechas.length){aviso('Seleccione una fecha y hora dentro del horario de apertura, con al menos una hora de antelación.');return;}
-    var d=fecha.value,t=tratamiento.value;aviso('Consultando disponibilidad…');
-    disponibilidad(d,t).then(function(res){if(orden!==secuencia)return;var libres=fechas.filter(function(h){return !res.bloqueadas.includes(h);});opciones(libres,libres.length?'Seleccione una hora':'No quedan horas disponibles');ultimaConsulta=d+'|'+t;submit.disabled=!libres.length;aviso(libres.length?'La clínica revisará su solicitud antes de confirmar la cita.':'No quedan horas libres. Seleccione otro día.');}).catch(function(e){if(orden!==secuencia)return;aviso(e.message+' Puede llamar al 661 73 48 70.');});
+    var d=fecha.value,t=tratamiento.value,p=equipoActivo?profesional.value:'';aviso('Consultando disponibilidad…');
+    consulta({disponibilidad:d,tratamiento:t,profesional:p}).then(function(res){if(orden!==secuencia)return;if(!Array.isArray(res.bloqueadas))throw new Error('Respuesta de agenda no válida.');var libres=fechas.filter(function(h){return !res.bloqueadas.includes(h);});opciones(libres,libres.length?'Seleccione una hora':'No quedan horas disponibles');ultimaConsulta=d+'|'+t+'|'+p;submit.disabled=!libres.length;aviso(libres.length?'La clínica revisará su solicitud antes de confirmar la cita.':'No quedan horas libres. Seleccione otro día.');}).catch(function(e){if(orden!==secuencia)return;aviso(e.message+' Puede llamar al 661 73 48 70.');});
   }
   function error(el,invalid){var group=el.closest('.form-group');if(group)group.classList.toggle('invalid',invalid);return !invalid;}
   nombre.addEventListener('input',function(){this.value=this.value.replace(/[^\p{L}\s'’.-]/gu,'');error(this,false);});
   telefono.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'');error(this,false);});
   [email,rgpd,hora].forEach(function(el){el.addEventListener('change',function(){error(el,false);});});
-  [fecha,tratamiento].forEach(function(el){el.addEventListener('change',function(){error(el,false);actualizar();});});
-  form.querySelectorAll('input[name="primera"]').forEach(function(r){r.addEventListener('change',function(){error(r,false);var si=r.value==='Sí';$('firstVisitNote').classList.toggle('show',si);if(si)tratamiento.value='Primera consulta / valoración';else if(tratamiento.value==='Primera consulta / valoración')tratamiento.value='';actualizar();});});
+  tratamiento.addEventListener('change',filtroProfesionales);
+  [fecha,tratamiento,profesional].forEach(function(el){el.addEventListener('change',function(){error(el,false);actualizar();});});
+  form.querySelectorAll('input[name="primera"]').forEach(function(r){r.addEventListener('change',function(){error(r,false);var si=r.value==='Sí';$('firstVisitNote').classList.toggle('show',si);if(si)tratamiento.value='Primera consulta / valoración';else if(tratamiento.value==='Primera consulta / valoración')tratamiento.value='';filtroProfesionales();actualizar();});});
   function validar() {
-    var validos=[error(nombre,nombre.value.trim().length<2),error(telefono,!/^\d{9,15}$/.test(telefono.value)),error(email,!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())),error(tratamiento,!tratamiento.value),error(fecha,!posibles(fecha.value).length),error(hora,!hora.value || hora.disabled),error(rgpd,!rgpd.checked),error(form.querySelector('input[name="primera"]'),!form.querySelector('input[name="primera"]:checked'))];
+    var validos=[error(profesional,equipoActivo && !profesional.value),error(nombre,nombre.value.trim().length<2),error(telefono,!/^\d{9,15}$/.test(telefono.value)),error(email,!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())),error(tratamiento,!tratamiento.value),error(fecha,!posibles(fecha.value).length),error(hora,!hora.value || hora.disabled),error(rgpd,!rgpd.checked),error(form.querySelector('input[name="primera"]'),!form.querySelector('input[name="primera"]:checked'))];
     var invalid=form.querySelector('.invalid input,.invalid select');if(invalid)invalid.focus();return validos.every(Boolean);
   }
   // El formulario POST oculta la respuesta HTML de Apps Script en un iframe.
@@ -77,14 +91,22 @@
       document.body.append(marco,post);post.submit();
     });
   }
-  form.addEventListener('submit',function(e){e.preventDefault();if(envio)return;if(!configurado){actualizar();return;}if(!validar())return;if(ultimaConsulta!==fecha.value+'|'+tratamiento.value){actualizar();return;}
+  form.addEventListener('submit',function(e){e.preventDefault();if(envio)return;if(!configurado){actualizar();return;}if(!validar())return;if(ultimaConsulta!==claveConsulta()){actualizar();return;}
     var datos={nombre:nombre.value.trim(),telefono:telefono.value,email:email.value.trim(),tratamiento:tratamiento.value,fecha:fecha.value,hora:hora.value,primeraVisita:form.querySelector('input[name="primera"]:checked').value==='Sí'?'true':'false',comentarios:$('r-notas').value.trim(),website:$('r-website').value,transporte:'iframe'};
+    if(equipoActivo)datos.profesional=profesional.value;
     var firma=JSON.stringify(datos);if(firma!==firmaSolicitud){idSolicitud=id();firmaSolicitud=firma;}datos.requestId=idSolicitud;
     envio=true;submit.disabled=true;submit.textContent='Enviando…';aviso('Registrando su solicitud…');
-    registrar(datos).then(function(res){if(res.estado==='RECHAZADA')throw new Error('Esta solicitud ya fue rechazada. Contacte con la clínica para pedir otra cita.');$('bc-name').textContent=datos.nombre.split(' ')[0];$('bc-detail').textContent='Solicitud #'+res.id+' · '+datos.tratamiento+' · '+datos.fecha.split('-').reverse().join('/')+' a las '+datos.hora;
+    registrar(datos).then(function(res){if(res.estado==='RECHAZADA')throw new Error('Esta solicitud ya fue rechazada. Contacte con la clínica para pedir otra cita.');$('bc-name').textContent=datos.nombre.split(' ')[0];$('bc-detail').textContent='Solicitud #'+res.id+' · '+datos.tratamiento+(res.profesional?' · '+res.profesional:'')+' · '+datos.fecha.split('-').reverse().join('/')+' a las '+datos.hora;
       var note=$('bc-note');note.style.display='block';note.textContent=res.aviso_enviado===false?'La solicitud está registrada, pero el aviso por correo no ha podido enviarse. Llame al 661 73 48 70 indicando su código.':(modoPruebas ? 'Solicitud de prueba registrada. No equivale a una cita real.' : 'La cita queda pendiente de confirmación por la clínica.');
       form.style.display='none';$('bookingConfirm').classList.add('show');$('bookingConfirm').scrollIntoView({behavior:'smooth',block:'center'});
     }).catch(function(e){aviso(e.message);}).finally(function(){envio=false;submit.disabled=hora.disabled;submit.textContent='Solicitar cita';});
   });
-  actualizar();
+  if(!configurado){cargandoEquipo=false;actualizar();return;}
+  consulta({catalogo:'profesionales'}).then(function(res){
+    if(res.version!==2 || !Array.isArray(res.profesionales) || !res.profesionales.length || res.profesionales.some(function(p){return !/^[a-z0-9-]{3,60}$/.test(p.id) || typeof p.nombre!=='string' || !Array.isArray(p.tratamientos);}))throw new Error('Catálogo de profesionales no disponible.');
+    equipo=res.profesionales;equipoActivo=true;$('professionalGroup').hidden=false;filtroProfesionales();
+  }).catch(function(){
+    // Mantener el formulario anterior operativo hasta actualizar Apps Script.
+    equipoActivo=false;$('professionalGroup').hidden=true;
+  }).finally(function(){cargandoEquipo=false;actualizar();});
 })();

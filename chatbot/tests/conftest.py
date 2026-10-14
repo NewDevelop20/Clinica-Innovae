@@ -47,7 +47,10 @@ class AppsScriptFalso:
             else:
                 params = dict(request.url.params)
                 self.gets.append(params)
-                self._pendiente = {"ok": True, "fecha": params.get("disponibilidad"),
+                if params.get("catalogo") == "profesionales":
+                    self._pendiente = {"ok": True, "version": 2, "profesionales": [{"id": "marta-jimenez", "nombre": "Marta Jiménez", "tratamientos": ["Dermapen", "Limpieza Facial"]}]}
+                else:
+                    self._pendiente = {"ok": True, "fecha": params.get("disponibilidad"),
                                    "tratamiento": params.get("tratamiento"),
                                    "bloqueadas": self.bloqueadas}
             # Apps Script siempre redirige a googleusercontent con el resultado

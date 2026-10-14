@@ -55,12 +55,21 @@ class AppsScriptCliente:
         except ValueError as e:
             raise ErrorReservas("Respuesta no válida del sistema de reservas") from e
 
-    def horas_bloqueadas(self, fecha: str, tratamiento: str) -> list[str]:
-        r = self._http.get(self.url, params={"disponibilidad": fecha, "tratamiento": tratamiento})
+    def horas_bloqueadas(self, fecha: str, tratamiento: str, profesional: str = "") -> list[str]:
+        params = {"disponibilidad": fecha, "tratamiento": tratamiento}
+        if profesional:
+            params["profesional"] = profesional
+        r = self._http.get(self.url, params=params)
         datos = self._json(r)
         if not datos.get("ok"):
             raise ErrorReservas(datos.get("error") or "Error consultando disponibilidad")
         return list(datos.get("bloqueadas") or [])
+
+    def profesionales(self) -> list[dict]:
+        datos = self._json(self._http.get(self.url, params={"catalogo": "profesionales"}))
+        if not datos.get("ok") or not isinstance(datos.get("profesionales"), list):
+            raise ErrorReservas("No se pudo consultar el equipo disponible")
+        return datos["profesionales"]
 
     def crear_reserva(self, campos: dict[str, Any]) -> dict:
         # Se envía como texto plano con JSON dentro: leerDatos_() de Code.gs lo detecta
@@ -77,6 +86,11 @@ def definiciones() -> list[dict]:
     lista = ", ".join(tratamientos())
     return [
         {
+            "name": "consultar_profesionales",
+            "description": "Consulta los IDs, nombres y tratamientos de los profesionales. Úsala antes de proponer un profesional; nunca inventes nombres ni atribuciones. Si no hay preferencia, usa cualquiera.",
+            "input_schema": {"type": "object", "properties": {}},
+        },
+        {
             "name": "consultar_disponibilidad",
             "description": (
                 "Devuelve las horas LIBRES para un tratamiento en una fecha concreta, según la agenda real "
@@ -87,6 +101,7 @@ def definiciones() -> list[dict]:
                 "type": "object",
                 "properties": {
                     "fecha": {"type": "string", "description": "Fecha en formato AAAA-MM-DD."},
+                    "profesional": {"type": "string", "description": "ID devuelto por consultar_profesionales, o cualquiera si no hay preferencia."},
                     "tratamiento": {"type": "string", "description": f"Nombre exacto de uno de: {lista}."},
                 },
                 "required": ["fecha", "tratamiento"],
@@ -105,6 +120,7 @@ def definiciones() -> list[dict]:
                     "tratamiento": {"type": "string", "description": "Nombre exacto del tratamiento."},
                     "fecha": {"type": "string", "description": "AAAA-MM-DD"},
                     "hora": {"type": "string", "description": "HH:MM, una de las horas libres consultadas."},
+                    "profesional": {"type": "string", "description": "El mismo ID usado al consultar disponibilidad, o cualquiera."},
                     "nombre": {"type": "string", "description": "Nombre y apellidos del cliente."},
                     "telefono": {"type": "string", "description": "Teléfono de contacto (9+ dígitos)."},
                     "email": {"type": "string", "description": "Opcional. Para recibir la confirmación."},
@@ -149,8 +165,12 @@ class Herramientas:
 
     def ejecutar(self, nombre: str, datos: dict, ctx: Contexto) -> dict:
         try:
+            if nombre == "consultar_profesionales":
+                if not self.cliente.configurado:
+                    return {"ok": False, "error": "La agenda no está conectada.", "alternativa": CONTACTO}
+                return {"ok": True, "profesionales": self.cliente.profesionales()}
             if nombre == "consultar_disponibilidad":
-                return self.consultar_disponibilidad(**_solo(datos, "fecha", "tratamiento"))
+                return self.consultar_disponibilidad(**_solo(datos, "fecha", "tratamiento", "profesional"))
             if nombre == "crear_solicitud_reserva":
                 return self.crear_solicitud_reserva(datos, ctx)
             if nombre == "derivar_a_persona":
@@ -167,7 +187,7 @@ class Herramientas:
                     "alternativa": CONTACTO}
 
     # -- disponibilidad ---------------------------------------------------
-    def consultar_disponibilidad(self, fecha: str = "", tratamiento: str = "") -> dict:
+    def consultar_disponibilidad(self, fecha: str = "", tratamiento: str = "", profesional: str = "") -> dict:
         oficial = tratamiento_oficial(tratamiento)
         if not oficial:
             return {"ok": False, "error": f"Tratamiento no reconocido: '{tratamiento}'.",
@@ -182,10 +202,10 @@ class Herramientas:
         if not self.cliente.configurado:
             return {"ok": False, "error": "La reserva online no está activa todavía.",
                     "alternativa": CONTACTO}
-        bloqueadas = set(self.cliente.horas_bloqueadas(d.isoformat(), oficial))
+        bloqueadas = set(self.cliente.horas_bloqueadas(d.isoformat(), oficial, profesional))
         libres = [h for h in posibles if h not in bloqueadas]
         return {"ok": True, "fecha": d.isoformat(), "dia": horario.fecha_legible(d),
-                "tratamiento": oficial, "horas_libres": libres,
+                "tratamiento": oficial, "profesional": profesional or "cualquiera", "horas_libres": libres,
                 "nota": "Sin horas libres ese día." if not libres else None}
 
     # -- reserva ---------------------------------------------------------------
@@ -209,7 +229,7 @@ class Herramientas:
             return {"ok": False, "error": "Datos incompletos: " + "; ".join(errores) + "."}
 
         # Se vuelve a comprobar la hora justo antes de reservar (otra persona pudo cogerla).
-        disp = self.consultar_disponibilidad(datos.get("fecha", ""), datos.get("tratamiento", ""))
+        disp = self.consultar_disponibilidad(datos.get("fecha", ""), datos.get("tratamiento", ""), datos.get("profesional", ""))
         if not disp.get("ok"):
             return disp
         if hora not in disp["horas_libres"]:
@@ -229,13 +249,15 @@ class Herramientas:
             "comentarios": f"[{origen}] {comentarios}".strip(),
             "website": "",  # honeypot vacío
         }
+        if datos.get("profesional"):
+            campos["profesional"] = datos["profesional"]
         res = self.cliente.crear_reserva(campos)
         if not res.get("ok"):
             return {"ok": False, "error": res.get("error") or "No se pudo registrar la solicitud.",
                     "motivo": res.get("motivo")}
         return {"ok": True, "id": res.get("id"), "estado": "PENDIENTE de confirmar por la clínica",
                 "resumen": {k: campos[k] for k in ("tratamiento", "fecha", "hora", "nombre")},
-                "dia": disp["dia"], "recibira_email": bool(email)}
+                "dia": disp["dia"], "profesional": res.get("profesional"), "recibira_email": bool(email)}
 
 
 def _solo(datos: dict, *claves: str) -> dict:
