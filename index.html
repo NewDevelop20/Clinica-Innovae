@@ -831,6 +831,7 @@
     .booking-head .body-text { color: rgba(255,255,255,0.68); text-align: center; max-width: 100%; }
     .booking-form { display: flex; flex-direction: column; gap: 20px; position: relative; }
     .booking-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .booking-form .form-group[hidden] { display: none; }
     .booking-form .form-group { display: flex; flex-direction: column; gap: 7px; }
     .booking-form label {
       font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase;
@@ -1517,6 +1518,14 @@
               <option>Otro / Consulta general</option>
             </select>
             <span class="field-error">Selecciona un tratamiento.</span>
+          </div>
+
+          <div class="form-group" id="professionalGroup" hidden>
+            <label for="r-profesional">Profesional</label>
+            <select id="r-profesional" name="profesional" disabled>
+              <option value="" disabled selected>Seleccione un profesional</option>
+            </select>
+            <span class="field-error">Seleccione un profesional o cualquier profesional disponible.</span>
           </div>
 
           <div class="form-group">

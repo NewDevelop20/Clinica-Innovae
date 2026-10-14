@@ -86,7 +86,7 @@ compartido, idempotencia de solicitudes y una cola de mensajes WhatsApp.
 ```bash
 python -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -r requirements-dev.txt
-python -m pytest -q                                      # 44 pruebas
+python -m pytest -q                                      # 46 pruebas
 
 cp .env.example .env                                    # deja MODO_SIMULADO=1
 uvicorn app.main:app --reload --port 8000
@@ -172,3 +172,14 @@ con la clínica antes de conectar el número principal (alternativa: un segundo 
 Haiku es el modelo más económico de Claude y las instrucciones y el conocimiento se cachean
 para abaratar cada mensaje (precios actuales en docs.claude.com). El límite de gasto mensual
 de la Console evita sorpresas. Cloud Run entra en la capa gratuita con este volumen.
+
+
+## Profesional en las reservas
+
+El backend consulta el catálogo del Web App y usa el ID seleccionado tanto en
+la disponibilidad como en el envío. La herramienta `consultar_profesionales`
+devuelve IDs, nombres y tratamientos; sin preferencia se usa `cualquiera`.
+El mismo calendario admite una cita por profesional y hasta dos a la vez.
+Para que esta función exista, actualiza la implementación Google según
+`reservas/README.md`. Marta y Lucía están configuradas para pruebas; antes de
+producción hay que confirmar sus tratamientos reales.

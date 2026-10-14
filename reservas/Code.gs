@@ -42,7 +42,7 @@ const CONFIG = {
 
   // Capacidad de la clínica: nº de profesionales que pueden atender A LA VEZ.
   // Regla: en una misma franja caben como máximo MAX_SIMULTANEAS citas,
-  // y NUNCA dos del mismo tratamiento (cada profesional hace uno distinto).
+  // Cada profesional atiende una cita por franja, incluso con tratamientos distintos.
   MAX_SIMULTANEAS: 2,
 
   // Nombre de cada campo tal y como lo envía el formulario de la web (atributo name).
@@ -52,6 +52,7 @@ const CONFIG = {
     telefono: 'telefono',
     email: 'email',
     tratamiento: 'tratamiento',
+    profesional: 'profesional',
     fecha: 'fecha',          // admite "2026-10-15" o "15/10/2026"
     hora: 'hora',            // "10:30"
     primeraVisita: 'primeraVisita',
@@ -63,11 +64,29 @@ const CONFIG = {
 
 const TRATAMIENTOS_VALIDOS = ["Primera consulta / valoración", "Eliminación de Arrugas", "Rellenos con Ácido Hialurónico", "Hilos Tensores", "Mesoterapia", "Endolifting con Fibra Óptica", "Eliminación de Manchas y Lesiones (Blumed)", "Eliminación de Arañas Vasculares", "Limpieza Facial", "Peeling Mecánico", "Hidratación", "Oxigenación", "Vitamina C", "Reafirmante", "Kinesiolifting", "Radiofrecuencia", "Fotorejuvenecimiento", "Ultrasonix", "Dermapen", "Depilación SHR", "Depilación IPL", "Maderoterapia", "Presoterapia", "Drenajes Linfáticos", "Hondas Magnéticas", "Cera Facial y Corporal", "Otro / Consulta general"];
 
+// Miembros elegidos para las pruebas; no define sus atribuciones clínicas reales.
+const PROFESIONALES_PRUEBAS = [
+  {id: 'marta-jimenez', nombre: 'Marta Jiménez', tratamientos: TRATAMIENTOS_VALIDOS},
+  {id: 'lucia-serrano', nombre: 'Lucía Serrano', tratamientos: TRATAMIENTOS_VALIDOS}
+];
+function profesionales_() {
+  const raw = PropertiesService.getScriptProperties().getProperty('PROFESIONALES');
+  const lista = raw ? JSON.parse(raw) : PROFESIONALES_PRUEBAS;
+  if (!Array.isArray(lista) || !lista.length || lista.some(p => !/^[a-z0-9-]{3,60}$/.test(p.id) || typeof p.nombre !== 'string' || !p.nombre.trim() || p.nombre.length > 100 || !Array.isArray(p.tratamientos))) throw new Error('Configuración de profesionales no válida.');
+  if (new Set(lista.map(p => p.id)).size !== lista.length) throw new Error('ID de profesional repetido.');
+  return lista;
+}
+function candidatos_(tratamiento, profesional) {
+  const elegidos = profesionales_().filter(p => !profesional || profesional === 'cualquiera' || p.id === profesional);
+  return elegidos.filter(p => p.tratamientos.some(t => normalizar_(t) === normalizar_(tratamiento)));
+}
+
 const HORARIO_RESERVAS = {0: [], 1: [['10:00','13:30'],['16:30','20:30']], 2: [['10:00','13:30'],['16:30','20:30']], 3: [['10:00','13:30'],['16:30','20:30']], 4: [['10:00','13:30'],['16:30','20:30']], 5: [['10:00','13:30'],['16:30','20:30']], 6: [['10:30','13:00']]};
 function minutos_(hora) { const p = hora.split(':'); return +p[0] * 60 + +p[1]; }
 function validarReserva_(d, inicio) {
   if (d.nombre.length < 2 || !/^\+?\d{9,15}$/.test(d.telefono)) return 'Nombre o teléfono no válidos.';
   if (!TRATAMIENTOS_VALIDOS.some(t => normalizar_(t) === normalizar_(d.tratamiento))) return 'Tratamiento no válido.';
+  if (!candidatos_(d.tratamiento, d.profesional).length) return 'El profesional seleccionado no atiende ese tratamiento.';
   if (inicio.getTime() < Date.now() + 60 * 60000) return 'Elija una fecha y hora con al menos una hora de antelación.';
   const limite = new Date(Date.now() + 90 * 86400000);
   if (Utilities.formatDate(inicio, zona_(), 'yyyy-MM-dd') > Utilities.formatDate(limite, zona_(), 'yyyy-MM-dd')) return 'Solo se admiten citas con hasta 90 días de antelación.';
@@ -132,20 +151,22 @@ function crearReserva_(d, inicio, fin) {
     purgarIndices_();
     if (d.requestId) {
       const previa = buscarRequest_(d.requestId);
-      if (previa) return {ok: true, id: previa.id, estado: previa.estado, aviso_enviado: previa.aviso};
+      if (previa) return {ok: true, id: previa.id, estado: previa.estado, aviso_enviado: previa.aviso, profesional: previa.profesionalNombre || ''};
     }
     const cal = calendario_();
 
     // Comprobación de disponibilidad (dentro del bloqueo: dos reservas
     // simultáneas no pueden colarse a la vez en el último hueco).
-    const disp = comprobarDisponibilidad_(cal, d.tratamiento, inicio, fin);
+    const disp = comprobarDisponibilidad_(cal, d.tratamiento, inicio, fin, null, d.profesional);
     if (!disp.ok) return disp;
+    d.profesionalId = disp.profesional.id;
+    d.profesionalNombre = disp.profesional.nombre;
 
     let id = Utilities.getUuid().slice(0, 8).toUpperCase();
     while (PropertiesService.getScriptProperties().getProperty('RESERVA_' + id)) id = Utilities.getUuid().slice(0, 8).toUpperCase();
     const token = Utilities.getUuid().replace(/-/g, '');
 
-    const titulo = '🟡 PENDIENTE · ' + d.nombre + ' · ' + d.tratamiento;
+    const titulo = '🟡 PENDIENTE · ' + d.nombre + ' · ' + d.tratamiento + ' · ' + d.profesionalNombre;
     const urlConfirmar = urlAccion_(id, token, 'confirmar');
     const urlRechazar = urlAccion_(id, token, 'rechazar');
 
@@ -156,6 +177,7 @@ function crearReserva_(d, inicio, fin) {
       '📞 ' + d.telefono,
       d.email ? '✉️ ' + d.email : '',
       '💆 ' + d.tratamiento,
+      '👩‍⚕️ Profesional: ' + d.profesionalNombre,
       '🆕 Primera visita: ' + (d.primeraVisita ? 'Sí' : 'No'),
       d.comentarios ? '📝 ' + d.comentarios : '',
       '',
@@ -172,11 +194,13 @@ function crearReserva_(d, inicio, fin) {
 
     let registro;
     try {
+      ev.setTag('profesional', d.profesionalId);
+      ev.setTag('profesionalNombre', d.profesionalNombre);
       ev.setTag('clienteNombre', d.nombre);
       ev.setTag('clienteEmail', d.email);
       ev.setTag('clienteTelefono', d.telefono);
       ev.setTag('tratamientoNombre', d.tratamiento);
-      registro = {id: id, token: token, eventId: ev.getId(), estado: 'PENDIENTE', creada: Date.now(), requestId: d.requestId, aviso: false};
+      registro = {id: id, token: token, eventId: ev.getId(), estado: 'PENDIENTE', creada: Date.now(), requestId: d.requestId, aviso: false, profesionalNombre: d.profesionalNombre};
       guardarIndice_(registro);
     } catch (err) {
       ev.deleteEvent();
@@ -188,34 +212,33 @@ function crearReserva_(d, inicio, fin) {
     registro.aviso = aviso;
     guardarIndice_(registro);
     if (d.email) emailRecibida_(d, inicio);
-    return { ok: true, id: id, estado: 'PENDIENTE', aviso_enviado: aviso };
+    return { ok: true, id: id, estado: 'PENDIENTE', aviso_enviado: aviso, profesional: d.profesionalNombre };
   } finally {
     lock.releaseLock();
   }
 }
 
 
-/**
- * Reglas de capacidad para la franja [inicio, fin):
- *  - Si ya hay una cita (pendiente o confirmada) del MISMO tratamiento que se solapa → no disponible.
- *  - Si ya hay MAX_SIMULTANEAS citas que se solapan (de cualquier tratamiento) → completo.
- * Las reservas rechazadas no cuentan porque su evento se borra del calendario.
+/** Una agenda compartida: cada profesional puede tener una cita por franja.
+ * Se permiten dos citas del mismo tratamiento si las atienden profesionales distintos.
+ * Los eventos antiguos sin profesional y los eventos manuales bloquean la franja
+ * hasta asignarlos o eliminarlos: no se inventa quién los atiende.
  */
-function comprobarDisponibilidad_(cal, tratamiento, inicio, fin, eventosDia) {
-  const t = normalizar_(tratamiento);
+function comprobarDisponibilidad_(cal, tratamiento, inicio, fin, eventosDia, profesional) {
   const solapadas = (eventosDia || cal.getEvents(inicio, fin))
     .filter(ev => ev.getStartTime() < fin && ev.getEndTime() > inicio);
-
-  if (solapadas.some(ev => !ev.getTag('reservaId'))) return {ok:false, motivo:'ocupado', error:'La agenda está ocupada a esa hora.'};
-  if (solapadas.some(ev => tratamientoDeEvento_(ev) === t)) {
-    return { ok: false, motivo: 'mismo_tratamiento',
-      error: 'Ese tratamiento ya está reservado a esa hora. Por favor, elija otra hora.' };
+  const candidatos = candidatos_(tratamiento, profesional);
+  if (!candidatos.length) return {ok: false, motivo: 'profesional_no_valido', error: 'El profesional no atiende ese tratamiento.'};
+  if (solapadas.some(ev => !ev.getTag('profesional'))) return {ok: false, motivo: 'ocupado', error: 'Hay un evento sin profesional asignado en esa franja. Elija otra hora o contacte con la clínica.'};
+  // Capacidad máxima concurrente: dos eventos consecutivos no deben contarse
+  // como simultáneos solo porque ambos toquen la franja solicitada.
+  const puntos = [inicio.getTime()].concat(solapadas.map(ev => ev.getStartTime().getTime()).filter(t => t > inicio && t < fin));
+  if (puntos.some(t => solapadas.filter(ev => ev.getStartTime().getTime() <= t && ev.getEndTime().getTime() > t).length >= CONFIG.MAX_SIMULTANEAS)) {
+    return {ok: false, motivo: 'completo', error: 'Esa hora ya está completa. Por favor, elija otra hora.'};
   }
-  if (solapadas.length >= CONFIG.MAX_SIMULTANEAS) {
-    return { ok: false, motivo: 'completo',
-      error: 'Esa hora ya está completa. Por favor, elija otra hora.' };
-  }
-  return { ok: true };
+  const libre = candidatos.find(p => !solapadas.some(ev => ev.getTag('profesional') === p.id));
+  if (!libre) return {ok: false, motivo: 'profesional_ocupado', error: 'El profesional seleccionado no está libre a esa hora. Elija otro profesional u otra hora.'};
+  return {ok: true, profesional: libre};
 }
 
 function tratamientoDeEvento_(ev) {
@@ -236,9 +259,10 @@ function normalizar_(s) {
  * Devuelve las horas (cada 15 min, de 08:00 a 21:00) en las que ese tratamiento
  * NO se puede reservar, para desactivarlas en el selector de hora.
  */
-function horasBloqueadas_(fecha, tratamiento) {
+function horasBloqueadas_(fecha, tratamiento, profesional) {
   const ini = parsearFechaHora_(fecha, '00:00');
   if (!ini) return { ok: false, error: 'Fecha no válida' };
+  if (!candidatos_(tratamiento, profesional).length) return {ok: false, error: 'Profesional o tratamiento no válido.'};
   const cal = calendario_();
   const finDia = new Date(ini.getTime() + 24 * 3600000);
   const eventos = cal.getEvents(ini, finDia);
@@ -247,9 +271,9 @@ function horasBloqueadas_(fecha, tratamiento) {
     const hora = pad_(Math.floor(min / 60)) + ':' + pad_(min % 60);
     const i = parsearFechaHora_(fecha, hora);
     const f = new Date(i.getTime() + CONFIG.DURACION_MIN * 60000);
-    if (!comprobarDisponibilidad_(cal, tratamiento, i, f, eventos).ok) bloqueadas.push(hora);
+    if (!comprobarDisponibilidad_(cal, tratamiento, i, f, eventos, profesional).ok) bloqueadas.push(hora);
   }
-  return { ok: true, fecha: fecha, tratamiento: tratamiento, bloqueadas: bloqueadas };
+  return { ok: true, fecha: fecha, tratamiento: tratamiento, profesional: profesional || 'cualquiera', bloqueadas: bloqueadas };
 }
 
 
@@ -259,8 +283,12 @@ function horasBloqueadas_(fecha, tratamiento) {
  * ============================================================ */
 function doGet(e) {
   const p = (e && e.parameter) || {};
+  if (p.catalogo === 'profesionales') {
+    try { return respuestaDisponibilidad_({ok: true, version: 2, profesionales: profesionales_()}, p.callback); }
+    catch (err) { return respuestaDisponibilidad_({ok: false, error: 'No se pudo cargar el equipo.'}, p.callback); }
+  }
   if (p.disponibilidad) {
-    try { return respuestaDisponibilidad_(horasBloqueadas_(p.disponibilidad, p.tratamiento || ''), p.callback); }
+    try { return respuestaDisponibilidad_(horasBloqueadas_(p.disponibilidad, p.tratamiento || '', p.profesional || ''), p.callback); }
     catch (err) { return respuestaDisponibilidad_({ ok: false, error: 'No se pudo consultar la agenda.' }, p.callback); }
   }
   if (!p.id || !p.t) {
@@ -280,7 +308,7 @@ function doGet(e) {
   } else {
     t.estado = r.registro.estado;
     const d = r.datos;
-    t.resumen = d ? d.nombre + ' · ' + d.tratamiento + ' · ' + d.fecha + ' a las ' + d.hora + ' · Tel. ' + d.telefono : 'Solicitud ' + String(t.estado).toLowerCase() + '.';
+    t.resumen = d ? d.nombre + ' · ' + d.tratamiento + ' · ' + d.fecha + ' a las ' + d.hora + ' · Profesional: ' + (d.profesionalNombre || 'Sin asignar') + ' · Tel. ' + d.telefono : 'Solicitud ' + String(t.estado).toLowerCase() + '.';
   }
 
   return t.evaluate()
@@ -301,7 +329,7 @@ function procesarAccion(id, token, accion, mensaje) {
     const inicio = ev.getStartTime();
     mensaje = String(mensaje || '').trim().slice(0, 500);
     if (accion === 'confirmar') {
-      ev.setTitle('✅ ' + d.nombre + ' · ' + d.tratamiento);
+      ev.setTitle('✅ ' + d.nombre + ' · ' + d.tratamiento + (d.profesionalNombre ? ' · ' + d.profesionalNombre : ''));
       ev.setColor(CalendarApp.EventColor.GREEN);
       ev.setDescription(ev.getDescription().replace(/\n*✅ CONFIRMAR:[\s\S]*$/, '') + '\n\nEstado: CONFIRMADA');
       r.registro.estado = 'CONFIRMADA';
@@ -368,7 +396,7 @@ function avisarClinica_(id, d, inicio, urlOk, urlKo) {
     'Nueva reserva web',
     '<table style="font-size:15px;line-height:1.7">' +
     fila_('Cliente', d.nombre) + fila_('Teléfono', d.telefono) + fila_('Email', d.email || '—') +
-    fila_('Tratamiento', d.tratamiento) + fila_('Cuándo', cuando) +
+    fila_('Tratamiento', d.tratamiento) + fila_('Profesional', d.profesionalNombre || 'Sin asignar') + fila_('Cuándo', cuando) +
     fila_('Primera visita', d.primeraVisita ? 'Sí' : 'No') + fila_('Comentarios', d.comentarios || '—') +
     '</table>' +
     '<p style="margin-top:24px">' +
@@ -377,7 +405,7 @@ function avisarClinica_(id, d, inicio, urlOk, urlKo) {
   );
   MailApp.sendEmail({
     to: destino,
-    subject: '🟡 Nueva reserva #' + id + ' · ' + d.nombre + ' · ' + cuando,
+    subject: '🟡 Nueva reserva #' + id + ' · ' + d.nombre + ' · ' + d.profesionalNombre + ' · ' + cuando,
     htmlBody: html,
     replyTo: d.email || undefined,
     name: CONFIG.NOMBRE_CLINICA + ' · Reservas web'
@@ -388,6 +416,7 @@ function emailRecibida_(d, inicio) {
   enviarCliente_(d.email, 'Hemos recibido su solicitud de cita',
     '<p>Hola ' + esc_(d.nombre) + ',</p>' +
     '<p>Hemos recibido su solicitud para <b>' + esc_(d.tratamiento) + '</b> el <b>' + fechaLarga_(inicio) + '</b>.</p>' +
+    '<p>Profesional: <b>' + esc_(d.profesionalNombre || 'Sin asignar') + '</b>.</p>' +
     '<p>En breve le confirmaremos la cita por email. Si lo necesita, puede llamarnos al ' + CONFIG.TELEFONO + '.</p>');
 }
 
@@ -395,6 +424,7 @@ function emailConfirmada_(d, inicio, mensaje) {
   enviarCliente_(d.email, '✅ Cita confirmada · ' + fechaLarga_(inicio),
     '<p>Hola ' + esc_(d.nombre) + ',</p>' +
     '<p>Su cita para <b>' + esc_(d.tratamiento) + '</b> queda <b>confirmada</b> para el <b>' + fechaLarga_(inicio) + '</b>.</p>' +
+    '<p>Profesional: <b>' + esc_(d.profesionalNombre || 'Sin asignar') + '</b>.</p>' +
     (mensaje ? '<p style="background:#faf6ef;padding:12px;border-left:3px solid #c2a165">' + esc_(mensaje) + '</p>' : '') +
     '<p>📍 ' + CONFIG.DIRECCION + '</p>' +
     '<p>Si necesita cambiarla o cancelarla, avísenos en el ' + CONFIG.TELEFONO +
@@ -405,6 +435,7 @@ function emailRechazada_(d, inicio, mensaje) {
   enviarCliente_(d.email, 'Sobre su solicitud de cita del ' + fechaLarga_(inicio),
     '<p>Hola ' + esc_(d.nombre) + ',</p>' +
     '<p>Lamentablemente no podemos atenderle el <b>' + fechaLarga_(inicio) + '</b> para <b>' + esc_(d.tratamiento) + '</b>.</p>' +
+    '<p>Profesional: <b>' + esc_(d.profesionalNombre || 'Sin asignar') + '</b>.</p>' +
     (mensaje ? '<p style="background:#faf6ef;padding:12px;border-left:3px solid #c2a165">' + esc_(mensaje) + '</p>' : '') +
     '<p>Puede elegir otra fecha en <a href="' + CONFIG.WEB + '">nuestra web</a> o escribirnos por ' +
     '<a href="' + CONFIG.WHATSAPP + '">WhatsApp</a> y le buscamos un hueco.</p>');
@@ -447,6 +478,7 @@ function leerDatos_(e) {
     telefono: txt(raw[C.telefono]).replace(/[^\d+]/g, '').slice(0, 20),
     email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(txt(raw[C.email])) ? txt(raw[C.email]) : '',
     tratamiento: txt(raw[C.tratamiento]).slice(0, 120),
+    profesional: txt(raw[C.profesional]).slice(0, 60),
     fecha: txt(raw[C.fecha]),
     hora: txt(raw[C.hora]),
     primeraVisita: ['true', 'sí', 'si', 'on', '1', 'yes'].indexOf(pv) > -1,
@@ -503,7 +535,7 @@ function buscarReserva_(id) {
   const registro = JSON.parse(raw);
   let evento = null;
   try { evento = calendario_().getEventById(registro.eventId); } catch (e) {}
-  const datos = evento ? {nombre: evento.getTag('clienteNombre'), email: evento.getTag('clienteEmail'), telefono: evento.getTag('clienteTelefono'), tratamiento: evento.getTag('tratamientoNombre'), fecha: Utilities.formatDate(evento.getStartTime(), zona_(), 'dd/MM/yyyy'), hora: Utilities.formatDate(evento.getStartTime(), zona_(), 'HH:mm')} : null;
+  const datos = evento ? {profesionalNombre: evento.getTag('profesionalNombre'), nombre: evento.getTag('clienteNombre'), email: evento.getTag('clienteEmail'), telefono: evento.getTag('clienteTelefono'), tratamiento: evento.getTag('tratamientoNombre'), fecha: Utilities.formatDate(evento.getStartTime(), zona_(), 'dd/MM/yyyy'), hora: Utilities.formatDate(evento.getStartTime(), zona_(), 'HH:mm')} : null;
   return {registro: registro, evento: evento, datos: datos};
 }
 

@@ -92,7 +92,8 @@ Cuando se hayan comprobado el calendario real, el destinatario y los enlaces de 
 configura `modoPruebas: false` en `assets/reservas-config.js` para admitir solicitudes reales.
 Revisa también `MAX_SIMULTANEAS` (actualmente 2), `DURACION_MIN` (60) y el horario.
 Los eventos manuales que se solapen bloquean la franja; los eventos de reservas aplican
-la capacidad y no permiten dos citas del mismo tratamiento a la vez.
+la capacidad global de dos y una cita por profesional; se permiten dos citas del
+mismo tratamiento cuando las atienden profesionales distintos.
 Al modificar el código, edita la implementación y selecciona una **nueva versión**,
 conservando la misma URL. Las propiedades no requieren copiar claves al sitio.
 Los índices de gestión residen en propiedades de Apps Script y están sujetos a su cuota;
@@ -110,3 +111,41 @@ No se envían nombres, teléfonos ni correos por parámetros GET.
 node --test reservas/tests/apps-script.test.cjs
 python reservas/tests/verificar_formulario.py
 ```
+
+## Selección de profesional (actualización)
+
+Se han añadido Marta Jiménez y Lucía Serrano para las pruebas, con todos los
+tratamientos habilitados por petición del usuario. Es solo una configuración de
+prueba: no define sus atribuciones médicas reales. La web obtiene el equipo del
+script para evitar mantener dos listas distintas.
+
+Para activar la selección en el despliegue que ya existe:
+
+1. Sustituye el contenido de Código.gs en el editor por `reservas/Code.gs` de este repositorio.
+   La URL /exec ya está escrita como valor por defecto. Guarda.
+2. Implementar → Gestionar implementaciones → selecciona la aplicación web → lápiz Editar.
+3. En Versión, elige **Nueva versión** y pulsa Implementar. Conserva Ejecutar como yo
+   y acceso Cualquier usuario. La URL sigue siendo la misma.
+4. Recarga la web. Debe aparecer Profesional con Marta, Lucía y «Cualquier profesional disponible».
+
+No vuelvas a ejecutar prepararPruebas ni borres las propiedades: el ID del calendario
+y los enlaces de las solicitudes existentes se conservan. La web mantiene el
+formulario anterior hasta que Google publique la nueva versión con el catálogo.
+Los clientes antiguos que no envían profesional reciben asignación automática
+cuando se atienden con la versión nueva.
+
+En las solicitudes nuevas, el nombre del profesional aparece en el evento, el
+aviso a la clínica, los correos al cliente, la página de gestión y el resumen web.
+Cambiar el profesional vuelve a consultar las horas. La asignación sin preferencia
+se hace dentro del mismo bloqueo que comprueba disponibilidad y crea el evento.
+
+Antes de producción, edita `PROFESIONALES_PRUEBAS` en Code.gs o usa la propiedad
+`PROFESIONALES` con una lista JSON de objetos `id`, `nombre` y `tratamientos`.
+Los nombres de tratamientos deben coincidir con el formulario. No cambies los IDs
+de personas que ya tengan citas: sus reservas se identifican por ese ID.
+Los eventos antiguos sin profesional bloquean su franja por precaución hasta que
+se rechacen/eliminen o se revisen; no se asigna una persona ficticia a reservas pasadas.
+
+El backend del chatbot puede consultar el catálogo con `consultar_profesionales`,
+y envía el mismo ID al consultar disponibilidad y crear la solicitud. La versión
+informativa sin IA continúa sin gestionar citas.

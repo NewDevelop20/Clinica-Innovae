@@ -131,3 +131,20 @@ def test_reserva_propaga_el_error_de_code_gs():
                                             "error": "Ese tratamiento ya está reservado a esa hora."})
     r = herramientas_con(falso).ejecutar("crear_solicitud_reserva", datos_reserva(), Contexto())
     assert not r["ok"] and r["motivo"] == "mismo_tratamiento"
+
+
+def test_catalogo_y_disponibilidad_del_profesional():
+    falso = AppsScriptFalso()
+    h = herramientas_con(falso)
+    catalogo = h.ejecutar("consultar_profesionales", {}, Contexto())
+    assert catalogo["profesionales"][0]["id"] == "marta-jimenez"
+    r = h.consultar_disponibilidad(proximo_dia(2), "Dermapen", "marta-jimenez")
+    assert r["ok"] and falso.gets[-1]["profesional"] == "marta-jimenez"
+
+
+def test_reserva_conserva_profesional_consultado():
+    falso = AppsScriptFalso()
+    r = herramientas_con(falso).ejecutar("crear_solicitud_reserva", datos_reserva(profesional="marta-jimenez"), Contexto())
+    assert r["ok"]
+    assert falso.gets[-1]["profesional"] == "marta-jimenez"
+    assert falso.posts[-1]["profesional"] == "marta-jimenez"
