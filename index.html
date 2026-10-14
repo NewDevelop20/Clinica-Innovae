@@ -1453,7 +1453,7 @@
           <span class="label">Reservas</span>
           <h2 class="title" style="transition-delay:.1s">Reserva tu cita <em>online</em></h2>
           <div class="rule"></div>
-          <p class="body-text">Rellena el formulario y te confirmaremos tu cita lo antes posible.<br>Atención: Lunes a Viernes 10:00&ndash;19:00 &nbsp;·&nbsp; Sábados 10:00&ndash;14:00 &nbsp;·&nbsp; Domingos cerrado.</p>
+          <p class="body-text">Rellena el formulario y te confirmaremos tu cita lo antes posible.<br>Atención: Lunes a Viernes 10:00&ndash;13:30 y 16:30&ndash;20:30 &nbsp;·&nbsp; Sábados 10:30&ndash;13:00 &nbsp;·&nbsp; Domingos cerrado.</p>
         </div>
 
         <form class="booking-form reveal" id="bookingForm" style="transition-delay:.15s" novalidate autocomplete="on">
@@ -2587,207 +2587,9 @@
       }, { passive: true });
     }
 
-    // ── RESERVAS: validación y envío ──────────────────────────
-    (function () {
-      const form = document.getElementById('bookingForm');
-      if (!form) return;
-
-      const RESERVAS_ENDPOINT = ''; // ← Pega aquí la URL del Web App de Google Apps Script
-
-      const nombre = document.getElementById('r-nombre');
-      const telefono = document.getElementById('r-telefono');
-      const email = document.getElementById('r-email');
-      const tratamiento = document.getElementById('r-tratamiento');
-      const fecha = document.getElementById('r-fecha');
-      const hora = document.getElementById('r-hora');
-      const rgpd = document.getElementById('r-rgpd');
-      const honeypot = document.getElementById('r-website');
-      const submitBtn = document.getElementById('r-submit');
-      const primeraRadios = form.querySelectorAll('input[name="primera"]');
-      const firstVisitNote = document.getElementById('firstVisitNote');
-
-      // Fecha mínima = hoy
-      const now = new Date();
-      const localToday = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
-        .toISOString().split('T')[0];
-      fecha.min = localToday;
-
-      // Restricción en vivo: nombre solo letras / espacios
-      nombre.addEventListener('input', function () {
-        this.value = this.value.replace(/[^\p{L}\s'’.-]/gu, '');
-        clearError(this);
-      });
-
-      // Restricción en vivo: teléfono solo números
-      telefono.addEventListener('input', function () {
-        this.value = this.value.replace(/\D/g, '');
-        clearError(this);
-      });
-
-      [email, tratamiento, rgpd].forEach(function (el) {
-        el.addEventListener('input', function () { clearError(el); });
-        el.addEventListener('change', function () { clearError(el); });
-      });
-
-      // Primera cita: limpia el error y muestra el aviso de valoración médica
-      primeraRadios.forEach(function (radio) {
-        radio.addEventListener('change', function () {
-          clearError(radio);
-          const esPrimera = this.value === 'Sí';
-          if (firstVisitNote) firstVisitNote.classList.toggle('show', esPrimera);
-          if (esPrimera) {
-            tratamiento.value = 'Primera consulta / valoración';
-            clearError(tratamiento);
-          } else if (tratamiento.value === 'Primera consulta / valoración') {
-            tratamiento.value = '';
-          }
-        });
-      });
-
-      // Genera las horas disponibles según el día elegido
-      function buildSlots(dateStr) {
-        const d = new Date(dateStr + 'T00:00:00');
-        const day = d.getDay(); // 0 = domingo ... 6 = sábado
-        if (day === 0) return null;                 // domingo cerrado
-        const end = (day === 6) ? 14 * 60 : 19 * 60; // sábado hasta 14:00, resto 19:00
-        const slots = [];
-        for (let m = 10 * 60; m + 30 <= end; m += 30) {
-          const hh = String(Math.floor(m / 60)).padStart(2, '0');
-          const mm = String(m % 60).padStart(2, '0');
-          slots.push(hh + ':' + mm);
-        }
-        return slots;
-      }
-
-      function refreshHours() {
-        const dateStr = fecha.value;
-        if (!dateStr) {
-          hora.disabled = true;
-          hora.innerHTML = '<option value="" disabled selected>Primero elige una fecha</option>';
-          return;
-        }
-        const slots = buildSlots(dateStr);
-        if (slots === null) {
-          hora.disabled = true;
-          hora.innerHTML = '<option value="" disabled selected>Cerrado (domingo)</option>';
-          setError(fecha, 'Los domingos permanecemos cerrados. Elige otro día.');
-          return;
-        }
-        clearError(fecha);
-        hora.disabled = false;
-        let html = '<option value="" disabled selected>Selecciona una hora</option>';
-        slots.forEach(function (s) { html += '<option>' + s + '</option>'; });
-        hora.innerHTML = html;
-      }
-
-      fecha.addEventListener('change', function () { clearError(fecha); refreshHours(); clearError(hora); });
-      hora.addEventListener('change', function () { clearError(hora); });
-
-      function setError(el, msg) {
-        const group = el.closest('.form-group');
-        if (!group) return;
-        group.classList.add('invalid');
-        if (msg) {
-          const span = group.querySelector('.field-error');
-          if (span) span.textContent = msg;
-        }
-      }
-      function clearError(el) {
-        const group = el.closest('.form-group');
-        if (group) group.classList.remove('invalid');
-      }
-
-      function validate() {
-        let ok = true;
-        const firstInvalid = { el: null };
-
-        function fail(el, msg) {
-          setError(el, msg);
-          if (!firstInvalid.el) firstInvalid.el = el;
-          ok = false;
-        }
-
-        if (nombre.value.trim().length < 2) fail(nombre);
-        if (!/^\d{9,15}$/.test(telefono.value.trim())) fail(telefono);
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) fail(email);
-        if (!tratamiento.value) fail(tratamiento);
-
-        if (!fecha.value) {
-          fail(fecha, 'Elige una fecha válida (no domingos).');
-        } else if (new Date(fecha.value + 'T00:00:00').getDay() === 0) {
-          fail(fecha, 'Los domingos permanecemos cerrados. Elige otro día.');
-        }
-
-        if (!hora.value) fail(hora);
-        if (!form.querySelector('input[name="primera"]:checked')) fail(primeraRadios[0], 'Indícanos si es tu primera cita.');
-        if (!rgpd.checked) fail(rgpd);
-
-        if (firstInvalid.el) {
-          firstInvalid.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          try { firstInvalid.el.focus({ preventScroll: true }); } catch (e) {}
-        }
-        return ok;
-      }
-
-      function fmtDate(str) {
-        const p = str.split('-');
-        return p[2] + '/' + p[1] + '/' + p[0];
-      }
-
-      function showConfirm() {
-        document.getElementById('bc-name').textContent = nombre.value.trim().split(' ')[0];
-        document.getElementById('bc-detail').textContent =
-          tratamiento.value + ' · ' + fmtDate(fecha.value) + ' a las ' + hora.value;
-        const primeraSel = form.querySelector('input[name="primera"]:checked');
-        const bcNote = document.getElementById('bc-note');
-        if (primeraSel && primeraSel.value === 'Sí') {
-          bcNote.textContent = 'Al ser tu primera visita, incluirá una valoración médica previa con el Dr. Romero antes del tratamiento.';
-          bcNote.style.display = 'block';
-        } else {
-          bcNote.style.display = 'none';
-        }
-        form.style.display = 'none';
-        const box = document.getElementById('bookingConfirm');
-        box.classList.add('show');
-        box.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        // Trampa anti-spam: si un bot rellena el honeypot, simulamos éxito
-        if (honeypot && honeypot.value) { showConfirm(); return; }
-
-        if (!validate()) return;
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Enviando...';
-
-        const data = new URLSearchParams({
-          nombre: nombre.value.trim(),
-          telefono: telefono.value.trim(),
-          email: email.value.trim(),
-          tratamiento: tratamiento.value,
-          primera: (form.querySelector('input[name="primera"]:checked') || {}).value || '',
-          fecha: fecha.value,
-          hora: hora.value,
-          notas: (document.getElementById('r-notas').value || '').trim()
-        });
-
-        const finish = function () { showConfirm(); };
-
-        if (RESERVAS_ENDPOINT) {
-          fetch(RESERVAS_ENDPOINT, { method: 'POST', mode: 'no-cors', body: data })
-            .then(finish).catch(finish);
-        } else {
-          finish(); // Sin backend aún: muestra confirmación (lista para conectar)
-        }
-      });
-    })();
-
     function preselectTratamiento(nombre){
       const sel = document.getElementById('r-tratamiento');
-      if(sel){ sel.value = nombre; }
+      if(sel){ sel.value = nombre; sel.dispatchEvent(new Event('change')); }
     }
 
     // Detalles de servicios y perfiles del equipo.
@@ -2814,6 +2616,8 @@
       document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('visible'));
     }, 120);
   </script>
+  <script src="assets/reservas-config.js" defer></script>
+  <script src="assets/reservas.js" defer></script>
   <script src="assets/chatbot-config.js" defer></script>
   <script src="assets/chatbot/innovae-chat.js" data-conocimiento="conocimiento.json" defer></script>
 </body>

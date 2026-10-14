@@ -3,7 +3,7 @@
 Widget informativo para la web y backend con IA (Claude) preparado para web y WhatsApp.
 La primera versión publicada funciona sin servicios externos. El backend puede resolver
 consultas con IA y crear **solicitudes de cita** cuando se conecten Anthropic y un Web App
-de Google Apps Script compatible. El archivo `Code.gs` no se incluyó entre los adjuntos.
+de Google Apps Script compatible. El Web App adaptado para Calendar sin hojas está en `reservas/Code.gs`; consulta `reservas/README.md`.
 
 ```
    Web (widget)  ─┐                       ┌─► Claude API (instrucciones + conocimiento)
@@ -38,7 +38,7 @@ sin IA: reconoce temas y nombres, no entiende cualquier pregunta ni inventa dato
 No envía los mensajes al backend, a Anthropic, a Meta ni a una agenda; el historial
 se guarda en sessionStorage de esta pestaña y se borra con «Reiniciar».
 Las solicitudes de cita del chat están desactivadas y se ofrece contacto con la clínica.
-El formulario de reservas existente sigue sin tener servicio de envío conectado.
+El formulario está preparado para el Web App de `reservas/Code.gs`; se activa al configurar la URL real de despliegue.
 
 Para actualizar los datos y el widget público después de editar sus fuentes:
 

@@ -6,7 +6,7 @@
        -> {"ok": true, "id": "AB12CD34"} | {"ok": false, "error": "...", "motivo": "..."}
 
 Así la reserva del chatbot entra EXACTAMENTE igual que la del formulario:
-evento 🟡 PENDIENTE en el calendario, fila en la hoja y email Confirmar/Rechazar.
+evento 🟡 PENDIENTE en el calendario y email Confirmar/Rechazar, sin hoja de cálculo.
 """
 from __future__ import annotations
 
