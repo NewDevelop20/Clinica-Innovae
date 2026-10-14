@@ -1,0 +1,245 @@
+{
+  "faq": {
+    "horario": "Lunes a viernes: 10:00–13:30 y 16:30–20:30. Sábado: 10:30–13:00. Domingo: cerrado. En festivos, confirme el horario con la clínica.",
+    "direccion": "Av. Ramón y Cajal, 10 · 23400 Úbeda, Jaén. Cómo llegar: https://www.google.com/maps/search/?api=1&query=Cl%C3%ADnica+Innovae+%C3%9Abeda",
+    "precios": "Los precios no están publicados. Dependen de la valoración y del caso. Puede consultar precio y disponibilidad con la clínica.",
+    "reservas": "Las reservas automáticas del chat aún no están activadas. No puedo consultar la agenda ni registrar o confirmar una cita. Para pedir, cambiar o cancelar una cita, contacte con la clínica.",
+    "equipo": "El Dr. Francisco Javier Romero Conesa es el director médico, especialista en Medicina Estética y Flebología. Los tratamientos de Medicina Estética requieren valoración médica previa.",
+    "tienda": "Disponemos de cosmética Germaine de Capuccini y mesoestetic para recogida en la clínica. Consulte precio y disponibilidad con el equipo."
+  },
+  "articulos": [
+    {
+      "tipo": "tratamiento",
+      "nombre": "Primera consulta / valoración",
+      "categoria": "Primera visita",
+      "texto": "Cita para valorar la piel o la zona a tratar y recomendar el tratamiento adecuado. Es el primer paso recomendado si no se sabe qué tratamiento elegir, y obligatorio antes de cualquier tratamiento de Medicina Estética."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Eliminación de Arrugas",
+      "categoria": "Medicina Estética",
+      "texto": "Suaviza las arrugas de expresión (frente, entrecejo, patas de gallo) con toxina botulínica. Resultado natural, sin perder expresión. Requiere valoración médica."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Rellenos con Ácido Hialurónico",
+      "categoria": "Medicina Estética",
+      "texto": "Inyecciones de ácido hialurónico para restaurar volumen, corregir surcos y perfilar rasgos: rinomodelación, ojeras, labios, pómulos. Sesión ambulatoria de unos 30–45 min con anestesia tópica; se puede retomar la actividad casi de inmediato. Resultado visible desde el primer momento."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Hilos Tensores",
+      "categoria": "Medicina Estética",
+      "texto": "Efecto lifting sin cirugía: hilos reabsorbibles que reposicionan los tejidos y estimulan el colágeno. Para flacidez inicial en óvalo facial, cuello o pómulos. Con anestesia local, unos 30–45 min."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Mesoterapia",
+      "categoria": "Medicina Estética",
+      "texto": "Microinyecciones de vitaminas, ácido hialurónico y otros activos que hidratan e iluminan la piel en profundidad. Unos 20–30 min; suele plantearse en varias sesiones."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Endolifting con Fibra Óptica",
+      "categoria": "Medicina Estética",
+      "texto": "Microfibra óptica bajo la piel que emite láser para retraer tejidos y estimular colágeno: efecto lifting progresivo en papada, rostro, brazos o abdomen. Alternativa a la cirugía. Con anestesia local."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Eliminación de Manchas y Lesiones (Blumed)",
+      "categoria": "Medicina Estética",
+      "texto": "Tecnología Blumed para eliminar lesiones cutáneas benignas frecuentes: puntos rubí, lentigos solares, melasmas y verrugas. Imprescindible valoración médica previa para confirmar la naturaleza de cada lesión."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Eliminación de Arañas Vasculares",
+      "categoria": "Medicina Estética",
+      "texto": "Tratamiento médico de pequeños vasos dilatados visibles, sobre todo en piernas, realizado por el Dr. Romero (especialista en flebología). Puede requerir varias sesiones."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Limpieza Facial",
+      "categoria": "Estética Facial",
+      "texto": "Higiene profunda que elimina impurezas, exceso de grasa y células muertas. Deja la piel limpia, oxigenada y luminosa, y la prepara para otros tratamientos."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Peeling Mecánico",
+      "categoria": "Estética Facial",
+      "texto": "Exfoliación que renueva la superficie de la piel y mejora su textura."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Hidratación",
+      "categoria": "Estética Facial",
+      "texto": "Aporte intensivo de agua y activos para pieles deshidratadas o apagadas."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Oxigenación",
+      "categoria": "Estética Facial",
+      "texto": "Revitaliza la piel con oxígeno y principios activos."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Vitamina C",
+      "categoria": "Estética Facial",
+      "texto": "Tratamiento antioxidante que unifica el tono y aporta luminosidad."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Reafirmante",
+      "categoria": "Estética Facial",
+      "texto": "Devuelve firmeza a la piel y ayuda a redefinir el óvalo facial."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Kinesiolifting",
+      "categoria": "Estética Facial",
+      "texto": "Masaje facial de lifting manual que trabaja la musculatura del rostro: mejora tono, circulación y firmeza. Unos 45–60 min, sin recuperación."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Radiofrecuencia",
+      "categoria": "Estética Facial",
+      "texto": "Calor controlado que estimula colágeno y elastina para tensar la piel sin cirugía. Indicada en flacidez leve o moderada de rostro y cuello. Unos 30–45 min, sin recuperación; suele hacerse en varias sesiones."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Fotorejuvenecimiento",
+      "categoria": "Estética Facial",
+      "texto": "Luz pulsada para atenuar manchas solares, rojeces y signos de fotoenvejecimiento. Unos 30 min. Requiere valorar antes el tipo de piel; suele hacerse en varias sesiones."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Ultrasonix",
+      "categoria": "Estética Facial",
+      "texto": "Ultrasonidos que favorecen la penetración de activos y estimulan la piel: efecto reafirmante y revitalizante. Unos 30–45 min, sin molestias."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Dermapen",
+      "categoria": "Estética Facial",
+      "texto": "Microneedling con microagujas que estimula la regeneración natural de la piel: mejora textura, firmeza y luminosidad."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Depilación SHR",
+      "categoria": "Estética Corporal",
+      "texto": "Depilación de última generación que reduce el vello de forma progresiva y cómoda, apta para prácticamente todo tipo de piel y vello."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Depilación IPL",
+      "categoria": "Estética Corporal",
+      "texto": "Luz pulsada que reduce el vello de forma duradera."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Maderoterapia",
+      "categoria": "Estética Corporal",
+      "texto": "Masaje con instrumentos de madera para moldear la figura."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Presoterapia",
+      "categoria": "Estética Corporal",
+      "texto": "Presión de aire controlada que ayuda a drenar y reducir líquidos."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Drenajes Linfáticos",
+      "categoria": "Estética Corporal",
+      "texto": "Masaje suave que estimula el sistema linfático."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Hondas Magnéticas",
+      "categoria": "Estética Corporal",
+      "texto": "Estimulación muscular electromagnética para flacidez y suelo pélvico."
+    },
+    {
+      "tipo": "tratamiento",
+      "nombre": "Cera Facial y Corporal",
+      "categoria": "Estética Corporal",
+      "texto": "Depilación con cera de raíz."
+    },
+    {
+      "tipo": "producto",
+      "nombre": "NIGHT Crema Confort Alta Recuperación",
+      "alias": "night crema confort alta recuperacion",
+      "texto": "Crema de noche de alta recuperación que nutre intensamente y refuerza la barrera mientras duermes.\n\nActúa durante el descanso para devolver a la piel nutrición, elasticidad y bienestar duradero. Su textura rica y envolvente se funde al instante y aporta confort inmediato con acabado sedoso. Ayuda a acelerar la renovación nocturna para despertar con una piel más firme, lisa y luminosa.",
+      "url": "https://newdevelop20.github.io/Clinica-Innovae/productos/night-crema-confort-alta-recuperacion.html"
+    },
+    {
+      "tipo": "producto",
+      "nombre": "PRO 60+ Crema Extra-Nutritiva Alta Exigencia",
+      "alias": "pro 60 crema extra nutritiva alta exigencia",
+      "texto": "Crema extra-nutritiva de alta exigencia para pieles maduras, secas o muy secas.\n\nTratamiento diario que cubre las necesidades de las pieles más exigentes. Aporta nutrición intensa y confort inmediato, refuerza la barrera, mejora la elasticidad, suaviza las líneas y devuelve un aspecto más firme y luminoso. Textura rica y sedosa con acabado aterciopelado.",
+      "url": "https://newdevelop20.github.io/Clinica-Innovae/productos/pro-60-crema-extra-nutritiva-alta-exigencia.html"
+    },
+    {
+      "tipo": "producto",
+      "nombre": "Crema Recuperadora Intensiva",
+      "alias": "crema recuperadora intensiva",
+      "texto": "Crema recuperadora de textura fina y fundente para piel madura.\n\nTratamiento diario que devuelve nutrición, firmeza y confort duradero a la piel madura. Su textura se funde al instante y envuelve el rostro con un velo sedoso que aporta luminosidad inmediata. Refuerza la barrera, mejora la elasticidad, suaviza las arrugas y unifica el tono.",
+      "url": "https://newdevelop20.github.io/Clinica-Innovae/productos/crema-recuperadora-intensiva.html"
+    },
+    {
+      "tipo": "producto",
+      "nombre": "Crema Pro-Colágeno",
+      "alias": "crema pro colageno",
+      "texto": "Crema antiarrugas que reduce las arrugas, mejora la densidad de la piel y aporta el equilibrio ideal de hidratación.\n\nTratamiento antiedad diario que \"reentrena\" la piel para comportarse como una piel joven. Combina el complejo biotecnológico CELASPEP·4™ con activos que actúan sobre las arrugas visibles y la pérdida de elasticidad. Ideal para quien busca una piel visiblemente más joven, firme y protegida.",
+      "url": "https://newdevelop20.github.io/Clinica-Innovae/productos/crema-pro-colageno.html"
+    },
+    {
+      "tipo": "producto",
+      "nombre": "Sérum Pro-Colágeno",
+      "alias": "serum pro colageno",
+      "texto": "Concentrado intensivo que suaviza arrugas en solo 10 minutos y mejora visiblemente la elasticidad día tras día.\n\nSolución rejuvenecedora no invasiva con resultados visibles desde la primera aplicación. Fórmula con un 94 % de ingredientes de origen natural y el complejo biotecnológico CELASPEP·4™, que reactiva la producción de colágeno. Aporta un toque glow rosado inmediato y potencia la eficacia del resto de la rutina.",
+      "url": "https://newdevelop20.github.io/Clinica-Innovae/productos/serum-pro-colageno.html"
+    },
+    {
+      "tipo": "producto",
+      "nombre": "Crema Antioxidante Iluminadora",
+      "alias": "crema antioxidante iluminadora",
+      "texto": "Crema antioxidante iluminadora con vitaminas C y E y nanopolímero HLG.\n\nDevuelve luz, uniformidad y confort al rostro desde el primer uso. Combina vitaminas C y E con el nanopolímero HLG para potenciar la luminosidad y aportar una hidratación duradera. Ayuda a unificar el tono.",
+      "url": "https://newdevelop20.github.io/Clinica-Innovae/productos/crema-antioxidante-iluminadora.html"
+    },
+    {
+      "tipo": "producto",
+      "nombre": "Rutina de Limpieza Experta en Tamaño Viaje",
+      "alias": "rutina de limpieza experta en tamano viaje",
+      "texto": "Rutina de limpieza facial completa en tamaño viaje, apta para cabina de avión.\n\nReúne cuatro esenciales de The Cleansing Expert en tamaño viaje para completar una rutina experta de desmaquillado, limpieza, renovación y tonificación. Fórmulas con prebióticos, para todo tipo de pieles.",
+      "url": "https://newdevelop20.github.io/Clinica-Innovae/productos/rutina-de-limpieza-experta-en-tamano-viaje.html"
+    },
+    {
+      "tipo": "producto",
+      "nombre": "All Year Bronze Powder SPF 15",
+      "alias": "all year bronze powder spf 15",
+      "texto": "Dúo de polvos bronceadores con efecto \"buena cara\" y SPF 15.\n\nSus tonos vitaminados y pigmentos dorados iluminan y realzan la piel, mientras que su cobertura natural disimula imperfecciones y ofrece protección UVB.",
+      "url": "https://newdevelop20.github.io/Clinica-Innovae/productos/all-year-bronze-powder-spf-15.html"
+    },
+    {
+      "tipo": "producto",
+      "nombre": "Hi-Protection Makeup SPF50+",
+      "alias": "hi protection makeup spf50",
+      "texto": "Fotoprotector compacto con color: fotoprotección, tratamiento y maquillaje en uno.\n\nCombina muy alta protección UVA/UVB con un toque de color en un compacto. Se funde con la piel y aporta una cobertura uniforme que disimula imperfecciones, con acabado natural. Ideal para retoques a lo largo del día.",
+      "url": "https://newdevelop20.github.io/Clinica-Innovae/productos/hi-protection-makeup-spf50.html"
+    },
+    {
+      "tipo": "producto",
+      "nombre": "mesoprotech® water veil SPF50+",
+      "alias": "mesoprotech water veil spf50",
+      "texto": "Protector solar facial ligero SPF50+ en gel-crema ultraligero para piel mixta y grasa.\n\nMuy alta fotoprotección (IR, HEV, UVB y UVA) con textura gel-crema de rápida absorción que hidrata y deja un acabado fresco. El ácido hialurónico y el colágeno ayudan a mejorar la elasticidad y la firmeza. No comedogénico.",
+      "url": "https://newdevelop20.github.io/Clinica-Innovae/productos/mesoprotech-water-veil-spf50.html"
+    },
+    {
+      "tipo": "producto",
+      "nombre": "mesoprotech® melan 130 pigment control SPF50+",
+      "alias": "mesoprotech melan 130 pigment control spf50",
+      "texto": "Emulsión con color SPF50+ para el control de la pigmentación.\n\nProtector solar facial con color de amplio espectro (IR, HEV, UVB y UVA) que ayuda a prevenir y controlar las manchas. Unifica el tono con un ligero color y es resistente al agua (40 minutos).",
+      "url": "https://newdevelop20.github.io/Clinica-Innovae/productos/mesoprotech-melan-130-pigment-control-spf50.html"
+    }
+  ]
+}

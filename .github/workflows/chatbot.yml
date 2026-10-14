@@ -1,0 +1,30 @@
+name: Comprobar chatbot
+on:
+  push:
+    branches: [main]
+    paths: ['chatbot/**', 'assets/chatbot/**', 'assets/chatbot-config.js', 'index.html', 'productos/**', 'plantilla-producto.cjs', '.github/workflows/chatbot.yml']
+  pull_request:
+    paths: ['chatbot/**', 'assets/chatbot/**', 'assets/chatbot-config.js', 'index.html', 'productos/**', 'plantilla-producto.cjs', '.github/workflows/chatbot.yml']
+permissions:
+  contents: read
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: pip install -r chatbot/requirements-dev.txt
+      - run: python -m pytest -q
+        working-directory: chatbot
+      - run: |
+          node generar-productos.cjs
+          python chatbot/exportar_web.py
+          git diff --exit-code
+      - run: python -m playwright install --with-deps chromium
+      - run: python chatbot/tests/verificar_widget.py
