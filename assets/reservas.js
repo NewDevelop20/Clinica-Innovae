@@ -2,7 +2,16 @@
   'use strict';
   var form = document.getElementById('bookingForm');
   if (!form) return;
-  var endpoint = (window.INNOVAE_RESERVAS_CONFIG || {}).endpoint || '';
+  var ajustes = window.INNOVAE_RESERVAS_CONFIG || {};
+  var endpoint = ajustes.endpoint || '';
+  var modoPruebas = ajustes.modoPruebas === true;
+  if (modoPruebas) {
+    var notaPruebas = document.createElement('p');
+    notaPruebas.id = 'bookingTestNotice';
+    notaPruebas.textContent = 'Formulario en pruebas: no reserve una cita real aquí. Para pedir cita, llame al 661 73 48 70.';
+    notaPruebas.style.cssText = 'color:#e8d3aa;border:1px solid #b8965a;padding:16px;margin-bottom:20px;font-size:.9rem;line-height:1.6';
+    form.before(notaPruebas);
+  }
   var configurado = /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(endpoint);
   var $ = function (id) { return document.getElementById(id); };
   var nombre=$('r-nombre'), telefono=$('r-telefono'), email=$('r-email'), tratamiento=$('r-tratamiento'), fecha=$('r-fecha'), hora=$('r-hora'), rgpd=$('r-rgpd'), submit=$('r-submit');
@@ -73,7 +82,7 @@
     var firma=JSON.stringify(datos);if(firma!==firmaSolicitud){idSolicitud=id();firmaSolicitud=firma;}datos.requestId=idSolicitud;
     envio=true;submit.disabled=true;submit.textContent='Enviando…';aviso('Registrando su solicitud…');
     registrar(datos).then(function(res){if(res.estado==='RECHAZADA')throw new Error('Esta solicitud ya fue rechazada. Contacte con la clínica para pedir otra cita.');$('bc-name').textContent=datos.nombre.split(' ')[0];$('bc-detail').textContent='Solicitud #'+res.id+' · '+datos.tratamiento+' · '+datos.fecha.split('-').reverse().join('/')+' a las '+datos.hora;
-      var note=$('bc-note');note.style.display='block';note.textContent=res.aviso_enviado===false?'La solicitud está registrada, pero el aviso por correo no ha podido enviarse. Llame al 661 73 48 70 indicando su código.':'La cita queda pendiente de confirmación por la clínica.';
+      var note=$('bc-note');note.style.display='block';note.textContent=res.aviso_enviado===false?'La solicitud está registrada, pero el aviso por correo no ha podido enviarse. Llame al 661 73 48 70 indicando su código.':(modoPruebas ? 'Solicitud de prueba registrada. No equivale a una cita real.' : 'La cita queda pendiente de confirmación por la clínica.');
       form.style.display='none';$('bookingConfirm').classList.add('show');$('bookingConfirm').scrollIntoView({behavior:'smooth',block:'center'});
     }).catch(function(e){aviso(e.message);}).finally(function(){envio=false;submit.disabled=hora.disabled;submit.textContent='Solicitar cita';});
   });
