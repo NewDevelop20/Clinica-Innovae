@@ -28,6 +28,8 @@ try:
     q=parse_qs(urlparse(route.request.url).query)
     if route.request.method=='GET':
      callback=q['callback'][0]
+     if q.get('catalogo')==['profesionales'] and version=='legacy':
+      assert q.get('disponibilidad') and q.get('tratamiento'), 'La versión anterior necesita consultar el catálogo por la ruta de disponibilidad.'
      if q.get('catalogo') == ['profesionales'] and version == 'profesionales':
       res={'ok':True,'version':2,'profesionales':[{'id':'marta-jimenez','nombre':'Marta Jiménez','tratamientos':['Limpieza Facial','Primera consulta / valoración']},{'id':'lucia-serrano','nombre':'Lucía Serrano','tratamientos':['Limpieza Facial','Primera consulta / valoración']}]}
      else:
