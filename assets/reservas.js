@@ -102,7 +102,7 @@
     }).catch(function(e){aviso(e.message);}).finally(function(){envio=false;submit.disabled=hora.disabled;submit.textContent='Solicitar cita';});
   });
   if(!configurado){cargandoEquipo=false;actualizar();return;}
-  consulta({catalogo:'profesionales'}).then(function(res){
+  consulta({catalogo:'profesionales',disponibilidad:fecha.min,tratamiento:'Primera consulta / valoración'}).then(function(res){
     if(res.version!==2 || !Array.isArray(res.profesionales) || !res.profesionales.length || res.profesionales.some(function(p){return !/^[a-z0-9-]{3,60}$/.test(p.id) || typeof p.nombre!=='string' || !Array.isArray(p.tratamientos);}))throw new Error('Catálogo de profesionales no disponible.');
     equipo=res.profesionales;equipoActivo=true;$('professionalGroup').hidden=false;filtroProfesionales();
   }).catch(function(){
