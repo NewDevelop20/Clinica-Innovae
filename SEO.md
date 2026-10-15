@@ -1,6 +1,6 @@
 # Páginas y metadatos
 
-La portada, los 11 productos, los 25 tratamientos y los 4 perfiles tienen una URL canónica, un título y una descripción únicos. Los enlaces de las tarjetas son enlaces HTML y el contenido de las fichas se entrega sin depender de JavaScript. `sitemap.xml` enumera las 41 páginas y `robots.txt` indica dónde encontrarlo. Los bocetos y la demo conservan sus archivos, con `noindex, follow` para evitar que compitan con las páginas oficiales.
+La portada, los 11 productos, los 25 tratamientos y los 4 perfiles y los 3 documentos legales tienen una URL canónica, un título y una descripción únicos. Los enlaces de las tarjetas son enlaces HTML y el contenido de las fichas se entrega sin depender de JavaScript. `sitemap.xml` enumera las 44 páginas y `robots.txt` indica dónde encontrarlo. Los bocetos y la demo conservan sus archivos, con `noindex, follow` para evitar que compitan con las páginas oficiales.
 
 Para actualizar y comprobar las páginas, desde la raíz:
 

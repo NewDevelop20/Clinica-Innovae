@@ -1,0 +1,10 @@
+.legal-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 24px; margin: 24px 0 0; font: 400 .72rem/1.7 'Montserrat', sans-serif; }
+.legal-links a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.legal-links a:hover { color: #e8d48b; }
+.legal-links a:focus-visible { outline: 2px solid #c9a84c; outline-offset: 5px; }
+footer .legal-links { flex-basis: 100%; }
+.map-consent { display: grid; align-content: center; justify-items: center; gap: 18px; padding: 36px 24px; height: 100%; min-height: 320px; text-align: center; background: #f5f2ea; color: #333; }
+.map-consent p { max-width: 560px; font-size: .85rem; line-height: 1.8; }
+.map-consent a { color: inherit; text-decoration: underline; }
+.map-consent[hidden], .contact-map iframe[hidden] { display: none; }
+.map-consent button { cursor: pointer; }

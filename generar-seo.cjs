@@ -2,7 +2,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const assert = require('node:assert/strict');
-const {base, escape, metadata} = require('./seo.cjs');
+const {base, escape, metadata, legalLinks} = require('./seo.cjs');
 const root = __dirname;
 const write = (file, text) => fs.writeFileSync(path.join(root, file), text);
 let index = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
@@ -59,7 +59,7 @@ for (const match of index.matchAll(/  <div class="treatment-detail" id="([^"]+)"
   const preselect = inner.match(/preselectTratamiento\('([^']+)'\)/);
   if (preselect) body = body.replace('href="../index.html#reservas"', `href="../index.html?tratamiento=${encodeURIComponent(preselect[1])}#reservas"`);
   fs.mkdirSync(path.join(root, path.dirname(file)), {recursive: true});
-  write(file, `<!DOCTYPE html>\n<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">\n${metadata(title, description, file)}\n<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../assets/fichas.css"></head>\n<body><main>${body}\n</main><script src="../assets/chatbot-config.js" defer></script><script src="../assets/chatbot/innovae-chat.js" data-conocimiento="conocimiento.json" defer></script></body></html>\n`);
+  write(file, `<!DOCTYPE html>\n<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">\n${metadata(title, description, file)}\n<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../assets/fichas.css"><link rel="stylesheet" href="../assets/legal.css"></head>\n<body><main>${body}\n</main><footer>${legalLinks('../')}</footer><script src="../assets/chatbot-config.js" defer></script><script src="../assets/chatbot/innovae-chat.js" data-conocimiento="conocimiento.json" defer></script></body></html>\n`);
   // Conserva los antiguos enlaces de fragmento; las tarjetas nuevas usan enlaces HTML rastreables.
   const card = new RegExp(`<div ((?:class="(?:svc-card|team-card)[^>]+)) onclick="location.hash='#${id}'" onkeydown="[^"]*">([\\s\\S]*?)\\n        <\\/div>`);
   index = index.replace(card, (_, attrs, contents) => `<a ${attrs.replace(/ role="link" tabindex="0"/, '')} href="${file}">${contents}\n        </a>`);
@@ -76,9 +76,19 @@ if (!index.includes('// Tratamiento elegido desde una ficha independiente.')) in
     });
 
     // Detalles de servicios`);
+index = index.replace('<!-- ENLACES LEGALES -->', legalLinks());
 write('index.html', index);
 const products = JSON.parse(fs.readFileSync(path.join(root, 'productos/datos-productos.json'), 'utf8'));
-const urls = ['', ...products.map(p => 'productos/' + p.id + '.html'), ...pages];
+const legalPages = ['aviso-legal.html', 'politica-privacidad.html', 'politica-cookies.html'];
+for (const file of legalPages) {
+  let html = fs.readFileSync(path.join(root, file), 'utf8');
+  const title = html.match(/<title>([\s\S]*?)<\/title>/)[1];
+  const description = html.match(/<meta name="description" content="([^"]+)"/)[1];
+  html = html.replace(/\s*<(?:title\b[^>]*>[\s\S]*?<\/title|meta\b[^>]*(?:name="(?:description|twitter:[^"]+)"|property="og:[^"]+")[^>]*|link\b[^>]*rel="canonical"[^>]*)>/g, '');
+  html = html.replace(/(<meta name="viewport"[^>]*>)/, '$1\n' + metadata(title, description, file));
+  write(file, html);
+}
+const urls = ['', ...legalPages, ...products.map(p => 'productos/' + p.id + '.html'), ...pages];
 write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(file => `  <url><loc>${escape(base + file)}</loc></url>`).join('\n')}\n</urlset>\n`);
 write('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${base}sitemap.xml\n`);
 // Los borradores y la demo también tienen identidad propia, pero no se indexan como páginas oficiales.

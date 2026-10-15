@@ -15,6 +15,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Clínica Innovae | Medicina estética en Úbeda, Jaén">
 <meta name="twitter:description" content="Clínica Innovae en Úbeda, Jaén: medicina estética, tratamientos faciales y corporales y cosmética profesional. Conoce al equipo y solicita tu cita.">
+  <link rel="stylesheet" href="assets/legal.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1589,7 +1590,7 @@
           <div class="form-group">
             <div class="consent-row">
               <input type="checkbox" id="r-rgpd" name="rgpd">
-              <label for="r-rgpd">He leído y acepto la política de privacidad y el tratamiento de mis datos con la finalidad de gestionar mi cita (RGPD).</label>
+              <label for="r-rgpd">He leído y acepto la <a href="politica-privacidad.html" target="_blank" rel="noopener">política de privacidad</a> y el tratamiento de mis datos con la finalidad de gestionar mi cita (RGPD).</label>
             </div>
             <span class="field-error">Debes aceptar la política de privacidad para continuar.</span>
           </div>
@@ -1795,7 +1796,8 @@
         </div>
       </div>
       <div class="contact-map reveal">
-        <iframe src="https://maps.google.com/maps?q=Cl%C3%ADnica%20Innovae%2C%20Av.%20Ram%C3%B3n%20y%20Cajal%2010%2C%20%C3%9Abeda%2C%20Ja%C3%A9n&t=&z=16&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación de Clínica Innovae en Úbeda, Jaén" allowfullscreen></iframe>
+        <div class="map-consent" id="map-consent"><p>Para ver el mapa interactivo debes permitir la conexión con Google Maps, que puede instalar cookies y recibir tu dirección IP. Consulta la <a href="politica-cookies.html">política de cookies</a>.</p><button type="button" class="btn-primary" id="load-map">Cargar mapa</button><noscript><p>Puedes consultar la ubicación con el enlace «Cómo llegar en Google Maps».</p></noscript></div>
+        <iframe id="contact-map-frame" hidden data-src="https://maps.google.com/maps?q=Cl%C3%ADnica%20Innovae%2C%20Av.%20Ram%C3%B3n%20y%20Cajal%2010%2C%20%C3%9Abeda%2C%20Ja%C3%A9n&t=&z=16&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación de Clínica Innovae en Úbeda, Jaén" allowfullscreen></iframe>
       </div>
       <div class="map-cta-wrap reveal">
         <a href="https://www.google.com/maps/dir/?api=1&destination=Cl%C3%ADnica%20Innovae%2C%20Av.%20Ram%C3%B3n%20y%20Cajal%2010%2C%2023400%20%C3%9Abeda%2C%20Ja%C3%A9n" target="_blank" rel="noopener" class="map-cta">
@@ -2549,6 +2551,7 @@
       <li><a href="#equipo">Nuestro Equipo</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
+    <nav class="legal-links" aria-label="Información legal"><a href="aviso-legal.html">Aviso legal</a><a href="politica-privacidad.html">Política de privacidad</a><a href="politica-cookies.html">Política de cookies</a></nav>
     <p class="footer-copy">&copy; 2026 Clínica Innovae Medicina Estética &nbsp;&middot;&nbsp; Av. Ramón y Cajal, 10 &nbsp;&middot;&nbsp; Úbeda, Jaén</p>
   </footer>
 
@@ -2645,6 +2648,7 @@
       document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('visible'));
     }, 120);
   </script>
+  <script src="assets/mapa-consentimiento.js" defer></script>
   <script src="assets/reservas-config.js" defer></script>
   <script src="assets/reservas.js" defer></script>
   <script src="assets/chatbot-config.js" defer></script>
