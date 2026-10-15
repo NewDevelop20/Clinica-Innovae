@@ -27,6 +27,11 @@ GCLOUD=(gcloud --account="$INNOVAE_GOOGLE_ACCOUNT" --project="$INNOVAE_PROJECT_I
   --min-instances 0 --max-instances 1 --concurrency 8 --cpu 1 --memory 512Mi --timeout 300 \
   --set-env-vars "MODO_SIMULADO=0,ANTHROPIC_MODEL=$INNOVAE_MODEL,APPS_SCRIPT_URL=$INNOVAE_APPS_SCRIPT_URL,ORIGENES_PERMITIDOS=https://newdevelop20.github.io" \
   --set-secrets "ANTHROPIC_API_KEY=$INNOVAE_SECRET_NAME:latest"
-"${GCLOUD[@]}" run services describe chatbot-innovae --region "$INNOVAE_REGION" --format='value(status.url)'
+INNOVAE_RUN_URL="$("${GCLOUD[@]}" run services describe chatbot-innovae --region "$INNOVAE_REGION" --format='value(status.url)')"
+# Permitir la demo del propio servicio, además de la web pública. El separador |
+# mantiene la coma de la lista CORS dentro de una única variable de entorno.
+"${GCLOUD[@]}" run services update chatbot-innovae --region "$INNOVAE_REGION" \
+  --update-env-vars "^|^ORIGENES_PERMITIDOS=https://newdevelop20.github.io,${INNOVAE_RUN_URL%/}"
+printf '%s\n' "$INNOVAE_RUN_URL"
 echo 'No se ha cambiado la configuración pública del widget ni se ha activado WhatsApp.'
 echo 'Comprueba /health y una conversación real antes de configurar assets/chatbot-config.js.'

@@ -65,6 +65,7 @@ bash desplegar-web.sh
 ```
 
 El script configura Cloud Run en Madrid y conecta el secreto sin imprimir la clave.
+También permite el origen de la demo del propio servicio, además de GitHub Pages.
 No configura Meta. La cuenta que despliega necesita permisos para Cloud Build,
 Cloud Run, Artifact Registry y gestionar el acceso al secreto y a la cuenta de servicio.
 
