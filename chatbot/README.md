@@ -1,5 +1,7 @@
 # Chatbot · Clínica Innovae
 
+La fase actual es **solo web**. Consulta [la guía de puesta en marcha](PUESTA_EN_MARCHA.md): distingue lo preparado y probado sin credenciales de la activación real pendiente de las cuentas de Anthropic y Google Cloud. WhatsApp permanece desactivado.
+
 Widget informativo para la web y backend con IA (Claude) preparado para web y WhatsApp.
 La primera versión publicada funciona sin servicios externos. El backend puede resolver
 consultas con IA y crear **solicitudes de cita** cuando se conecten Anthropic y un Web App
@@ -21,7 +23,7 @@ La clínica sigue confirmando o rechazando las citas desde el email, igual que c
 | Ruta | Qué es |
 |---|---|
 | `app/prompt.py` | Instrucciones del asistente (tono, límites médicos, flujo de reserva). |
-| `conocimiento/*.md` | Lo que el bot sabe: clínica, 25 tratamientos + primera consulta, productos. **Se edita aquí, sin tocar código.** |
+| `conocimiento/*.md` | Lo que el bot sabe: clínica, 25 tratamientos + primera consulta + consulta general, productos. **Se edita aquí, sin tocar código.** |
 | `app/herramientas.py` | Herramientas que usa Claude: consultar disponibilidad, crear solicitud, derivar a persona. |
 | `app/agente.py` | Bucle de conversación con Claude (común a todos los canales) + modo simulado. |
 | `app/whatsapp.py` | Webhook de Meta: verificación, firma, lectura de mensajes y envío de respuestas. |
@@ -33,7 +35,7 @@ La clínica sigue confirmando o rechazando las citas desde el email, igual que c
 
 La web y las 11 fichas cargan el widget desde `assets/chatbot/innovae-chat.js`.
 Mientras `assets/chatbot-config.js` tenga `api: ''`, responde en el navegador con
-26 tratamientos, las 11 fichas reales y preguntas frecuentes. Es una consulta
+27 opciones de tratamiento, las 11 fichas reales y preguntas frecuentes. Es una consulta
 sin IA: reconoce temas y nombres, no entiende cualquier pregunta ni inventa datos.
 No envía los mensajes al backend, a Anthropic, a Meta ni a una agenda; el historial
 se guarda en sessionStorage de esta pestaña y se borra con «Reiniciar».
@@ -86,7 +88,7 @@ compartido, idempotencia de solicitudes y una cola de mensajes WhatsApp.
 ```bash
 python -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -r requirements-dev.txt
-python -m pytest -q                                      # 46 pruebas
+python -m pytest -q                                      # 50 pruebas
 
 cp .env.example .env                                    # deja MODO_SIMULADO=1
 uvicorn app.main:app --reload --port 8000
@@ -107,7 +109,7 @@ python -m playwright install chromium
 python chatbot/tests/verificar_widget.py
 ```
 
-Comprueba las 37 consultas del catálogo y preguntas frecuentes, límites médicos,
+Comprueba las 38 consultas del catálogo y preguntas frecuentes, límites médicos,
 reinicio, historial, teclado, texto seguro y las 11 fichas a 1440 y 390 px.
 Utiliza el puerto 8765. No llama a Anthropic, Meta ni al calendario.
 

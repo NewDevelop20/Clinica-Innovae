@@ -1,8 +1,8 @@
 <!--
-  25 tratamientos de la web (3 categorías). El NOMBRE de cada encabezado "###"
+  25 tratamientos de la web, primera visita y consulta general. El NOMBRE de cada encabezado "###"
   es el que el bot usa al crear la reserva: debe coincidir con las opciones del
-  desplegable "tratamiento" del formulario de la web, porque Code.gs compara
-  nombres para no repetir el mismo tratamiento en la misma franja.
+  desplegable "tratamiento" del formulario de la web, porque Code.gs valida
+  los tratamientos admitidos y la disponibilidad de cada profesional.
   La duración real en agenda es siempre ~60 min (DURACION_MIN en Code.gs).
 -->
 # Tratamientos
@@ -93,3 +93,9 @@ Estimulación muscular electromagnética para flacidez y suelo pélvico.
 
 ### Cera Facial y Corporal
 Depilación con cera de raíz.
+
+
+## Otras consultas
+
+### Otro / Consulta general
+Solicitud para consultas que no encajan en un tratamiento concreto. Explica brevemente el motivo sin incluir información médica detallada; el equipo de la clínica revisará la solicitud y te orientará.

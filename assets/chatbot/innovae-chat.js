@@ -26,11 +26,16 @@
   var MARGEN = parseInt(ds.margenInferior || '24', 10) || 24;
   var CLAVE = 'innovae-chat-v2-' + (API || 'informacion');
 
-  var BIENVENIDA = 'Hola, soy el asistente virtual de **Clínica Innovae** ✨ ' +
-    'Puedo resolver dudas sobre tratamientos y productos o ayudarle a pedir cita. ¿En qué le ayudo?';
+  var PRIVACIDAD = 'https://newdevelop20.github.io/Clinica-Innovae/politica-privacidad.html';
+  var AVISO = 'No doy consejo médico ni sustituyo una valoración profesional. ' +
+    'Puede hablar con una persona del equipo llamando al 661 73 48 70. ' +
+    'No comparta diagnósticos, medicación ni antecedentes médicos. ' +
+    '[Política de privacidad](' + PRIVACIDAD + ').';
+  var BIENVENIDA = 'Hola, soy el asistente de **inteligencia artificial de Clínica Innovae**. ' +
+    'Puedo responder consultas generales y ayudarle a solicitar cita. ' + AVISO + '\n\n¿En qué puedo ayudarle?';
   var SUGERENCIAS = ['Quiero pedir cita', '¿Qué tratamientos hacéis?', 'Horario y ubicación'];
   if (!API) BIENVENIDA = 'Hola, puedo ayudarle a consultar información sobre la clínica, sus tratamientos y productos. ' +
-    'Esta versión ofrece respuestas de información, sin IA y sin gestionar citas. ¿Qué desea consultar?';
+    'Esta versión ofrece respuestas de información, sin IA y sin gestionar citas. ' + AVISO + '\n\n¿Qué desea consultar?';
 
   // ---------------------------------------------------------------- estado
   function cargar() {
@@ -103,7 +108,8 @@
     '.enviar{width:42px;border:0;border-radius:12px;background:var(--oro);color:#fff;cursor:pointer;' +
     'display:grid;place-items:center}.enviar:disabled{opacity:.45;cursor:default}' +
     '.enviar svg{width:18px;height:18px}' +
-    '.pie{font-size:10.5px;color:var(--gris);text-align:center;padding:0 12px 8px;background:#fff}' +
+    '.pie{font-size:10.5px;color:var(--gris);text-align:center;padding:5px 12px 9px;background:#fff;line-height:1.6}' +
+    '.pie a{color:var(--oro-osc);text-decoration:underline}.pie a:focus-visible{outline:2px solid var(--oro)}' +
     '@media (max-width:480px){.w{' + LADO + ':12px}.panel{position:fixed;inset:auto 8px ' + (MARGEN + 76) + 'px 8px;' +
     'width:auto;max-width:none;height:auto;top:12px;max-height:none}}' +
     '@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}' +
@@ -120,7 +126,7 @@
     '      <button class="enviar" type="submit" aria-label="Enviar"><svg viewBox="0 0 24 24" fill="none" ' +
     'stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
     '<path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg></button></form>' +
-    '    <div class="pie">' + (API ? 'Asistente con IA' : 'Respuestas de información') + ' · No comparta datos de salud</div>' +
+    '    <div class="pie">' + (API ? 'Asistente con IA' : 'Respuestas de información') + ' · No doy consejo médico<br><a href="tel:+34661734870">Hablar con una persona</a> · <a href="' + PRIVACIDAD + '" target="_blank" rel="noopener noreferrer">Privacidad</a></div>' +
     '  </section>' +
     '  <button class="lanzador" type="button" aria-label="Abrir chat" aria-expanded="false">' +
     '    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" ' +

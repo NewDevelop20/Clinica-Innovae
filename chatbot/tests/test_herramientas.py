@@ -12,8 +12,8 @@ def herramientas_con(falso: AppsScriptFalso, url=APPS_URL) -> Herramientas:
 
 
 # ----------------------------------------------------------------- conocimiento
-def test_conocimiento_carga_26_tratamientos_y_quita_notas():
-    assert len(tratamientos()) == 26  # 25 de la web + primera consulta
+def test_conocimiento_carga_27_opciones_y_quita_notas():
+    assert len(tratamientos()) == 27  # 25 tratamientos + primera consulta + consulta general
     assert "Limpieza Facial" in tratamientos()
     assert "PENDIENTE" not in texto_conocimiento()  # los comentarios no llegan al modelo
     assert "661 73 48 70" in texto_conocimiento()
