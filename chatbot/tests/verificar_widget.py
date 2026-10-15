@@ -18,6 +18,9 @@ try:
    page.goto('http://127.0.0.1:8765/index.html',wait_until='networkidle')
    widget=page.locator('#innovae-chat');widget.locator('.lanzador').click();expect(widget.locator('.panel')).to_be_visible()
    expect(widget.locator('.cab p')).to_contain_text('sin IA')
+   expect(widget.locator('.m.bot').first).to_contain_text('No doy consejo médico')
+   expect(widget.locator('.m.bot').first).to_contain_text('hablar con una persona')
+   expect(widget.locator('.pie a').last).to_have_attribute('href','https://newdevelop20.github.io/Clinica-Innovae/politica-privacidad.html')
    def pregunta(q, esperado):
     widget.locator('textarea').fill(q);widget.locator('.enviar').click()
     expect(widget.locator('.enviar')).to_be_enabled(timeout=10000)
@@ -44,7 +47,7 @@ try:
    page.screenshot(path=f'/tmp/innovae-chat-{width}.png')
    widget.locator('textarea').press('Escape');expect(widget.locator('.panel')).to_be_hidden()
    assert not errors,errors
-   print(f'PASS {width}px: 37 consultas, preguntas frecuentes, reservas desactivadas, límites médicos, persistencia, reinicio y teclado.',flush=True)
+   print(f'PASS {width}px: 38 consultas, preguntas frecuentes, reservas desactivadas, límites médicos, persistencia, reinicio y teclado.',flush=True)
    page.close()
   # Las 11 fichas usan recursos relativos correctos y conservan las galerías.
   page=browser.new_page();page.route('https://**/*',lambda r:r.abort())

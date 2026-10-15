@@ -36,7 +36,7 @@ def exportar():
     }, 'articulos': articulos}
     (salida / 'conocimiento.json').write_text(json.dumps(datos, ensure_ascii=False, indent=2) + '\n')
     shutil.copyfile(RAIZ / 'widget/innovae-chat.js', salida / 'innovae-chat.js')
-    print(f'Publicado widget y conocimiento: {len(articulos)} artículos (26 tratamientos y 11 productos).')
+    print(f'Publicado widget y conocimiento: {len(articulos)} artículos (27 opciones de tratamiento y 11 productos).')
 
 if __name__ == '__main__':
     exportar()

@@ -31,5 +31,6 @@ jobs:
       - run: node --test reservas/tests/apps-script.test.cjs
       - run: python -m playwright install --with-deps chromium
       - run: python chatbot/tests/verificar_widget.py
+      - run: python chatbot/tests/verificar_widget_ia.py
       - run: python reservas/tests/verificar_formulario.py
       - run: python tests/verificar_legales.py

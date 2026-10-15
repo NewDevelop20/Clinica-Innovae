@@ -165,6 +165,12 @@
       "texto": "Depilación con cera de raíz."
     },
     {
+      "tipo": "tratamiento",
+      "nombre": "Otro / Consulta general",
+      "categoria": "Otras consultas",
+      "texto": "Solicitud para consultas que no encajan en un tratamiento concreto. Explica brevemente el motivo sin incluir información médica detallada; el equipo de la clínica revisará la solicitud y te orientará."
+    },
+    {
       "tipo": "producto",
       "nombre": "NIGHT Crema Confort Alta Recuperación",
       "alias": "night crema confort alta recuperacion",

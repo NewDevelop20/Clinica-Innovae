@@ -63,8 +63,12 @@ def test_tratamientos_coinciden_con_formulario():
     html = (web / 'index.html').read_text()
     select = re.search(r'<select id="r-tratamiento"[\s\S]*?</select>', html)[0]
     opciones = re.findall(r'<option>([^<]+)</option>', select)
-    assert set(tratamientos()) <= set(opciones)
+    assert set(tratamientos()) == set(opciones)
+    assert len(tratamientos()) == len(opciones) == 27
+    script = (web / 'reservas/Code.gs').read_text()
+    admitidos = json.loads(re.search(r'const TRATAMIENTOS_VALIDOS = (\[[^\n]+\]);', script)[1])
+    assert set(admitidos) == set(opciones)
     datos = json.loads((web / 'assets/chatbot/conocimiento.json').read_text())
-    assert sum(a['tipo'] == 'tratamiento' for a in datos['articulos']) == 26
+    assert sum(a['tipo'] == 'tratamiento' for a in datos['articulos']) == 27
     assert sum(a['tipo'] == 'producto' for a in datos['articulos']) == 11
     assert 'PENDIENTE' not in json.dumps(datos)
