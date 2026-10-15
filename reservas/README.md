@@ -10,7 +10,7 @@ La conexión real se verificó el 14/10/2026 desde el formulario: solicitud fict
 1C0C8B2A para Limpieza Facial, 19/10/2026 a las 10:00. Google devolvió el código y
 aceptó el envío del correo. El usuario confirmó la recepción de los correos. Los enlaces de gestión se prueban desde su cuenta. La prueba debe rechazarse al terminar para liberar el hueco.
 Los datos del cliente quedan en Calendar. Las propiedades del script guardan
-solo IDs, tokens, estado y datos de reintento (sin nombre, correo ni teléfono).
+solo IDs, tokens, estado, fecha de cita y datos de reintento (sin nombre, correo ni teléfono).
 La limpieza diaria elimina los índices con más de seis meses desde la fecha de cita
 (o la recepción cuando no queda una fecha de cita). También elimina sus eventos no
 confirmados; las citas confirmadas permanecen en Calendar. Solo procesa solicitudes
@@ -176,7 +176,9 @@ Desde tu cuenta de Apps Script:
    la tarea diaria entre las 03:00 y las 04:00 de Madrid. Instalar no ejecuta borrados
    inmediatamente; repetir la instalación no duplica la tarea.
 
-`limpiarDatosAntiguos` es la función que ejecuta el disparador. Marca como CADUCADAS
+`limpiarDatosAntiguos_` es la función privada que ejecuta el disparador.
+Las funciones manuales de limpieza, vista previa e instalación solo admiten al propietario
+desde el editor; los visitantes anónimos de la web no pueden ejecutarlas. Marca como CADUCADAS
 las solicitudes pendientes cuya hora ha pasado y cambia su evento a gris. Las citas
 futuras siguen intactas. Al finalizar `CONSERVACION_MESES` (6), elimina los índices y
 los eventos de solicitudes no confirmadas, conservando los eventos confirmados.

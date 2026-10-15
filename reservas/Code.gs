@@ -597,18 +597,27 @@ function probarReserva() {
 
 /** Programa la tarea diaria sin ejecutar borrados en el momento de instalarla. */
 function instalarLimpiezaAutomatica() {
+  exigirPropietario_();
   if (!Number.isInteger(CONFIG.HORA_LIMPIEZA) || CONFIG.HORA_LIMPIEZA < 0 || CONFIG.HORA_LIMPIEZA > 23) throw new Error('Hora de limpieza no válida.');
-  const anteriores = ScriptApp.getProjectTriggers().filter(t => t.getHandlerFunction() === 'limpiarDatosAntiguos');
+  const anteriores = ScriptApp.getProjectTriggers().filter(t => ['limpiarDatosAntiguos', 'limpiarDatosAntiguos_'].indexOf(t.getHandlerFunction()) !== -1);
   // Crear primero: si falta autorización, la programación anterior sigue intacta.
-  ScriptApp.newTrigger('limpiarDatosAntiguos').timeBased().everyDays(1)
+  ScriptApp.newTrigger('limpiarDatosAntiguos_').timeBased().everyDays(1)
     .atHour(CONFIG.HORA_LIMPIEZA).inTimezone(zona_()).create();
   anteriores.forEach(t => ScriptApp.deleteTrigger(t));
   Logger.log('Limpieza diaria programada entre las ' + CONFIG.HORA_LIMPIEZA + ':00 y las ' + (CONFIG.HORA_LIMPIEZA + 1) + ':00, Europe/Madrid. No se han borrado datos durante la instalación.');
 }
 
 /** Vista previa: cuenta los cambios previstos, sin modificar eventos ni propiedades. */
-function previsualizarLimpieza() { return ejecutarLimpieza_(true); }
-function limpiarDatosAntiguos() { return ejecutarLimpieza_(false); }
+function exigirPropietario_() {
+  const activo = Session.getActiveUser().getEmail();
+  const propietario = Session.getEffectiveUser().getEmail();
+  if (!activo || !propietario || activo !== propietario) throw new Error('Esta función debe ejecutarse desde la cuenta propietaria en el editor de Apps Script.');
+}
+function previsualizarLimpieza() { exigirPropietario_(); return ejecutarLimpieza_(true); }
+function limpiarDatosAntiguos() { exigirPropietario_(); return ejecutarLimpieza_(false); }
+// Los nombres terminados en _ no pueden invocarse mediante google.script.run.
+// El disparador se ejecuta como propietario, sin depender de una sesión de navegador.
+function limpiarDatosAntiguos_() { return ejecutarLimpieza_(false); }
 
 function ejecutarLimpieza_(simulacion) {
   if (!Number.isInteger(CONFIG.CONSERVACION_MESES) || CONFIG.CONSERVACION_MESES < 1) throw new Error('Plazo de conservación no válido.');

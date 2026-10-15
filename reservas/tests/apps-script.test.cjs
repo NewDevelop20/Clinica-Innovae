@@ -7,7 +7,7 @@ function montar(){
  const cal={createEvent(t,i,f,o){const e=new Evento(t,i,f,o);eventos.push(e);return e;},getEvents(i,f){return eventos.filter(e=>!e.deleted&&e.start<f&&e.end>i);},getEventById(id){return eventos.find(e=>e.id===id&&!e.deleted)||null;}};
  const propiedades={getProperty:k=>props[k]||null,getProperties:()=>({...props}),setProperty(k,v){if(falloProps)throw Error('quota');props[k]=v;return this;},deleteProperty(k){delete props[k];}};
  function salida(body){return {getContent:()=>body,setMimeType(){return this;},setTitle(){return this;},setXFrameOptionsMode(){return this;},addMetaTag(){return this;}};}
- const ctx={Date:Fecha,console:{error(){}},Logger:{log(){}},PropertiesService:{getScriptProperties:()=>propiedades},CalendarApp:{getDefaultCalendar:()=>cal,getCalendarById:()=>cal,EventColor:{YELLOW:'yellow',GREEN:'green',GRAY:'gray'}},Utilities:{getUuid:()=> (++counter).toString(16).padStart(8,'0')+'-0000-0000-0000-000000000000',formatDate:formato},MailApp:{sendEmail(d){if(falloMail)throw Error('mail');mails.push(d);}},LockService:{getScriptLock:()=>({waitLock(){},releaseLock(){}})},Session:{getEffectiveUser:()=>({getEmail:()=> 'owner@example.com'})},ScriptApp:{getProjectTriggers:()=>triggers.slice(),deleteTrigger(t){triggers.splice(triggers.indexOf(t),1);},newTrigger(handler){const builder={timeBased(){return this;},everyDays(){return this;},atHour(){return this;},inTimezone(){return this;},create(){const t={getHandlerFunction:()=>handler};triggers.push(t);return t;}};return builder;},getService:()=>({getUrl:()=> 'https://script.google.com/macros/s/TEST/exec'})},ContentService:{createTextOutput:salida,MimeType:{JSON:'json',JAVASCRIPT:'javascript'}},HtmlService:{createHtmlOutput:salida,XFrameOptionsMode:{ALLOWALL:'allowall'},createTemplate(){return {evaluate(){return salida(JSON.stringify(this));}};}}};
+ const ctx={Date:Fecha,console:{error(){}},Logger:{log(){}},PropertiesService:{getScriptProperties:()=>propiedades},CalendarApp:{getDefaultCalendar:()=>cal,getCalendarById:()=>cal,EventColor:{YELLOW:'yellow',GREEN:'green',GRAY:'gray'}},Utilities:{getUuid:()=> (++counter).toString(16).padStart(8,'0')+'-0000-0000-0000-000000000000',formatDate:formato},MailApp:{sendEmail(d){if(falloMail)throw Error('mail');mails.push(d);}},LockService:{getScriptLock:()=>({waitLock(){},releaseLock(){}})},Session:{getActiveUser:()=>({getEmail:()=> 'owner@example.com'}),getEffectiveUser:()=>({getEmail:()=> 'owner@example.com'})},ScriptApp:{getProjectTriggers:()=>triggers.slice(),deleteTrigger(t){triggers.splice(triggers.indexOf(t),1);},newTrigger(handler){const builder={timeBased(){return this;},everyDays(){return this;},atHour(){return this;},inTimezone(){return this;},create(){const t={getHandlerFunction:()=>handler};triggers.push(t);return t;}};return builder;},getService:()=>({getUrl:()=> 'https://script.google.com/macros/s/TEST/exec'})},ContentService:{createTextOutput:salida,MimeType:{JSON:'json',JAVASCRIPT:'javascript'}},HtmlService:{createHtmlOutput:salida,XFrameOptionsMode:{ALLOWALL:'allowall'},createTemplate(){return {evaluate(){return salida(JSON.stringify(this));}};}}};
  vm.createContext(ctx);vm.runInContext(fs.readFileSync('reservas/Code.gs','utf8'),ctx);
  return {ctx,props,eventos,mails,cal,triggers,setAhora:v=>ahora=v,setFalloMail:v=>falloMail=v,setFalloProps:v=>falloProps=v};
 }
@@ -79,10 +79,20 @@ test('instalación no duplica tareas, respeta otros triggers y no ejecuta borrad
  const s=montar();post(s,datos());s.setAhora('2027-05-01T08:00:00Z');
  s.triggers.push({getHandlerFunction:()=> 'otraTarea'});
  s.ctx.instalarLimpiezaAutomatica();s.ctx.instalarLimpiezaAutomatica();
- assert.equal(s.triggers.filter(t=>t.getHandlerFunction()==='limpiarDatosAntiguos').length,1);
+ assert.equal(s.triggers.filter(t=>t.getHandlerFunction()==='limpiarDatosAntiguos_').length,1);
  assert.equal(s.triggers.filter(t=>t.getHandlerFunction()==='otraTarea').length,1);
  assert.equal(s.eventos[0].deleted,false);assert.equal(s.eventos[0].color,'yellow');
  const manifest=JSON.parse(fs.readFileSync('reservas/appsscript.json','utf8'));
  assert.ok(manifest.oauthScopes.includes('https://www.googleapis.com/auth/script.scriptapp'));
  assert.ok(!manifest.oauthScopes.some(scope=>scope.includes('spreadsheets')));
+});
+
+test('funciones administrativas rechazan llamadas anónimas y ajenas; disparador privado sí funciona',()=>{
+ const s=montar();post(s,datos());s.setAhora('2027-05-01T08:00:00Z');
+ for (const email of ['', 'otra@example.com']) {
+  s.ctx.Session.getActiveUser=()=>({getEmail:()=>email});
+  for (const name of ['limpiarDatosAntiguos','previsualizarLimpieza','instalarLimpiezaAutomatica']) assert.throws(()=>s.ctx[name](),/cuenta propietaria/);
+ }
+ assert.equal(s.eventos[0].deleted,false);assert.equal(s.triggers.length,0);
+ assert.equal(s.ctx.limpiarDatosAntiguos_().borradas,1);
 });
