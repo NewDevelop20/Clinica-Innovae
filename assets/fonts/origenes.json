@@ -1,0 +1,62 @@
+[
+  {
+    "archivo": "cormorant-garamond-italic-latin-ext.woff2",
+    "origen": "https://fonts.gstatic.com/s/cormorantgaramond/v21/co3ZmX5slCNuHLi8bLeY9MK7whWMhyjYrEtGmSq17w.woff2",
+    "sha256": "cd5bf126b2c84ab41b254a6a9a1ffb5c326a0f9f82c22fb4704daa31c9aaa415",
+    "bytes": 34392
+  },
+  {
+    "archivo": "cormorant-garamond-italic-latin.woff2",
+    "origen": "https://fonts.gstatic.com/s/cormorantgaramond/v21/co3ZmX5slCNuHLi8bLeY9MK7whWMhyjYrEtImSo.woff2",
+    "sha256": "6f2f5c3b1abc3d0bb035a927f66a90ca873f94fc31c4966c8d024142c2036e55",
+    "bytes": 39260
+  },
+  {
+    "archivo": "cormorant-garamond-normal-latin-ext.woff2",
+    "origen": "https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYp3tKgS4.woff2",
+    "sha256": "cfa9a397d86f66c5c51775a2500a712d5f632a04f0c5eca6930dfaf612d4566d",
+    "bytes": 33736
+  },
+  {
+    "archivo": "cormorant-garamond-normal-latin.woff2",
+    "origen": "https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtK.woff2",
+    "sha256": "d80df8ff5aecd299a61549f9e29ab1ed0b9b05f4ea71d50fe978e07d5240b235",
+    "bytes": 37640
+  },
+  {
+    "archivo": "montserrat-italic-latin-ext.woff2",
+    "origen": "https://fonts.gstatic.com/s/montserrat/v31/JTUQjIg1_i6t8kCHKm459WxRxy7mw9c.woff2",
+    "sha256": "9f7c3dc0c1fdbc8b09d53d1beb4aca048a5aff376ac5423878e03e83e89a7fe8",
+    "bytes": 74892
+  },
+  {
+    "archivo": "montserrat-italic-latin.woff2",
+    "origen": "https://fonts.gstatic.com/s/montserrat/v31/JTUQjIg1_i6t8kCHKm459WxRyS7m.woff2",
+    "sha256": "0eb22e3d769a66a92dbd82e3aefa5740e5bc21afa4485f62f92b22656d49182a",
+    "bytes": 39632
+  },
+  {
+    "archivo": "montserrat-normal-latin-ext.woff2",
+    "origen": "https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wdhyzbi.woff2",
+    "sha256": "54d9a78b7ff60b689ad9f3017ffac8547b5d871afec733f6c1c3ae36577ee504",
+    "bytes": 70688
+  },
+  {
+    "archivo": "montserrat-normal-latin.woff2",
+    "origen": "https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2",
+    "sha256": "06b16db7a969135d48d38c49183be7fb88d4452e2a3011957c7851941f4e4879",
+    "bytes": 37956
+  },
+  {
+    "archivo": "cormorantgaramond-OFL.txt",
+    "origen": "https://raw.githubusercontent.com/google/fonts/main/ofl/cormorantgaramond/OFL.txt",
+    "sha256": "60700d351cac4650c51f3f9db318d2a420f8b45052dba2715eb5fec41f0f6956",
+    "bytes": 4387
+  },
+  {
+    "archivo": "montserrat-OFL.txt",
+    "origen": "https://raw.githubusercontent.com/google/fonts/main/ofl/montserrat/OFL.txt",
+    "sha256": "8b7141c03fa4f8d44e6345d5d4931709290f0f67875e452e95ac1fd3a027802e",
+    "bytes": 4400
+  }
+]

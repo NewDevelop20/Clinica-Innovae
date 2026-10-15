@@ -2,9 +2,9 @@ name: Comprobar chatbot
 on:
   push:
     branches: [main]
-    paths: ['reservas/**', 'assets/reservas*.js', 'chatbot/**', 'assets/chatbot/**', 'assets/chatbot-config.js', 'index.html', 'productos/**', 'plantilla-producto.cjs', 'seo.cjs', 'generar-seo.cjs', 'tests/**', 'aviso-legal.html', 'politica-privacidad.html', 'politica-cookies.html', 'assets/legal.css', 'assets/mapa-consentimiento.js', 'tratamientos/**', 'equipo/**', 'assets/fichas.css', 'sitemap.xml', 'robots.txt', '.github/workflows/chatbot.yml']
+    paths: ['reservas/**', 'assets/reservas*.js', 'chatbot/**', 'assets/chatbot/**', 'assets/chatbot-config.js', 'index.html', 'productos/**', 'plantilla-producto.cjs', 'seo.cjs', 'generar-seo.cjs', 'tests/**', 'aviso-legal.html', 'politica-privacidad.html', 'politica-cookies.html', 'assets/legal.css', 'assets/fonts/**', 'assets/mapa-consentimiento.js', 'tratamientos/**', 'equipo/**', 'assets/fichas.css', 'sitemap.xml', 'robots.txt', '.github/workflows/chatbot.yml']
   pull_request:
-    paths: ['reservas/**', 'assets/reservas*.js', 'chatbot/**', 'assets/chatbot/**', 'assets/chatbot-config.js', 'index.html', 'productos/**', 'plantilla-producto.cjs', 'seo.cjs', 'generar-seo.cjs', 'tests/**', 'aviso-legal.html', 'politica-privacidad.html', 'politica-cookies.html', 'assets/legal.css', 'assets/mapa-consentimiento.js', 'tratamientos/**', 'equipo/**', 'assets/fichas.css', 'sitemap.xml', 'robots.txt', '.github/workflows/chatbot.yml']
+    paths: ['reservas/**', 'assets/reservas*.js', 'chatbot/**', 'assets/chatbot/**', 'assets/chatbot-config.js', 'index.html', 'productos/**', 'plantilla-producto.cjs', 'seo.cjs', 'generar-seo.cjs', 'tests/**', 'aviso-legal.html', 'politica-privacidad.html', 'politica-cookies.html', 'assets/legal.css', 'assets/fonts/**', 'assets/mapa-consentimiento.js', 'tratamientos/**', 'equipo/**', 'assets/fichas.css', 'sitemap.xml', 'robots.txt', '.github/workflows/chatbot.yml']
 permissions:
   contents: read
 jobs:

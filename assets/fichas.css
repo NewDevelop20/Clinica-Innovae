@@ -29,7 +29,7 @@
     ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
 
     /* ── NAV ── */
-    nav {
+    #navbar {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 1000;
@@ -39,7 +39,7 @@
       justify-content: space-between;
       transition: all 0.4s ease;
     }
-    nav.scrolled {
+    #navbar.scrolled {
       background: rgba(255,255,255,0.94);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
@@ -58,7 +58,7 @@
       display: block;
       transition: height 0.4s ease;
     }
-    nav.scrolled .nav-logo img { height: 38px; }
+    #navbar.scrolled .nav-logo img { height: 38px; }
     .nav-links { display: flex; gap: 36px; list-style: none; }
     .nav-links a {
       font-size: 0.7rem;
@@ -957,8 +957,8 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       section { padding: 80px 28px; }
-      nav { padding: 16px 28px; }
-      nav.scrolled { padding: 12px 28px; }
+      #navbar { padding: 16px 28px; }
+      #navbar.scrolled { padding: 12px 28px; }
       .nav-logo img { height: 36px; }
       .nav-links, .nav-cta { display: none; }
       .nav-hamburger { display: flex; }

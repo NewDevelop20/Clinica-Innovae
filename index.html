@@ -16,9 +16,9 @@
 <meta name="twitter:title" content="Clínica Innovae | Medicina estética en Úbeda, Jaén">
 <meta name="twitter:description" content="Clínica Innovae en Úbeda, Jaén: medicina estética, tratamientos faciales y corporales y cosmética profesional. Conoce al equipo y solicita tu cita.">
   <link rel="stylesheet" href="assets/legal.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
+
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -50,7 +50,7 @@
     ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
 
     /* ── NAV ── */
-    nav {
+    #navbar {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 1000;
@@ -60,7 +60,7 @@
       justify-content: space-between;
       transition: all 0.4s ease;
     }
-    nav.scrolled {
+    #navbar.scrolled {
       background: rgba(255,255,255,0.94);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
@@ -79,7 +79,7 @@
       display: block;
       transition: height 0.4s ease;
     }
-    nav.scrolled .nav-logo img { height: 38px; }
+    #navbar.scrolled .nav-logo img { height: 38px; }
     .nav-links { display: flex; gap: 36px; list-style: none; }
     .nav-links a {
       font-size: 0.7rem;
@@ -978,8 +978,8 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       section { padding: 80px 28px; }
-      nav { padding: 16px 28px; }
-      nav.scrolled { padding: 12px 28px; }
+      #navbar { padding: 16px 28px; }
+      #navbar.scrolled { padding: 12px 28px; }
       .nav-logo img { height: 36px; }
       .nav-links, .nav-cta { display: none; }
       .nav-hamburger { display: flex; }
@@ -1579,7 +1579,7 @@
 
           <div class="form-group">
             <label for="r-notas">Notas (opcional)</label>
-            <textarea id="r-notas" name="notas" rows="3" placeholder="Cuéntanos cualquier detalle que debamos saber..." maxlength="500"></textarea>
+            <textarea id="r-notas" name="notas" rows="3" placeholder="Indica solo detalles prácticos de tu cita; no incluyas información médica." maxlength="500"></textarea>
           </div>
 
           <!-- Campo anti-spam (oculto, no rellenar) -->
@@ -1587,12 +1587,24 @@
             <label>No rellenar<input type="text" id="r-website" name="website" tabindex="-1" autocomplete="off"></label>
           </div>
 
+          <section class="privacy-summary" id="privacy-summary" aria-labelledby="privacy-summary-title">
+            <h3 id="privacy-summary-title">Información básica sobre protección de datos</h3>
+            <dl>
+              <div><dt>Responsable</dt><dd>Clínica Innovae. Consulta la identificación del titular y sus datos de contacto en la <a href="politica-privacidad.html#responsable" target="_blank" rel="noopener">política de privacidad</a>.</dd></div>
+              <div><dt>Finalidad</dt><dd>Gestionar tu solicitud de cita, revisar la disponibilidad, responderte y comunicarte su confirmación o rechazo.</dd></div>
+              <div><dt>Base jurídica</dt><dd>Medidas precontractuales solicitadas por ti (art. 6.1.b RGPD) y tu consentimiento explícito para los datos de salud que pueda revelar tu solicitud (art. 9.2.a RGPD).</dd></div>
+              <div><dt>Destinatarios</dt><dd>Proveedores necesarios para gestionar la agenda y el correo, y autoridades cuando exista una obligación legal. Consulta los proveedores y las transferencias internacionales en la política de privacidad.</dd></div>
+              <div><dt>Derechos</dt><dd>Puedes solicitar acceso, rectificación, supresión y los demás derechos, así como retirar tu consentimiento, por los canales indicados en la <a href="politica-privacidad.html#derechos" target="_blank" rel="noopener">política de privacidad</a>.</dd></div>
+              <div><dt>Más información</dt><dd>Consulta los plazos de conservación y el resto de condiciones en la <a href="politica-privacidad.html" target="_blank" rel="noopener">política de privacidad completa</a>.</dd></div>
+            </dl>
+            <p>No incluyas diagnósticos, medicación ni antecedentes médicos en las notas. Esa información se recoge en consulta.</p>
+          </section>
           <div class="form-group">
             <div class="consent-row">
-              <input type="checkbox" id="r-rgpd" name="rgpd">
-              <label for="r-rgpd">He leído y acepto la <a href="politica-privacidad.html" target="_blank" rel="noopener">política de privacidad</a> y el tratamiento de mis datos con la finalidad de gestionar mi cita (RGPD).</label>
+              <input type="checkbox" id="r-rgpd" name="rgpd" required aria-describedby="privacy-summary rgpd-error">
+              <label for="r-rgpd">He leído la <a href="politica-privacidad.html" target="_blank" rel="noopener">política de privacidad</a> y consiento expresamente el tratamiento de los datos de salud que pueda revelar el tratamiento elegido o mis comentarios, exclusivamente para gestionar mi solicitud de cita.</label>
             </div>
-            <span class="field-error">Debes aceptar la política de privacidad para continuar.</span>
+            <span class="field-error" id="rgpd-error">Debes prestar tu consentimiento para el tratamiento de los datos de salud de tu solicitud.</span>
           </div>
 
           <button class="form-submit" type="submit" id="r-submit">Solicitar cita</button>

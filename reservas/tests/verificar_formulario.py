@@ -62,7 +62,13 @@ try:
     page.locator('#r-profesional').select_option('marta-jimenez')
     expect(page.locator('#r-hora option[value="10:00"]')).to_have_count(0)
     expect(page.locator('#r-submit')).to_be_enabled()
-   page.locator('#r-hora').select_option('10:30');page.locator('#r-notas').fill('Prueba sin clientes');page.locator('#r-rgpd').check()
+   page.locator('#r-hora').select_option('10:30');page.locator('#r-notas').fill('Prueba sin clientes')
+   expect(page.locator('#r-rgpd')).not_to_be_checked()
+   expect(page.locator('#privacy-summary')).to_contain_text('Base jurídica')
+   expect(page.locator('label[for="r-rgpd"]')).to_contain_text('consiento expresamente el tratamiento de los datos de salud')
+   page.locator('#r-submit').click();assert posts==[], 'No debe enviarse una reserva sin consentimiento explícito'
+   assert not page.locator('#bookingConfirm').is_visible()
+   page.locator('#r-rgpd').check()
    # Mensajes inventados con origen local no deben producir una confirmación.
    page.evaluate("window.postMessage({tipo:'innovae-reserva',requestId:'inventado',resultado:{ok:true,id:'AB12CD34'}},'*')")
    assert not page.locator('#bookingConfirm').is_visible()
