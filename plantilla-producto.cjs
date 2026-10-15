@@ -1,3 +1,4 @@
+const {metadata} = require('./seo.cjs');
 const escape = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const inline = s => escape(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*([^*]+)\*/g, '<em>$1</em>');
 const list = s => s.split(/\r?\n/).filter(Boolean).map(s => s.replace(/^- /, ''));
@@ -18,7 +19,7 @@ module.exports = p => {
   const usageGallery = usageImages.length ? `<div class="usage-images" style="--usage-images:${Math.min(usageImages.length, 3)}">${usageImages.map((src, i) => `<img class="usage-image" src="${escape(src)}" alt="${name} · Modo de uso, imagen ${i + 1}" loading="lazy">`).join('')}</div>` : '';
   const details = ['Ingredientes clave','Contenido'].map(title => get(title) ? `<details class="product-details"><summary>${title}</summary><ul>${list(get(title)).map(t => `<li>${inline(t)}</li>`).join('')}</ul></details>` : '').join('');
   return `<!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${name} · Clínica Innovae</title><meta name="description" content="${escape(p.summary)}">
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">${metadata(p.name + ' | Clínica Innovae', p.summary, 'productos/' + p.id + '.html')}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="producto-v2.css"><script src="producto.js" defer></script></head><body>
 <a class="skip-link" href="#producto">Ir a la ficha</a><header class="site-header"><a class="logo" href="../index.html">Innovae<span>.</span></a><span class="header-note">MEDICINA ESTÉTICA · COSMÉTICA PROFESIONAL</span><a class="back" href="../index.html#tienda">← Volver al catálogo</a></header>
 <main id="producto"><div class="product-top"><div class="product-layout"><div class="product-media"><nav class="breadcrumb" aria-label="Ruta de navegación"><a href="../index.html">Inicio</a><span>/</span><a href="../index.html#tienda">Catálogo</a><span>/</span><span>${name}</span></nav><div class="gallery"><div class="thumbnails" role="tablist" aria-label="Imágenes del producto">${thumbs}</div><div class="gallery-stage">${panels}<span class="image-count" aria-live="polite">01 / ${String(p.images.length).padStart(2, '0')}</span></div></div></div>
