@@ -1037,7 +1037,6 @@
       .td-body { padding: 44px 24px 80px; }
       .ba-compare { gap: 14px; }
     }
-  
 /* Las fichas independientes usan el flujo normal del documento. */
 main { background: var(--cream); min-height: 100vh; }
 .td-block h2 { font-family: "Cormorant Garamond", serif; font-size: 1.6rem; font-weight: 400; margin-bottom: 12px; }

@@ -39,7 +39,7 @@ const homeDescription = 'Clínica Innovae en Úbeda, Jaén: medicina estética, 
 // Reemplaza solo los metadatos que controla este generador.
 index = index.replace(/\s*<(?:title\b[^>]*>[\s\S]*?<\/title|meta\b[^>]*(?:name="(?:description|twitter:[^"]+)"|property="og:[^"]+")[^>]*|link\b[^>]*rel="canonical"[^>]*)>/g, '');
 index = index.replace(/(<meta name="viewport"[^>]*>)/, '$1\n  ' + metadata(homeTitle, homeDescription));
-const styles = index.match(/<style>([\s\S]*?)<\/style>/)[1].replace(/\/\* ENLACES DE FICHAS \*\/[\s\S]*$/, '');
+const styles = index.match(/<style>([\s\S]*?)<\/style>/)[1].replace(/\/\* ENLACES DE FICHAS \*\/[\s\S]*$/, '').trimEnd();
 const pages = [];
 for (const match of index.matchAll(/  <div class="treatment-detail" id="([^"]+)">([\s\S]*?)\n  <\/div>/g)) {
   const [original, id, inner] = match;
