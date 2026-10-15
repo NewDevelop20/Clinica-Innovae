@@ -73,3 +73,19 @@ for url in urls[1:]:
     assert url[len(BASE):] in home.links, url
 assert f'Sitemap: {BASE}sitemap.xml' in (ROOT / 'robots.txt').read_text()
 print('SEO verificado: 44 páginas únicas, metadatos, H1, sitemap y enlaces; 4 borradores noindex.')
+
+# Ninguna página ni plantilla puede reintroducir descargas o preconexiones a Google Fonts.
+import re
+import hashlib
+import json
+for file in list(ROOT.rglob('*.html')) + [ROOT / 'plantilla-producto.cjs', ROOT / 'generar-seo.cjs']:
+    html = file.read_text()
+    assert not re.search(r'<link\b[^>]*(?:fonts\.googleapis\.com|fonts\.gstatic\.com)', html), file
+css = (ROOT / 'assets/fonts/fonts.css').read_text()
+for font in re.findall(r'url\(([^)]+)\)', css):
+    file = ROOT / 'assets/fonts' / font
+    assert file.read_bytes()[:4] == b'wOF2', font
+for entry in json.loads((ROOT / 'assets/fonts/origenes.json').read_text()):
+    file = ROOT / 'assets/fonts' / entry['archivo']
+    assert hashlib.sha256(file.read_bytes()).hexdigest() == entry['sha256'], file
+print('Fuentes locales: archivos WOFF2, licencias y hashes verificados; sin conexiones a Google Fonts en el HTML.')

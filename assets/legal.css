@@ -8,3 +8,12 @@ footer .legal-links { flex-basis: 100%; }
 .map-consent a { color: inherit; text-decoration: underline; }
 .map-consent[hidden], .contact-map iframe[hidden] { display: none; }
 .map-consent button { cursor: pointer; }
+.privacy-summary { background: #f5f2ea; border: 1px solid #d6c9ac; padding: 24px; font-size: .76rem; line-height: 1.8; color: #403b33; }
+.privacy-summary h3 { font-size: .88rem; font-weight: 600; margin: 0 0 18px; }
+.privacy-summary dl { margin: 0; }
+.privacy-summary dl > div { margin-bottom: 14px; }
+.privacy-summary dt { font-weight: 600; }
+.privacy-summary dd { margin: 2px 0 0; }
+.privacy-summary a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.privacy-summary p { margin-top: 18px; }
+@media (max-width: 520px) { .privacy-summary { padding: 18px; } }

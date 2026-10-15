@@ -24,6 +24,20 @@ try:
             page.on('request', lambda request: requests.append(request.url))
             page.on('pageerror', lambda error: errors.append(str(error)))
             page.goto(BASE, wait_until='networkidle')
+            fonts = page.evaluate('''async () => {
+                const normal = await document.fonts.load('400 18px Montserrat', 'Úbeda, acción, ñ');
+                const italic = await document.fonts.load('italic 400 24px "Cormorant Garamond"', 'Clínica Innovae');
+                return normal.length > 0 && italic.length > 0;
+            }''')
+            assert fonts, 'Las tipografías locales deben cargarse y decodificarse'
+            assert page.locator('#privacy-summary dl > div').count() == 6
+            expect(page.locator('#r-rgpd')).not_to_be_checked()
+            page.locator('#privacy-summary').scroll_into_view_if_needed()
+            expect(page.locator('#bookingForm')).to_have_css('opacity', '1')
+            box = page.locator('#privacy-summary').bounding_box()
+            assert box['x'] >= 0 and box['x'] + box['width'] <= width
+            page.locator('#privacy-summary').screenshot(path=f'/tmp/innovae-rgpd-{width}.png')
+            expect(page.locator('footer .legal-links')).to_have_css('position', 'static')
             frame = page.locator('#contact-map-frame')
             assert frame.get_attribute('src') is None
             assert not any('maps.google.com' in url for url in requests)
@@ -54,9 +68,10 @@ try:
             for file in ('productos/crema-pro-colageno.html', 'tratamientos/arrugas.html', 'equipo/jimenez.html'):
                 page.goto(BASE + file, wait_until='networkidle')
                 assert page.locator('footer .legal-links a').count() == 3
+            assert not any('fonts.googleapis.com' in url or 'fonts.gstatic.com' in url for url in requests), requests
             assert not errors, errors
             context.close()
-            print(f'PASS {width}px: documentos, enlaces legales, mapa bloqueado hasta consentimiento, persistencia y retirada entre pestañas.')
+            print(f'PASS {width}px: fuentes locales decodificadas, consentimiento de salud, documentos, enlaces legales, mapa bloqueado hasta consentimiento, persistencia y retirada entre pestañas.')
         browser.close()
 finally:
     server.terminate()
