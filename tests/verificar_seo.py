@@ -35,7 +35,7 @@ class Document(HTMLParser):
             self.capture = None
 
 urls = [e.text for e in ET.parse(ROOT / 'sitemap.xml').findall('.//{*}loc')]
-assert len(urls) == len(set(urls)) == 41
+assert len(urls) == len(set(urls)) == 44
 seen_titles, seen_descriptions = set(), set()
 for url in urls:
     assert url.startswith(BASE)
@@ -59,6 +59,8 @@ for url in urls:
         if parts.scheme or parts.netloc:
             continue
         target = (file.parent / unquote(parts.path)).resolve() if parts.path else file
+        if target.is_dir():
+            target = target / 'index.html'
         assert target.is_file(), (file, link)
         if parts.fragment:
             assert f'id="{unquote(parts.fragment)}"' in target.read_text(), (file, link)
@@ -70,4 +72,4 @@ home = Document((ROOT / 'index.html').read_text())
 for url in urls[1:]:
     assert url[len(BASE):] in home.links, url
 assert f'Sitemap: {BASE}sitemap.xml' in (ROOT / 'robots.txt').read_text()
-print('SEO verificado: 41 páginas únicas, metadatos, H1, sitemap y enlaces; 4 borradores noindex.')
+print('SEO verificado: 44 páginas únicas, metadatos, H1, sitemap y enlaces; 4 borradores noindex.')

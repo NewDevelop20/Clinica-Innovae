@@ -16,4 +16,7 @@ function metadata(title, description, path = '') {
 <meta name="twitter:title" content="${escape(title)}">
 <meta name="twitter:description" content="${escape(description)}">`;
 }
-module.exports = {base, escape, metadata};
+function legalLinks(prefix = '') {
+  return `<nav class="legal-links" aria-label="Información legal"><a href="${prefix}aviso-legal.html">Aviso legal</a><a href="${prefix}politica-privacidad.html">Política de privacidad</a><a href="${prefix}politica-cookies.html">Política de cookies</a></nav>`;
+}
+module.exports = {base, escape, metadata, legalLinks};
