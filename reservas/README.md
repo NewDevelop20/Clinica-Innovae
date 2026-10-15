@@ -8,11 +8,13 @@ El formulario muestra un aviso de pruebas (`modoPruebas: true`) para evitar que
 los visitantes confundan una prueba con una solicitud de cita real.
 La conexión real se verificó el 14/10/2026 desde el formulario: solicitud ficticia
 1C0C8B2A para Limpieza Facial, 19/10/2026 a las 10:00. Google devolvió el código y
-aceptó el envío del correo. Falta que el usuario compruebe su recepción y pruebe
-los enlaces de gestión. La prueba debe rechazarse al terminar para liberar el hueco.
+aceptó el envío del correo. El usuario confirmó la recepción de los correos. Los enlaces de gestión se prueban desde su cuenta. La prueba debe rechazarse al terminar para liberar el hueco.
 Los datos del cliente quedan en Calendar. Las propiedades del script guardan
-solo IDs, tokens, estado y datos de reintento (sin nombre, correo ni teléfono).
-Los índices caducan a los 180 días; el historial del calendario permanece.
+solo IDs, tokens, estado, fecha de cita y datos de reintento (sin nombre, correo ni teléfono).
+La limpieza diaria elimina los índices con más de seis meses desde la fecha de cita
+(o la recepción cuando no queda una fecha de cita). También elimina sus eventos no
+confirmados; las citas confirmadas permanecen en Calendar. Solo procesa solicitudes
+con índice de este sistema: no borra eventos manuales ni citas antiguas sin índice.
 
 Los avisos de pruebas van a **vicentenavasmoya@gmail.com**. La cuenta que despliega
 es la que crea los eventos y envía los correos. No se necesita Google Sheets.
@@ -149,3 +151,40 @@ se rechacen/eliminen o se revisen; no se asigna una persona ficticia a reservas 
 El backend del chatbot puede consultar el catálogo con `consultar_profesionales`,
 y envía el mismo ID al consultar disponibilidad y crear la solicitud. La versión
 informativa sin IA continúa sin gestionar citas.
+
+
+## Actualización con limpieza automática
+
+El nuevo archivo aportado incluía limpieza de datos sobre una versión con Sheets.
+Se ha integrado esa funcionalidad en `Code.gs` manteniendo Calendar como único
+almacén de clientes, los profesionales, la disponibilidad, los reintentos idempotentes
+y las respuestas verificables del formulario web.
+
+Desde tu cuenta de Apps Script:
+
+1. Sustituye `Código.gs` por el contenido actualizado de `reservas/Code.gs`.
+2. Sustituye el manifiesto por `reservas/appsscript.json`. Añade el permiso de Apps Script
+   necesario para programar tareas; no pide acceso a Google Sheets.
+3. Conserva las propiedades `CALENDAR_ID`, `EMAIL_AVISOS`, `WEB_APP_URL` y `PROFESIONALES`.
+   No es necesario volver a ejecutar `prepararPruebas`. Comprueba que `WEB_APP_URL`
+   coincide con la URL `/exec` de la implementación que utiliza la web.
+4. Guarda y abre **Implementar → Gestionar implementaciones → lápiz → Nueva versión → Implementar**.
+   Mantén **Ejecutar como: yo** y **Quién tiene acceso: cualquier usuario**.
+5. Puedes ejecutar `previsualizarLimpieza` para ver los recuentos previstos en el registro,
+   sin modificar eventos ni índices y sin enviar correos.
+6. Ejecuta una vez `instalarLimpiezaAutomatica` y autoriza el permiso nuevo. Programa
+   la tarea diaria entre las 03:00 y las 04:00 de Madrid. Instalar no ejecuta borrados
+   inmediatamente; repetir la instalación no duplica la tarea.
+
+`limpiarDatosAntiguos_` es la función privada que ejecuta el disparador.
+Las funciones manuales de limpieza, vista previa e instalación solo admiten al propietario
+desde el editor; los visitantes anónimos de la web no pueden ejecutarlas. Marca como CADUCADAS
+las solicitudes pendientes cuya hora ha pasado y cambia su evento a gris. Las citas
+futuras siguen intactas. Al finalizar `CONSERVACION_MESES` (6), elimina los índices y
+los eventos de solicitudes no confirmadas, conservando los eventos confirmados.
+No envía correos durante la limpieza. Los fallos de Calendar conservan el índice para
+poder reintentar; los contadores `errores` del registro permiten detectar esos fallos.
+El plazo debe reflejarse también en la política de privacidad una vez que el titular lo confirme.
+
+Actualizar GitHub no actualiza el proyecto de Google ni instala el disparador: esos
+pasos requieren entrar en la cuenta de Google que es propietaria del script.

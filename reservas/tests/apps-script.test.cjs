@@ -1,15 +1,15 @@
 const {test}=require('node:test');const assert=require('node:assert/strict');const vm=require('node:vm');const fs=require('node:fs');
 function montar(){
- const props={},eventos=[],mails=[];let counter=0,falloMail=false,falloProps=false;
- class Fecha extends Date {static now(){return Date.parse('2026-10-14T08:00:00Z');}constructor(...a){super(...(a.length?a:[Fecha.now()]));}}
+ const props={},eventos=[],mails=[];let counter=0,falloMail=false,falloProps=false,ahora='2026-10-14T08:00:00Z';const triggers=[];
+ class Fecha extends Date {static now(){return Date.parse(ahora);}constructor(...a){super(...(a.length?a:[Fecha.now()]));}}
  function formato(d,z,f){const p={};new Intl.DateTimeFormat('en-GB',{timeZone:z,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23',weekday:'short',timeZoneName:'shortOffset'}).formatToParts(d).forEach(x=>p[x.type]=x.value);const dow={Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6,Sun:7}[p.weekday];const iso=`${p.year}-${p.month}-${p.day}`,hora=`${p.hour}:${p.minute}`;if(f==='XXX'){const m=p.timeZoneName.match(/GMT([+-])(\d+)(?::(\d+))?/);return m?m[1]+m[2].padStart(2,'0')+':'+(m[3]||'00'):'+00:00';}return {'yyyy-MM-dd':iso,'yyyy-MM-dd HH:mm':iso+' '+hora,'dd/MM/yyyy':`${p.day}/${p.month}/${p.year}`,'HH:mm':hora,'u':String(dow),'u|d|M|HH:mm':`${dow}|${+p.day}|${+p.month}|${hora}`}[f];}
  class Evento{constructor(title,start,end,o){this.title=title;this.start=start;this.end=end;this.description=o.description;this.tags={};this.id='event-'+eventos.length;this.deleted=false;}setTag(k,v){this.tags[k]=v;return this;}getTag(k){return this.tags[k]||'';}getId(){return this.id;}getStartTime(){return this.start;}getEndTime(){return this.end;}setTitle(t){this.title=t;return this;}getTitle(){return this.title;}setColor(c){this.color=c;return this;}setDescription(d){this.description=d;return this;}getDescription(){return this.description;}removeAllReminders(){return this;}addPopupReminder(){return this;}deleteEvent(){this.deleted=true;}}
  const cal={createEvent(t,i,f,o){const e=new Evento(t,i,f,o);eventos.push(e);return e;},getEvents(i,f){return eventos.filter(e=>!e.deleted&&e.start<f&&e.end>i);},getEventById(id){return eventos.find(e=>e.id===id&&!e.deleted)||null;}};
  const propiedades={getProperty:k=>props[k]||null,getProperties:()=>({...props}),setProperty(k,v){if(falloProps)throw Error('quota');props[k]=v;return this;},deleteProperty(k){delete props[k];}};
  function salida(body){return {getContent:()=>body,setMimeType(){return this;},setTitle(){return this;},setXFrameOptionsMode(){return this;},addMetaTag(){return this;}};}
- const ctx={Date:Fecha,console:{error(){}},PropertiesService:{getScriptProperties:()=>propiedades},CalendarApp:{getDefaultCalendar:()=>cal,getCalendarById:()=>cal,EventColor:{YELLOW:'yellow',GREEN:'green'}},Utilities:{getUuid:()=> (++counter).toString(16).padStart(8,'0')+'-0000-0000-0000-000000000000',formatDate:formato},MailApp:{sendEmail(d){if(falloMail)throw Error('mail');mails.push(d);}},LockService:{getScriptLock:()=>({waitLock(){},releaseLock(){}})},Session:{getEffectiveUser:()=>({getEmail:()=> 'owner@example.com'})},ScriptApp:{getService:()=>({getUrl:()=> 'https://script.google.com/macros/s/TEST/exec'})},ContentService:{createTextOutput:salida,MimeType:{JSON:'json',JAVASCRIPT:'javascript'}},HtmlService:{createHtmlOutput:salida,XFrameOptionsMode:{ALLOWALL:'allowall'},createTemplate(){return {evaluate(){return salida(JSON.stringify(this));}};}}};
+ const ctx={Date:Fecha,console:{error(){}},Logger:{log(){}},PropertiesService:{getScriptProperties:()=>propiedades},CalendarApp:{getDefaultCalendar:()=>cal,getCalendarById:()=>cal,EventColor:{YELLOW:'yellow',GREEN:'green',GRAY:'gray'}},Utilities:{getUuid:()=> (++counter).toString(16).padStart(8,'0')+'-0000-0000-0000-000000000000',formatDate:formato},MailApp:{sendEmail(d){if(falloMail)throw Error('mail');mails.push(d);}},LockService:{getScriptLock:()=>({waitLock(){},releaseLock(){}})},Session:{getActiveUser:()=>({getEmail:()=> 'owner@example.com'}),getEffectiveUser:()=>({getEmail:()=> 'owner@example.com'})},ScriptApp:{getProjectTriggers:()=>triggers.slice(),deleteTrigger(t){triggers.splice(triggers.indexOf(t),1);},newTrigger(handler){const builder={timeBased(){return this;},everyDays(){return this;},atHour(){return this;},inTimezone(){return this;},create(){const t={getHandlerFunction:()=>handler};triggers.push(t);return t;}};return builder;},getService:()=>({getUrl:()=> 'https://script.google.com/macros/s/TEST/exec'})},ContentService:{createTextOutput:salida,MimeType:{JSON:'json',JAVASCRIPT:'javascript'}},HtmlService:{createHtmlOutput:salida,XFrameOptionsMode:{ALLOWALL:'allowall'},createTemplate(){return {evaluate(){return salida(JSON.stringify(this));}};}}};
  vm.createContext(ctx);vm.runInContext(fs.readFileSync('reservas/Code.gs','utf8'),ctx);
- return {ctx,props,eventos,mails,cal,setFalloMail:v=>falloMail=v,setFalloProps:v=>falloProps=v};
+ return {ctx,props,eventos,mails,cal,triggers,setAhora:v=>ahora=v,setFalloMail:v=>falloMail=v,setFalloProps:v=>falloProps=v};
 }
 const datos=(extra={})=>({nombre:'Ana Prueba',telefono:'600123456',email:'ana@example.com',tratamiento:'Limpieza Facial',profesional:'marta-jimenez',fecha:'2026-10-20',hora:'10:00',primeraVisita:'true',comentarios:'Prueba',requestId:'r_12345678901234567890',...extra});
 const post=(s,d)=>JSON.parse(s.ctx.doPost({parameter:d}).getContent());
@@ -31,3 +31,68 @@ test('se filtran tratamientos y no se aceptan IDs de profesionales inventados',(
 test('dos eventos consecutivos no consumen dos plazas simultáneas',()=>{const s=montar();post(s,datos({profesional:'lucia-serrano'}));post(s,datos({profesional:'lucia-serrano',hora:'11:00',requestId:'r_82345678901234567890'}));assert.equal(post(s,datos({hora:'10:30',requestId:'r_92345678901234567890'})).ok,true);});
 test('eventos antiguos sin profesional se conservan y bloquean conservadoramente',()=>{const s=montar();post(s,datos());delete s.eventos[0].tags.profesional;assert.equal(post(s,datos({profesional:'lucia-serrano',requestId:'r_a2345678901234567890'})).motivo,'ocupado');});
 test('catálogo público y confirmación mantienen el profesional',()=>{const s=montar();const cat=JSON.parse(s.ctx.doGet({parameter:{catalogo:'profesionales'}}).getContent());assert.equal(cat.version,2);assert.equal(cat.profesionales.length,2);const r=post(s,datos()),reg=s.ctx.buscarReserva_(r.id).registro;s.ctx.procesarAccion(r.id,reg.token,'confirmar','');assert.match(s.mails.at(-1).htmlBody,/Marta Jiménez/);assert.match(s.eventos[0].getTitle(),/Marta Jiménez/);});
+
+test('limpieza caduca pendientes pasadas sin tocar futuras, profesionales ni correos',()=>{
+ const s=montar(),r=post(s,datos()),reg=s.ctx.buscarReserva_(r.id).registro;
+ post(s,datos({hora:'11:00',requestId:'r_b2345678901234567890'}));
+ s.setAhora('2026-10-20T08:01:00Z');
+ const resumen=s.ctx.limpiarDatosAntiguos();
+ assert.equal(resumen.caducadas,1);assert.equal(resumen.borradas,0);
+ assert.equal(s.eventos[0].color,'gray');assert.match(s.eventos[0].title,/NO GESTIONADA.*Marta Jiménez/);
+ assert.equal(s.ctx.buscarReserva_(r.id).registro.estado,'CADUCADA');assert.equal(s.eventos[1].color,'yellow');
+ assert.equal(s.ctx.procesarAccion(r.id,reg.token,'confirmar','').ok,false);
+ assert.equal(s.mails.length,4);assert.doesNotMatch(s.eventos[0].description,/CONFIRMAR:/);
+});
+test('vista previa no modifica eventos, índices ni envía correos',()=>{
+ const s=montar();post(s,datos());s.setAhora('2027-05-01T08:00:00Z');
+ const antes=JSON.stringify(s.props),mails=s.mails.length;
+ const resumen=s.ctx.previsualizarLimpieza();
+ assert.equal(resumen.simulacion,true);assert.equal(resumen.borradas,1);assert.equal(resumen.eventosEliminados,1);
+ assert.equal(JSON.stringify(s.props),antes);assert.equal(s.eventos[0].deleted,false);assert.equal(s.mails.length,mails);
+});
+test('retención elimina no confirmadas e índices antiguos, conserva confirmadas y eventos manuales',()=>{
+ const s=montar();post(s,datos());
+ const confirmada=post(s,datos({hora:'11:00',requestId:'r_c2345678901234567890'}));
+ const reg=s.ctx.buscarReserva_(confirmada.id).registro;s.ctx.procesarAccion(confirmada.id,reg.token,'confirmar','');
+ const rechazada=post(s,datos({hora:'12:00',requestId:'r_d2345678901234567890'}));
+ s.ctx.procesarAccion(rechazada.id,s.ctx.buscarReserva_(rechazada.id).registro.token,'rechazar','');
+ const manual=s.cal.createEvent('Evento manual',new Date('2020-01-01'),new Date('2020-01-02'),{description:'Manual'});
+ s.setAhora('2027-05-01T08:00:00Z');const resumen=s.ctx.limpiarDatosAntiguos();
+ assert.equal(resumen.borradas,3);assert.equal(resumen.confirmadasConservadas,1);assert.equal(resumen.errores,0);
+ assert.equal(s.eventos[0].deleted,true);assert.equal(s.eventos[1].deleted,false);assert.equal(s.eventos[1].color,'green');
+ assert.equal(manual.deleted,false);assert.equal(Object.keys(s.props).filter(k=>k.startsWith('RESERVA_')).length,0);
+ assert.equal(s.ctx.limpiarDatosAntiguos().borradas,0);
+});
+test('retención usa fecha de cita, no borra una cita futura recibida hace tiempo',()=>{
+ const s=montar(),r=post(s,datos()),reg=s.ctx.buscarReserva_(r.id).registro;
+ reg.creada=Date.parse('2025-01-01');s.ctx.guardarIndice_(reg);
+ assert.equal(s.ctx.limpiarDatosAntiguos().borradas,0);assert.equal(s.eventos[0].deleted,false);
+});
+test('limpieza respeta índices antiguos sin campo cita y reintenta fallos de Calendar',()=>{
+ const s=montar(),r=post(s,datos()),reg=s.ctx.buscarReserva_(r.id).registro;
+ delete reg.cita;s.ctx.guardarIndice_(reg);s.setAhora('2027-05-01T08:00:00Z');
+ const buscar=s.cal.getEventById;s.cal.getEventById=()=>{throw Error('Calendar no disponible');};
+ assert.equal(s.ctx.limpiarDatosAntiguos().errores,1);assert.ok(s.props['RESERVA_'+r.id]);assert.equal(s.eventos[0].deleted,false);
+ s.cal.getEventById=buscar;assert.equal(s.ctx.limpiarDatosAntiguos().borradas,1);assert.equal(s.eventos[0].deleted,true);
+});
+test('instalación no duplica tareas, respeta otros triggers y no ejecuta borrados',()=>{
+ const s=montar();post(s,datos());s.setAhora('2027-05-01T08:00:00Z');
+ s.triggers.push({getHandlerFunction:()=> 'otraTarea'});
+ s.ctx.instalarLimpiezaAutomatica();s.ctx.instalarLimpiezaAutomatica();
+ assert.equal(s.triggers.filter(t=>t.getHandlerFunction()==='limpiarDatosAntiguos_').length,1);
+ assert.equal(s.triggers.filter(t=>t.getHandlerFunction()==='otraTarea').length,1);
+ assert.equal(s.eventos[0].deleted,false);assert.equal(s.eventos[0].color,'yellow');
+ const manifest=JSON.parse(fs.readFileSync('reservas/appsscript.json','utf8'));
+ assert.ok(manifest.oauthScopes.includes('https://www.googleapis.com/auth/script.scriptapp'));
+ assert.ok(!manifest.oauthScopes.some(scope=>scope.includes('spreadsheets')));
+});
+
+test('funciones administrativas rechazan llamadas anónimas y ajenas; disparador privado sí funciona',()=>{
+ const s=montar();post(s,datos());s.setAhora('2027-05-01T08:00:00Z');
+ for (const email of ['', 'otra@example.com']) {
+  s.ctx.Session.getActiveUser=()=>({getEmail:()=>email});
+  for (const name of ['limpiarDatosAntiguos','previsualizarLimpieza','instalarLimpiezaAutomatica']) assert.throws(()=>s.ctx[name](),/cuenta propietaria/);
+ }
+ assert.equal(s.eventos[0].deleted,false);assert.equal(s.triggers.length,0);
+ assert.equal(s.ctx.limpiarDatosAntiguos_().borradas,1);
+});
