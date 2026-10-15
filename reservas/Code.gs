@@ -12,6 +12,10 @@
  *      más para que los antivirus del correo no confirmen solos al escanear el enlace).
  *   4. CONFIRMAR → evento pasa a VERDE "✅" + email de confirmación al cliente.
  *      RECHAZAR  → se borra el evento + email al cliente invitándole a elegir otra hora.
+ *   5. LIMPIEZA DIARIA: las solicitudes pendientes pasadas se marcan CADUCADAS
+ *      y su evento pasa a gris. Tras seis meses se eliminan los índices y los
+ *      eventos no confirmados; las citas confirmadas permanecen en Calendar.
+ *      Se programa ejecutando instalarLimpiezaAutomatica desde el editor.
  *
  *  IMPORTANTE: este script debe crearse y desplegarse con la CUENTA DE GOOGLE
  *  DE LA CLÍNICA (es la que tiene el calendario y la que envía los correos).
@@ -44,6 +48,10 @@ const CONFIG = {
   // Regla: en una misma franja caben como máximo MAX_SIMULTANEAS citas,
   // Cada profesional atiende una cita por franja, incluso con tratamientos distintos.
   MAX_SIMULTANEAS: 2,
+
+  // Plazo para solicitudes no confirmadas; conservar coherencia con la política de privacidad.
+  CONSERVACION_MESES: 6,
+  HORA_LIMPIEZA: 3, // Europe/Madrid; Apps Script elige un momento dentro de esa hora.
 
   // Nombre de cada campo tal y como lo envía el formulario de la web (atributo name).
   // Ajusta SOLO la parte derecha si tus nombres son distintos.
@@ -148,7 +156,6 @@ function crearReserva_(d, inicio, fin) {
   const lock = LockService.getScriptLock();
   lock.waitLock(15000);
   try {
-    purgarIndices_();
     if (d.requestId) {
       const previa = buscarRequest_(d.requestId);
       if (previa) return {ok: true, id: previa.id, estado: previa.estado, aviso_enviado: previa.aviso, profesional: previa.profesionalNombre || ''};
@@ -200,7 +207,7 @@ function crearReserva_(d, inicio, fin) {
       ev.setTag('clienteEmail', d.email);
       ev.setTag('clienteTelefono', d.telefono);
       ev.setTag('tratamientoNombre', d.tratamiento);
-      registro = {id: id, token: token, eventId: ev.getId(), estado: 'PENDIENTE', creada: Date.now(), requestId: d.requestId, aviso: false, profesionalNombre: d.profesionalNombre};
+      registro = {id: id, token: token, eventId: ev.getId(), estado: 'PENDIENTE', creada: Date.now(), cita: inicio.getTime(), requestId: d.requestId, aviso: false, profesionalNombre: d.profesionalNombre};
       guardarIndice_(registro);
     } catch (err) {
       ev.deleteEvent();
@@ -427,7 +434,7 @@ function emailConfirmada_(d, inicio, mensaje) {
     '<p>Profesional: <b>' + esc_(d.profesionalNombre || 'Sin asignar') + '</b>.</p>' +
     (mensaje ? '<p style="background:#faf6ef;padding:12px;border-left:3px solid #c2a165">' + esc_(mensaje) + '</p>' : '') +
     '<p>📍 ' + CONFIG.DIRECCION + '</p>' +
-    '<p>Si necesita cambiarla o cancelarla, avísenos en el ' + CONFIG.TELEFONO +
+    '<p>Si necesita cambiarla o cancelarla, avísenos con al menos 24 horas de antelación en el ' + CONFIG.TELEFONO +
     ' o por <a href="' + CONFIG.WHATSAPP + '">WhatsApp</a>.</p>');
 }
 
@@ -523,10 +530,6 @@ function indices_() {
   const props = PropertiesService.getScriptProperties().getProperties();
   return Object.keys(props).filter(k => /^RESERVA_[A-F0-9]{8}$/.test(k)).map(k => JSON.parse(props[k]));
 }
-function purgarIndices_() {
-  const props = PropertiesService.getScriptProperties();
-  indices_().filter(r => r.creada < Date.now() - 180 * 86400000).forEach(r => props.deleteProperty('RESERVA_' + r.id));
-}
 function buscarRequest_(requestId) { return indices_().find(r => r.requestId === requestId); }
 function buscarReserva_(id) {
   if (!/^[A-F0-9]{8}$/.test(id)) return null;
@@ -585,4 +588,78 @@ function probarReserva() {
   const e = {parameter: {nombre: 'Prueba Sistema', telefono: '600000000', email: CONFIG.EMAIL_AVISOS,
     tratamiento: 'Limpieza Facial', fecha: f, hora: '11:00', primeraVisita: 'true', comentarios: 'PRUEBA: no corresponde a un paciente', requestId: Utilities.getUuid().replace(/-/g, '')}};
   Logger.log(doPost(e).getContent());
+}
+
+
+/* ============================================================
+ *  6. LIMPIEZA AUTOMÁTICA · Calendar sin Google Sheets
+ * ============================================================ */
+
+/** Programa la tarea diaria sin ejecutar borrados en el momento de instalarla. */
+function instalarLimpiezaAutomatica() {
+  if (!Number.isInteger(CONFIG.HORA_LIMPIEZA) || CONFIG.HORA_LIMPIEZA < 0 || CONFIG.HORA_LIMPIEZA > 23) throw new Error('Hora de limpieza no válida.');
+  const anteriores = ScriptApp.getProjectTriggers().filter(t => t.getHandlerFunction() === 'limpiarDatosAntiguos');
+  // Crear primero: si falta autorización, la programación anterior sigue intacta.
+  ScriptApp.newTrigger('limpiarDatosAntiguos').timeBased().everyDays(1)
+    .atHour(CONFIG.HORA_LIMPIEZA).inTimezone(zona_()).create();
+  anteriores.forEach(t => ScriptApp.deleteTrigger(t));
+  Logger.log('Limpieza diaria programada entre las ' + CONFIG.HORA_LIMPIEZA + ':00 y las ' + (CONFIG.HORA_LIMPIEZA + 1) + ':00, Europe/Madrid. No se han borrado datos durante la instalación.');
+}
+
+/** Vista previa: cuenta los cambios previstos, sin modificar eventos ni propiedades. */
+function previsualizarLimpieza() { return ejecutarLimpieza_(true); }
+function limpiarDatosAntiguos() { return ejecutarLimpieza_(false); }
+
+function ejecutarLimpieza_(simulacion) {
+  if (!Number.isInteger(CONFIG.CONSERVACION_MESES) || CONFIG.CONSERVACION_MESES < 1) throw new Error('Plazo de conservación no válido.');
+  const lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+  try {
+    const ahora = new Date(Date.now());
+    const limite = new Date(ahora);
+    const dia = limite.getDate();
+    limite.setDate(1);
+    limite.setMonth(limite.getMonth() - CONFIG.CONSERVACION_MESES);
+    // Evitar que, por ejemplo, un día 31 desborde el mes de destino.
+    const ultimoDia = new Date(limite.getFullYear(), limite.getMonth() + 1, 0).getDate();
+    limite.setDate(Math.min(dia, ultimoDia));
+    const cal = calendario_();
+    const props = PropertiesService.getScriptProperties();
+    const resumen = {simulacion: simulacion, caducadas: 0, borradas: 0, eventosEliminados: 0, confirmadasConservadas: 0, errores: 0};
+    indices_().forEach(r => {
+      try {
+        // Si Calendar falla, no se pierde el índice que permite gestionar o borrar el evento.
+        const ev = r.eventId ? cal.getEventById(r.eventId) : null;
+        const cita = ev ? ev.getStartTime().getTime() : Number(r.cita);
+        const referencia = Number.isFinite(cita) && cita > 0 ? cita : Number(r.creada);
+        if (!Number.isFinite(referencia) || referencia <= 0) throw new Error('Fecha de reserva no válida.');
+        if (referencia < limite.getTime()) {
+          if (r.estado !== 'CONFIRMADA' && ev) {
+            if (!simulacion) ev.deleteEvent();
+            resumen.eventosEliminados++;
+          }
+          if (r.estado === 'CONFIRMADA' && ev) resumen.confirmadasConservadas++;
+          if (!simulacion) props.deleteProperty('RESERVA_' + r.id);
+          resumen.borradas++;
+        } else if (r.estado === 'PENDIENTE' && Number.isFinite(cita) && cita < ahora.getTime()) {
+          if (!simulacion) {
+            if (ev) {
+              ev.setTitle('⚪ NO GESTIONADA · ' + ev.getTag('clienteNombre') + ' · ' + ev.getTag('tratamientoNombre') + (ev.getTag('profesionalNombre') ? ' · ' + ev.getTag('profesionalNombre') : ''));
+              ev.setColor(CalendarApp.EventColor.GRAY);
+              ev.setDescription(ev.getDescription().replace(/\n*✅ CONFIRMAR:[\s\S]*$/, '') + '\n\nEstado: CADUCADA');
+            }
+            r.estado = 'CADUCADA';
+            r.gestionada = ahora.getTime();
+            guardarIndice_(r);
+          }
+          resumen.caducadas++;
+        }
+      } catch (err) {
+        resumen.errores++;
+        console.error('No se ha podido completar la limpieza de una solicitud; se conserva su índice para reintentar.');
+      }
+    });
+    Logger.log(JSON.stringify(resumen));
+    return resumen;
+  } finally { lock.releaseLock(); }
 }
