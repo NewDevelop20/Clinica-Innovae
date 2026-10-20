@@ -1587,21 +1587,12 @@
             <label>No rellenar<input type="text" id="r-website" name="website" tabindex="-1" autocomplete="off"></label>
           </div>
 
-          <section class="privacy-summary" id="privacy-summary" aria-labelledby="privacy-summary-title">
-            <h3 id="privacy-summary-title">Información básica sobre protección de datos</h3>
-            <dl>
-              <div><dt>Responsable</dt><dd>Clínica Innovae. Consulta la identificación del titular y sus datos de contacto en la <a href="politica-privacidad.html#responsable" target="_blank" rel="noopener">política de privacidad</a>.</dd></div>
-              <div><dt>Finalidad</dt><dd>Gestionar tu solicitud de cita, revisar la disponibilidad, responderte y comunicarte su confirmación o rechazo.</dd></div>
-              <div><dt>Base jurídica</dt><dd>Medidas precontractuales solicitadas por ti (art. 6.1.b RGPD) y tu consentimiento explícito para los datos de salud que pueda revelar tu solicitud (art. 9.2.a RGPD).</dd></div>
-              <div><dt>Destinatarios</dt><dd>Proveedores necesarios para gestionar la agenda y el correo, y autoridades cuando exista una obligación legal. Consulta los proveedores y las transferencias internacionales en la política de privacidad.</dd></div>
-              <div><dt>Derechos</dt><dd>Puedes solicitar acceso, rectificación, supresión y los demás derechos, así como retirar tu consentimiento, por los canales indicados en la <a href="politica-privacidad.html#derechos" target="_blank" rel="noopener">política de privacidad</a>.</dd></div>
-              <div><dt>Más información</dt><dd>Consulta los plazos de conservación y el resto de condiciones en la <a href="politica-privacidad.html" target="_blank" rel="noopener">política de privacidad completa</a>.</dd></div>
-            </dl>
-            <p>No incluyas diagnósticos, medicación ni antecedentes médicos en las notas. Esa información se recoge en consulta.</p>
-          </section>
+          <p class="booking-privacy" id="booking-privacy">
+            <a href="politica-privacidad.html" target="_blank" rel="noopener">Privacidad y protección de datos <span class="booking-privacy-hint">(se abre en otra pestaña)</span></a>
+          </p>
           <div class="form-group">
             <div class="consent-row">
-              <input type="checkbox" id="r-rgpd" name="rgpd" required aria-describedby="privacy-summary rgpd-error">
+              <input type="checkbox" id="r-rgpd" name="rgpd" required aria-describedby="booking-privacy rgpd-error">
               <label for="r-rgpd">He leído la <a href="politica-privacidad.html" target="_blank" rel="noopener">política de privacidad</a> y consiento expresamente el tratamiento de los datos de salud que pueda revelar el tratamiento elegido o mis comentarios, exclusivamente para gestionar mi solicitud de cita.</label>
             </div>
             <span class="field-error" id="rgpd-error">Debes prestar tu consentimiento para el tratamiento de los datos de salud de tu solicitud.</span>
