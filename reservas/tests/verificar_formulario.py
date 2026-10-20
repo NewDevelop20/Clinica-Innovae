@@ -64,7 +64,8 @@ try:
     expect(page.locator('#r-submit')).to_be_enabled()
    page.locator('#r-hora').select_option('10:30');page.locator('#r-notas').fill('Prueba sin clientes')
    expect(page.locator('#r-rgpd')).not_to_be_checked()
-   expect(page.locator('#privacy-summary')).to_contain_text('Base jurídica')
+   expect(page.locator('#privacy-summary')).to_have_count(0)
+   expect(page.locator('#booking-privacy a')).to_have_attribute('href', 'politica-privacidad.html')
    expect(page.locator('label[for="r-rgpd"]')).to_contain_text('consiento expresamente el tratamiento de los datos de salud')
    page.locator('#r-submit').click();assert posts==[], 'No debe enviarse una reserva sin consentimiento explícito'
    assert not page.locator('#bookingConfirm').is_visible()

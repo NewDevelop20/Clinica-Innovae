@@ -30,13 +30,26 @@ try:
                 return normal.length > 0 && italic.length > 0;
             }''')
             assert fonts, 'Las tipografías locales deben cargarse y decodificarse'
-            assert page.locator('#privacy-summary dl > div').count() == 6
+            expect(page.locator('#privacy-summary')).to_have_count(0)
             expect(page.locator('#r-rgpd')).not_to_be_checked()
-            page.locator('#privacy-summary').scroll_into_view_if_needed()
+            page.locator('#booking-privacy').scroll_into_view_if_needed()
             expect(page.locator('#bookingForm')).to_have_css('opacity', '1')
-            box = page.locator('#privacy-summary').bounding_box()
+            box = page.locator('#booking-privacy').bounding_box()
             assert box['x'] >= 0 and box['x'] + box['width'] <= width
-            page.locator('#privacy-summary').screenshot(path=f'/tmp/innovae-rgpd-{width}.png')
+            page.locator('#booking-privacy').screenshot(path=f'/tmp/innovae-privacidad-enlace-{width}.png')
+            link = page.locator('#booking-privacy a')
+            expect(link).to_have_attribute('href', 'politica-privacidad.html')
+            expect(link).to_have_attribute('target', '_blank')
+            page.locator('#r-nombre').fill('Ana Prueba')
+            with page.expect_popup() as popup_info:
+                link.click()
+            popup = popup_info.value
+            popup.wait_for_load_state()
+            assert popup.url == BASE + 'politica-privacidad.html'
+            expect(popup.locator('h1')).to_be_visible()
+            popup.close()
+            expect(page.locator('#r-nombre')).to_have_value('Ana Prueba')
+            expect(page.locator('#r-rgpd')).not_to_be_checked()
             expect(page.locator('footer .legal-links')).to_have_css('position', 'static')
             frame = page.locator('#contact-map-frame')
             assert frame.get_attribute('src') is None
